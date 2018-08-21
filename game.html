@@ -119,7 +119,7 @@
 			</table>
 		</div>
 		<div class='supernovaTab' id='genneutronTiers' style='display:none'>
-			<div class='center' id='neutrons'>You have <b>0</b> neutrons which reduced the cost by <b>0x</b></div>
+			<div class='center' id='neutrons'>You have <b>0</b> neutrons, reducing generator costs by <b>0x</b>.</div>
 			<div class='center' id='neutronsRate'>0 neutrons/s</div>
 			<table style="width:100%; padding:0; display:table">
 				<tr>
@@ -335,23 +335,23 @@
 		<div class='center' id='supernovaachievements' style='display:none'>
 			<table class='center' style="width:100%; padding:0; display:table">
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>We don't need many tiers</b><br>Reward: Buying tier 1 generators is stronger<br>Buy 300 tier 1 generators without buying others</td>
+					<td style='max-width:100%; text-align:left'><b>We don't need many tiers</b><br>Reward: Buying tier 1 generators is stronger<br>Buy 300 tier 1 generators without buying any other tiers</td>
 					<td class='ach' id='ach1' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>Nobody would believe this</b><br>Reward: Other generators that you bought affect tier 10 generators<br>Buy exactly 111 tier 10 generators but buy tiers 1-9 once</td>
+					<td style='max-width:100%; text-align:left'><b>Nobody would believe this</b><br>Reward: Other generators that you bought affect tier 10 generators<br>Buy exactly 111 tier 10 generators but buy either 0 or 1 of tiers 1-9</td>
 					<td class='ach' id='ach2' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>Perfect layers</b><br>Reward: Production for any tier increased over its' bought<br>Buy the same amount of the generators each tier</td>
+					<td style='max-width:100%; text-align:left'><b>Perfect layers</b><br>Reward: Production for any tier increased over its' bought<br>Buy the same amount of the generators for each tier</td>
 					<td class='ach' id='ach3' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>Stellar pyramid</b><br>Reward: Your bought tier 1 generators affect tier 10 generators<br>Buy most tier 10 generators to least tier 1 generators</td>
+					<td style='max-width:100%; text-align:left'><b>Stellar pyramid</b><br>Reward: Your bought tier 1 generators affect tier 10 generators<br>Buy tier 10 the most, and buy tier 1 the least</td>
 					<td class='ach' id='ach4' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>CRITICAL SYSTEM ERROR</b><br>Reward: Your tier 10 generators affect tier 9 generators<br>Buy exactly 404 tier 10 generators but buy tier 9 once</td>
+					<td style='max-width:100%; text-align:left'><b>CRITICAL SYSTEM ERROR</b><br>Reward: Your tier 10 generators affect tier 9 generators<br>Buy exactly 404 tier 10 generators, but buy tier 9 once</td>
 					<td class='ach' id='ach5' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
@@ -367,11 +367,11 @@
 					<td class='ach' id='ach8' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>That's a low tier</b><br>Reward: Boost production for tiers 6-10 in the start of transfer<br>Transfer without last 5 tiers</td>
+					<td style='max-width:100%; text-align:left'><b>That's a low tier</b><br>Reward: Boost production for tiers 6-10 in the start of transfer<br>Transfer without having last 5 generator tiers</td>
 					<td class='ach' id='ach9' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>You don't need them anymore</b><br>Reward: Boost production for tiers 9-10 in the start of supernova<br>Supernova without tiers 9 & 10</td>
+					<td style='max-width:100%; text-align:left'><b>You don't need them anymore</b><br>Reward: Boost production for tiers 9-10 in the start of supernova<br>Supernova without generator tiers 9 & 10</td>
 					<td class='ach' id='ach10' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
@@ -598,11 +598,11 @@
 	<div style='width:100%;height:12px'></div>
 	<div id='tooMuch' class='supernovaTab' style='position:fixed;width:100%;height:100%;left:0;top:0;display:none;opacity:0;transition-duration:0.5s'><div style='position:relative;width:inherit;height:inherit'>
 		<div id='tooMuchBar' style='position:absolute;width:100%;top:calc(50% - 60px);text-align:center'>
-			<text style='font-size:24px'>The universe has been destroyed due to too much stars.</text><br>
+			<text style='font-size:24px'>The universe has been destroyed due to the unstable amount of stars.</text><br>
 			<tooltip id='supernovaExplanation' disabled=true><button class='prestigeButton' id='prestige3' onClick='reset(3)'>SUPERNOVA</button></tooltip>
 		</div>
 	</div></div>
-	<div style='position: fixed; bottom: 12px; right:calc(50% - 96px); text-align:center'><tooltip id='p3tt'><button class='prestigeButton' id='prestige3bl' onClick='checkToReset(3)' style='display:none'>Explode your stars and get undead stars.<br>+1 NS</button></tooltip></div>
+	<div style='position: fixed; bottom: 12px; right:calc(50% - 96px); text-align:center'><tooltip id='p3tt'><button class='prestigeButton' id='prestige3bl' onClick='checkToReset(3)' style='display:none'>Explode your stars and get neutron stars.<br>+1 NS</button></tooltip></div>
 	<div style='background-color: #999999; position: fixed; bottom: 0; width: 100%; color: #191919'><a href="howto.html" target="_newtab">How to play</a> | <a href="hotkeys.html" target="_newtab">Hotkeys</a> | <a href="changelog.html" target="_newtab">Change log</a> | <a href="https://discord.gg/DaGykDV" target="_newtab">Discord</a> | <a href="olddesign.html">Old design</a></div>
 	<div id='achievement' style='background-color:#E5E500; color: #191919; position:fixed; right:0; top:0; height:36px; width:240px; opacity:0; transition-duration: 0.5s'><b>Achievement unlocked!</b><br>Name<br>Requirement</div>
 	<div id='saveNotice' style='background-color:#00E5E5; color: #191919; position:fixed; right:0; top:0; height:12px; width:240px; opacity:0; transition-duration: 0.5s'>Game saved!</div>
