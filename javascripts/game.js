@@ -1,4 +1,4 @@
-player={version:0.652,
+player={version:0.653,
 	build:9,
 	subbuild:1,
 	playtime:0,
@@ -948,7 +948,7 @@ function importSave() {
 }
 
 function reset(tier,challid=0,gain=1) {
-	if (tier==Infinity?confirm('Are you sure to reset your game? You will lose everything you have!'):true) {
+	if (tier==Infinity?confirm('Are you sure you want to reset the game? You will lose everything you currently have! You will not earn anything for this, the game will be reset to the beginning of the game.'):true) {
 		if (challid>0) {
 			switch (tier) {
 				case 3: if (challid==player.currentChallenge) {return} break;
@@ -1758,8 +1758,8 @@ function breakLimit() {
 
 function preSupernova() {
 	if (player.preSupernova) {
-		if (confirm('You are leaving pre-supernova mode. This will enable your supernova features again that you got.')) player.preSupernova=false
-	} else if (confirm('If you go to pre-supernova mode, you will force supernova but without supernova features. Are you sure you do that?')) {
+		if (confirm('You are leaving pre-supernova mode. This will re-enable supernova features. Are you sure you want to do that?')) player.preSupernova=false
+	} else if (confirm('In pre-supernova, you will be forced in supernova but without any supernova features. Are you sure you want to do that?')) {
 		player.preSupernova=true
 		reset(3,0,0)
 	}
