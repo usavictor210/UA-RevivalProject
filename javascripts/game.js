@@ -954,7 +954,7 @@ function reset(tier,challid=0,gain=1) {
 				case 3: if (challid==player.currentChallenge) {return} break;
 			}
 			if (player.challConfirm) switch (tier) {
-				case 3: if (!confirm('You have to go supernova with special conditions before getting a reward. Some upgrades will be no longer working till the challenge ends.')) {return} break;
+				case 3: if (!confirm('You have to go supernova with special conditions before getting a reward. Some upgrades will be disabled until the challenge ends.')) {return} break;
 			}
 		}
 		if (tier==Infinity) {
@@ -2106,7 +2106,7 @@ function gameTick() {
 		} else {
 			showElement('prestige3bl','table-cell')
 		}
-		updateElement('prestige3bl','Explode your stars and get undead stars.<br>+'+format(getPostPrestigePoints(3))+' NS')
+		updateElement('prestige3bl','Supernova for<br>+'+format(getPostPrestigePoints(3))+' NS')
 		enableTooltip('p3tt')
 		updateTooltip('p3tt',(player.explanations?explainList.supernova+'<br>':'')+'NS gain rate: '+format(gainRate[1])+' NS/s<br>Peak: '+format(player.gainPeak[1])+' NS/s')
 	} else {
@@ -2211,7 +2211,7 @@ function gameTick() {
 				} else {
 					showElement('p1row','table-cell')
 				}
-				updateElement('prestige1','Reset this game and get the boost.<br>x'+format(getPrestigePower().div(player.prestigePower),3,0,false)+' production')
+				updateElement('prestige1','Reset this game and get a boost:<br>x'+format(getPrestigePower().div(player.prestigePower),3,0,false)+' production')
 				enableTooltip('p1tt')
 				updateTooltip('p1tt',(player.explanations?explainList.prestige+'<br>':'')+'Total multiplier for next prestige: x'+format(getPrestigePower(),3,0,false)+'<br>Growth rate: '+format(getPrestigePower().div(player.prestigePower).root(player.prestigePlaytime).sub(1).times(100))+'%')
 				if (oldDesign) {
@@ -2234,7 +2234,7 @@ function gameTick() {
 						showElement('lrrow','table-cell')
 					}
 					enableTooltip('lrtt')
-					updateTooltip('lrtt','While losing a reset, you will have half of prestige power.<br>x'+format(player.prestigePower,3,0,false)+' -> x'+format(player.prestigePower.div(2).max(1),3,0,false))
+					updateTooltip('lrtt','Losing a reset will cause you to lose half of your prestige power.<br>x'+format(player.prestigePower,3,0,false)+' -> x'+format(player.prestigePower.div(2).max(1),3,0,false))
 				} else {
 					if (oldDesign) {
 						hideElement('losereset')
@@ -2250,7 +2250,7 @@ function gameTick() {
 				} else {
 					showElement('p2row','table-cell')
 				}
-				updateElement('prestige2','Transfer your power and upgrade this game.<br>+'+format(getTransferPoints())+' TP')
+				updateElement('prestige2','Reset game for transfer points<br>+'+format(getTransferPoints())+' TP')
 				enableTooltip('p2tt')
 				updateTooltip('p2tt',(player.explanations?explainList.transfer+'<br>':'')+'TP gain rate: '+format(gainRate[0])+' TP/s<br>Peak: '+format(player.gainPeak[0])+' TP/s')
 			} else {
@@ -2276,34 +2276,34 @@ function gameTick() {
 				showElement('prestigeProgress','block')
 				if (percentage>=0.99995) {
 					if (player.prestigePower.gt('1e500')) updateElement('prestigeProgress','<b>Progress till prestige</b>: '+format(Decimal.sub(player.prestigePower.log10(),getPrestigePower().log10()).ceil())+' OoM left')
-					else updateElement('prestigeProgress','<b>Progress till prestige</b>: '+(percentage*100).toFixed(2)+'%')
+					else updateElement('prestigeProgress','<b>Progress to prestige</b>: '+(percentage*100).toFixed(2)+'%')
 				} else {
-					updateElement('prestigeProgress','<b>Progress till prestige</b>: '+(percentage*100).toFixed(2)+'%')
+					updateElement('prestigeProgress','<b>Progress to prestige</b>: '+(percentage*100).toFixed(2)+'%')
 				}
 			} else {
 				hideElement('prestigeProgress')
 			}
 			if (!showTooMuch&&player.showProgress&&player.prestigePower.lt(100)) {
 				showElement('transferProgress','block')
-				updateElement('transferProgress','<b>Progress till transfer</b>: '+Math.floor(player.prestigePower.log10()*5000)/100+'%')
+				updateElement('transferProgress','<b>Progress to transfer</b>: '+Math.floor(player.prestigePower.log10()*5000)/100+'%')
 			} else {
 				hideElement('transferProgress')
 			}
 			if (!showTooMuch&&player.showProgress&&player.stars.lt(Number.MAX_VALUE)) {
 				showElement('supernovaProgress','block')
-				updateElement('supernovaProgress','<b>Progress till '+((player.currentChallenge>0)?'challenge goal':'supernova')+'</b>: '+Math.floor(player.stars.add(1).log10()/Math.log10(Number.MAX_VALUE)*10000)/100+'%')
+				updateElement('supernovaProgress','<b>Progress to '+((player.currentChallenge>0)?'challenge goal':'supernova')+'</b>: '+Math.floor(player.stars.add(1).log10()/Math.log10(Number.MAX_VALUE)*10000)/100+'%')
 			} else {
 				hideElement('supernovaProgress')
 			}
 			if (player.showProgress&&player.breakLimit&&player.neutronStars.lt(Number.MAX_VALUE)) {
 				showElement('hypernovaProgress','block')
-				updateElement('hypernovaProgress','<b>Progress till hypernova</b>: '+Math.floor(player.neutronStars.add(1).log10()/Math.log10(Number.MAX_VALUE)*10000)/100+'%')
+				updateElement('hypernovaProgress','<b>Progress to hypernova</b>: '+Math.floor(player.neutronStars.add(1).log10()/Math.log10(Number.MAX_VALUE)*10000)/100+'%')
 			} else {
 				hideElement('hypernovaProgress')
 			}
 		}
 		if (genTab=='neutronTiers') {
-			updateElement('neutrons','You have <b>'+format(player.neutrons)+'</b> neutrons which reduced the cost by <b>'+format(neutronPower)+'x</b>')
+			updateElement('neutrons','You have <b>'+format(player.neutrons)+'</b> neutrons rby <b>'+format(neutronPower)+'x</b>')
 			updateElement('neutronsRate','<b>'+format(getNeutronTierMultiplier(0).times(player.neutronTiers[0].amount))+'</b> neutrons/s')
 			for (a=0;a<10;a++) {
 				var currentText='<b>Neutron tier '+(a+1)+' generator</b><br>'
@@ -2349,18 +2349,18 @@ function gameTick() {
 			hideElement('statsTPS')
 		} else {
 			showElement('statsTPS','inline')
-			updateElement('statsTPS','You are running this game in '+format(1000/tickspeed,0,1)+' ticks per second.')
+			updateElement('statsTPS','You are running this game at '+format(1000/tickspeed,0,1)+' ticks per second.')
 		}
 		updateElement('statsTotal','You have gained '+format(player.totalStars)+' stars in total.')
 		if (player.prestiges[0]>0) {
 			showElement('statsPrestige','block')
-			updateElement('statsPrestige','You have prestige '+format(player.prestiges[0],2,2)+' times.')
+			updateElement('statsPrestige','You have prestiged '+format(player.prestiges[0],2,2)+' times.')
 		} else {
 			hideElement('statsPrestige')
 		}
 		if (player.prestigePeak[0].gt(1)) {
 			showElement('statsPP','block')
-			updateElement('statsPP','Your highest prestige power ever got is x'+format(player.prestigePeak[0],3,0,true)+'.')
+			updateElement('statsPP','Your highest prestige power is x'+format(player.prestigePeak[0],3,0,true)+'.')
 		} else {
 			hideElement('statsPP')
 		}
