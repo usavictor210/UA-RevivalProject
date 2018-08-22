@@ -49,8 +49,8 @@ player={version:0.652,
 ordinals=['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th']
 				
 lastSave=0
-story={messages:['Commander: We report that someone is making stars.','Scientist: Oh dear, seeing millions is impossible. How do we speed up?','Researcher: It seems star production is going faster. We need another plan.','Scientist: There is another flaw similar to what we did in the past.','Commander: It seems our stars is now producing exponentially. They are blocking my way too.','Driver: Our plans never work. Everything we tried to do got blocked by the stars.','Helper: I hope the god knows how to revert everything!','Sun god: Hello, person. Could you give your magic to become powerful?','Sun god: Thanks, but I had to remove your stars, so the spaceship will move again.','Scientist: Somebody has just become more powerful than us. We need to try harder.',
-		'Visitor: I seem that someone has become powerful than us.','Researcher: Let me see who has become powerful. I see the light of power too.','Sun god: It seems you have enough power. You can now become spiritual and become more powerful.','Reseacher: Finally, spirits are real. Hooray for us!','Scientist: I found out our universe is expanding with new stars.<br>Researcher: Oh yeah, we need to change the amount of stars.','Visitor: Oh, wait a minute, spirits are upgrades...','Wishman: I wish our universe was bigger to have new generators and stars.','System: WARNING! THE UNIVERSE WILL COLLAPSE SOON!<br>Driver: That means the spaceship will be gone too?<br>Visitors: We need to evacuate the facility now!','Commander: Yep, they\'re right. We\'ll wait to see.<br>System: Many stars have been exploded.','Astronomist: We\'re now seeing zombie stars. Something went wrong.',
+story={messages:['Commander: We report that someone is making stars.','Scientist: Oh dear, seeing millions is impossible. How do we speed up?','Researcher: It seems that star production is going faster. We need another plan.','Scientist: There is another flaw similar to what we did in the past.','Commander: It seems our stars is now producing exponentially. They are blocking my way too.','Driver: Our plans never work. Everything we tried to do got blocked by the stars.','Helper: I hope the god knows how to revert everything!','Sun god: Hello, person. Could you give your magic to become powerful?','Sun god: Thanks, but I had to remove your stars, so the spaceship will move again.','Scientist: Somebody has just become more powerful than us. We need to try harder.',
+		'Visitor: It seems that someone has become powerful than us.','Researcher: Let me see who has become powerful. I see the light of power too.','Sun god: It seems you have enough power. You can now become spiritual and become more powerful.','Reseacher: Finally, spirits are real. Hooray for us!','Scientist: I found out our universe is expanding with new stars.<br>Researcher: Oh yeah, we need to change the amount of stars.','Visitor: Oh, wait a minute, spirits are upgrades...','Wishman: I wish our universe was bigger to have new generators and stars.','System: WARNING! THE UNIVERSE WILL COLLAPSE SOON!<br>Driver: That means the spaceship will be gone too?<br>Visitors: We need to evacuate the facility now!','Commander: Yep, they\'re right. We\'ll wait to see.<br>System: Many stars have been exploded.','Astronomist: We\'re now seeing zombie stars. Something went wrong.',
 		'Sun god: Our stars are critical to survive.','Sun god: Then it\'s getting faster than excepted.','Commander: We are now travelling through the universes!','Scientist: The studies says, it turns out that the multiverse theory was confirmed.','Researcher: We also found out the stars have different types of groups.<br>Scientist: Is it due to the universes?','Researcher: I might agree with your situation. Some universes look different.','Observer: The mysterious type of the universe has been discovered.<br>Reseacher: Are we living in a type 4 civilization...?','Scientist: Kind of. We might discover type 5 civilization soon.<br>Reseacher: But some people agree that there are 4 types. We might be wrong.','Scientist: We will see new aliens right around us, but there is nowhere to live.<br>Observer: I have to start new study because of your thoughts.<br>Reseacher: I have go for observer, scientist. Maybe it is time to prove a trend is real.','Commander: We are now travelling the endless universe. Hooray!<br>Driver: But, it might be similar to our first universe.',
 		'Sun god: Ugh. This universe is endless, which holding too much stars.<br>Researcher: Sun god is right. We need to escape that universe.','Observer: We found the mysterious part which boosts the production without affecting anything.','Scientist: This universe might be too big to handle our stars. We need to tell the Commander to turn back.','Observer: We also found the another part which affects the power of the sun god.<br>Researcher: We found the location which it is in the previously discovered part.','Sun god: That person is really good for making stars. If the person only creates stars, I\'m correct.','Observer: Another generator is coming. Be prepared.','Researcher: It seems that it was a newly discovered type of generators.','Scientist: Researcher, there\'s one more.<br>Researcher: Oh right. I have to change my mind...','Scientist: There\'s two more tiers.','Scientist: Three...',
 		'Scientist: Might have ten tiers!<br>Observer: Silly Scientist, we found there are ten tiers for new type.'],
@@ -66,7 +66,7 @@ achList={names:['We don\'t need many tiers','Nobody would believe this','Perfect
 explainList={stars:'<b>Stars</b><br>Stars is the main currency and is the most important part of the game, and you can buy more generators with more stars!',gens:'<b>Generators</b><br>Generators are important things that can increase production. There are 10 generator tiers, each tier producing the previous tier, but the first tier produces stars.<br>When you buy one, the generator you bought will produce 5% faster multiplicatively.',prestige:'<b>Prestige</b><br>Prestige is a <i>soft</i> reset, meaning you keep some of your features and content.<br>In this game, prestiging will give prestige power which gives a production multiplier bonus for all of the generators multiplicatively.',transfer:'<b>Transfer</b><br>Transfer is like prestige, but it resets prestige power and gives upgrades. The currency of transfer is called transfer points, where you can spend to buy upgrades with it.',
 	tupg1:'<b>Transfer upgrade <span style="font-size:66.6%">#1</span></b><br>This upgrade would increase the production multiplier by 5% multiplicatively every time the amount reaches the powers of ten.',tupg2:'<b>Transfer upgrade <span style="font-size:66.6%">#2</span></b><br>This upgrade would increase the production multiplier for all generators as the time increases after you started the game.',tupg3:'<b>Transfer upgrade <span style="font-size:66.6%">#3</span></b><br>This upgrade would increase the production multiplier for all generators as the time increases after you transfered.',tupg4:'<b>Transfer upgrade <span style="font-size:66.6%">#4</span></b><br>This upgrade would increase the production multiplier for all generators as your prestige power peak is higher.',tupg5:'<b>Transfer upgrade <span style="font-size:66.6%">#5</span></b><br>This upgrade would increase the production multiplier for all generators as your transfer point peak is higher.',tupg6:'<b>Transfer upgrade <span style="font-size:66.6%">#6</span></b><br>This upgrade would increases the prestige power gain as log<sub>10</sub> of prestige power gain increases.',tupg7:'',
 	tupg8:'<b>Transfer upgrade <span style="font-size:66.6%">#8</span></b><br>This upgrade will affects the price of tier 10 generators that buying increases the cost in lower rate.',tupg9:'<b>Transfer upgrade <span style="font-size:66.6%">#9</span></b><br>This <i>simple</i> upgrade doubles the prestige power gain.',tupg10:'<b>Transfer upgrade <span style="font-size:66.6%">#10</span></b><br>This upgrade will affects tier 10 generators that buying increases the production multiplier by 10% instead.',tupg11:'<b>Transfer upgrade <span style="font-size:66.6%">#11</span></b><br>This upgrade will increases the prestige power gain then decreases it slowly after you transfered.',tupg12:'<b>Transfer upgrade <span style="font-size:66.6%">#12</span></b><br>This upgrade will increases the production multiplier for all generators by 3x!',tupg13:'<b>Transfer upgrade <span style="font-size:66.6%">#13</span></b><br>You will unlock this upgrade after buying first 12 upgrades. Then this upgrade would increases prestige power gain as you gain more transfer points.',tupg14:'<b>Transfer upgrade <span style="font-size:66.6%">#14</span></b><br>You will unlock this upgrade after buying first 12 upgrades. This upgrade increases transfer point gain as you have higher prestige power.',
-	supernova:'<b>Supernova</b><br>After the first couple layers of reset, as I called them prestige and transfer; there is third layer of reset called supernova.<br>You need to reach Infinite stars to get your first supernova. Each time you supernova, you will get a single neutron stars which you can buy it for upgrades and more content.',snupg1:'<b>Supernova upgrade <span style="font-size:66.6%">#1</span></b><br>This upgrade would increases the production multiplier for all generators as you buy more generators.',snupg4:'<b>Supernova upgrade <span style="font-size:66.6%">#2</span></b><br>This upgrade would increases the production multiplier for all generators as you gain more stars from the total amount.',snupg5:'<b>Supernova upgrade <span style="font-size:66.6%">#3</span></b><br>This upgrade would increases the production multiplier for all generators then decreases it slowly after you supernova.',snupg6:'<b>Supernova upgrade <span style="font-size:66.6%">#4</span></b><br>This upgrade would increases the prestige power gain as you supernova many times.',
+	supernova:'<b>Supernova</b><br>After prestige and transfer (1st and 2nd prestige layer), comes a third layer of reset called supernova.<br>You need to reach Infinite stars to go supernova. Each time you supernova, you will get a single neutron stars which you can buy it for upgrades and more content.',snupg1:'<b>Supernova upgrade <span style="font-size:66.6%">#1</span></b><br>This upgrade would increases the production multiplier for all generators as you buy more generators.',snupg4:'<b>Supernova upgrade <span style="font-size:66.6%">#2</span></b><br>This upgrade would increases the production multiplier for all generators as you gain more stars from the total amount.',snupg5:'<b>Supernova upgrade <span style="font-size:66.6%">#3</span></b><br>This upgrade would increases the production multiplier for all generators then decreases it slowly after you supernova.',snupg6:'<b>Supernova upgrade <span style="font-size:66.6%">#4</span></b><br>This upgrade would increases the prestige power gain as you supernova many times.',
 	snupg7:'<b>Supernova upgrade <span style="font-size:66.6%">#5</span></b><br>This upgrade would',snupg8:'<b>Supernova upgrade <span style="font-size:66.6%">#6</span></b><br>This upgrade would',snupg9:'<b>Supernova upgrade <span style="font-size:66.6%">#7</span></b><br>This upgrade would',snupg10:'<b>Supernova upgrade <span style="font-size:66.6%">#8</span></b><br>This upgrade would',
 	snupg11:'<b>Supernova upgrade <span style="font-size:66.6%">#9</span></b><br>This upgrade would',snupg12:'<b>Supernova upgrade <span style="font-size:66.6%">#10</span></b><br>This upgrade would',snupg13:'<b>Supernova upgrade <span style="font-size:66.6%">#11</span></b><br>This upgrade would',snupg14:'<b>Supernova upgrade <span style="font-size:66.6%">#12</span></b><br>This upgrade would',
 	snupg15:'<b>Supernova upgrade <span style="font-size:66.6%">#13</span></b><br>This upgrade would increases the production multiplier for all generators as you have more achievements.',snupg16:'<b>Supernova upgrade <span style="font-size:66.6%">#14</span></b><br>This upgrade would increases the production multiplier for tier 1 generator as you buy more tier 10 generators.',snupg2:'<b>Supernova upgrade <span style="font-size:66.6%">#15</span></b><br>This upgrade would start with all transfer upgrades bought.',snupg3:'<b>Supernova upgrade <span style="font-size:66.6%">#16</span></b><br>This upgrade would start with an increasing prestige power as your neutron stars increases.',
@@ -505,7 +505,7 @@ function save() {
 		if (snHide) clearTimeout(snHide)
 		var snHide=setTimeout(function(){saveNotice.style.opacity=0;},6000)
 	} catch (e) {
-		console.log('Well, we tried.')
+		console.log('Failed to save.')
 		console.error(e)
 	}
 }
@@ -942,7 +942,7 @@ function importSave() {
 	var input=prompt('Copy and paste in your exported file and press enter.')
 	if (load(input)) {
 		if (input!=null) {
-			alert('Your save was invalid or caused a game-breaking bug. :(')
+			alert('Your save was invalid: It may be broken or caused a game-breaking bug. :(')
 		}
 	}
 }
@@ -1065,7 +1065,7 @@ function reset(tier,challid=0,gain=1) {
 				newStory(19)
 				if (player.fastestSupernova<3600) newStory(20)
 				if (player.fastestSupernova<60) newStory(21)
-				if (player.prestiges[2]>1608) newStory(23)
+				if (player.prestiges[2]>1500) newStory(23)
 				if (player.fastestSupernova<1) newStory(24)
 				if (player.prestiges[1]<1&&!player.supernovaHeadstart) {
 					getBonusAch(11)
@@ -1177,7 +1177,7 @@ function newStory(id) {
 		player.story=id
 	
 		var achBox=document.getElementById('achievement')
-		achBox.innerHTML='<b>Story unlocked!</b><br>Check in story tab.<br>'+story.requirements[id-1]
+		achBox.innerHTML='<b>Story unlocked!</b><br>Check in the story tab.<br>'+story.requirements[id-1]
 		achBox.style.opacity=1
 		
 		if (achHide) clearTimeout(achHide)
@@ -2452,7 +2452,7 @@ function gameTick() {
 	}
 	if (tab=='transfer') {
 		updateTooltipBase('transferPoints','You have <b>'+format(player.transferPoints)+'</b> transfer points')
-		explainList.tupg7='<b>Transfer upgrade <span style="font-size:66.6%">#7</span></b><br>This upgrade lets you prestige at '+format(1e38)+' stars.<br>Prestige power gain was changed too if you buy this upgrade.'
+		explainList.tupg7='<b>Transfer upgrade <span style="font-size:66.6%">#7</span></b><br>This upgrade lets you prestige at '+format(1e38)+' stars.<br>Prestige power gain is changed if you buy this upgrade.'
 		updateElement('tupg14button',((oldDesign)?'You gain more prestige power over transfer points<br>':'')+'Cost: '+format(3000)+' TP')
 		for (a=1;a<15;a++) {
 			var tooltipText=''
@@ -2627,7 +2627,7 @@ function gameTick() {
 					hideElement('bulkBuyIncrease')
 				} else {
 					showElement('bulkBuyIncrease','block')
-					updateElement('bbIncreaseCost',currentText+((player.autobuyers.gens.bulk==256&&!player.breakLimit)?'':((oldDesign)?'Increase the bulk by 2x.<br>':'')+'Cost: '+formatNSCosts(costs.bbCost)))
+					updateElement('bbIncreaseCost',currentText+((player.autobuyers.gens.bulk==256&&!player.breakLimit)?'':((oldDesign)?'Increase bulk buy by 2x.<br>':'')+'Cost: '+formatNSCosts(costs.bbCost)))
 					if (player.neutronStars.gte(costs.bbCost)) {
 						updateClass('bbIncreaseCost',(oldDesign)?'supernovaUpgrade':'supernovaButton')
 					} else {
@@ -2685,9 +2685,9 @@ function gameTick() {
 		}
 		if (SNTab=='neutronboosts') {
 			if (player.breakLimit) {
-				updateElement('breakLimit','Fix limit')
+				updateElement('breakLimit','Fix infinity limit')
 			} else {
-				updateElement('breakLimit','Break limit')
+				updateElement('breakLimit','Break infinity limit')
 			}
 			updateTooltipBase('neutronboost','x'+(Math.round(1e3+100*Math.sqrt(player.neutronBoosts.basePower))/100)+'<sup>'+format(Decimal.add(player.neutronBoosts.powers[0],player.neutronBoosts.powers[1]).add(player.neutronBoosts.powers[2]),2,1)+'</sup> = <b>x'+format(neutronBoost)+'</b> for all production')
 			
