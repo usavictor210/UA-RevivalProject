@@ -72,7 +72,7 @@ explainList={stars:'<b>Stars</b><br>Stars is the main currency and is the most i
 	snupg15:'<b>Supernova upgrade <span style="font-size:66.6%">#13</span></b><br>This upgrade will increase the production multiplier for all generators as you have more achievements.',snupg16:'<b>Supernova upgrade <span style="font-size:66.6%">#14</span></b><br>This upgrade will increase the production multiplier for tier 1 generators as you buy more tier 10 generators.',snupg2:'<b>Supernova upgrade <span style="font-size:66.6%">#15</span></b><br>This upgrade will allow you to start a supernova with all transfer upgrades bought.',snupg3:'<b>Supernova upgrade <span style="font-size:66.6%">#16</span></b><br>This upgrade will allow you to start with an increasing prestige power based on your neutron stars.',
 	autoupgrader:'<b>Autoupgrader</b><br>This autobuyer will automatically buy all transfer upgrades in order, if it has the transfer points to do so.',autotransfer:'<b>Autotransfer</b><br>This autobuyer will automatically transfer when TP gain reaches the amount times your transfer points or TP gain reached the another amount.',autoprestige:'<b>Autoprestige</b><br>This autobuyer would automatically prestige when PP gain reaches the amount times your prestige power.',autogenerator:'<b>Autogenerator</b><br>This autobuyer can automatically buy generators.',autonova:'<b>Autonova</b><br>This autobuyer automatically supernovas when NS gain reaches a amount.',
 	bisfeature1:'<b>Buyinshop feature <span style="font-size:66.6%">#1</span></b><br>This autobuyer feature allows autogenerator to buy multiple each tier per autobuyer interval.',bisfeature2:'<b>Buyinshop feature <span style="font-size:66.6%">#2</span></b><br>This autobuyer feature allows to change the order of autogenerator that wants to buy.',bisfeature3:'<b>Buyinshop feature <span style="font-size:66.6%">#3</span></b><br>This autobuyer feature allows you to change the autoprestige multiplier (auto prestiges if prestige power gain reaches the multiplier times your prestige power)',bisfeature4:'<b>Buyinshop feature <span style="font-size:66.6%">#4</span></b><br>This autobuyer feature allows you to change the autotransfer multiplier (auto transfer if transfer point gain reaches the multiplier times your transfer points)',bisfeature5:'<b>Buyinshop feature <span style="font-size:66.6%">#5</span></b><br>This autobuyer feature unlocks autotransfer in different way, which it waits for auto transfer when transfer point gain has been reached the value.',bisfeature6:'<b>Buyinshop feature <span style="font-size:66.6%">#6</span></b><br>This autobuyer feature unlocks autonova, automating supernovas.',
-	nbPowers:'<b>Neutron boosts</b><br>Neutron boosts have some limited upgrades that increases the production multiplier for all generators except the last one. The first 3 upgrades will increases the production multiplier by the base, located before the exponents come; and you can spend it by either stars, transfer points, or neutron stars.<br>You can buy one of the upgrades up to 20 times (or 30 if you are buying with neutron stars instead), which is the maximum of these upgrade.<br>Beside neutron boosts, you can able to break limit for more stars! Hooray!',nbBase:'<b>Neutron boosts <span style="font-size:66.6%">Base upgrade</span></b><br>This upgrade would increase the base, located at the value before the exponents, for more powerful neutron boosts. You can buy this upgrade up to 10 times, which is the maximum of this upgrade.',nbPPPower:'<b>Neutron boosts <span style="font-size:66.6%">PP power</span></b><br>This upgrade will increase the prestige power gain from neutron boosts at sublinear (x<sup>n</sup> for all n<1) rates. You can buy this upgrade up to 5 times, which is the maximum of this upgrade.',
+	nbPowers:'<b>Neutron boosts</b><br>Neutron boosts are upgrades that increases the production multiplier for all generators except the last one. The first 3 upgrades will increases the production multiplier by the base, located before the exponents come; and you can spend it by either stars, transfer points, or neutron stars.<br>You can buy one of the upgrades up to 25 times (or 30 if you are buying with neutron stars instead), which is the maximum of these upgrade.<br>Beside neutron boosts, you can able to break limit for more stars! Hooray!',nbBase:'<b>Neutron boosts <span style="font-size:66.6%">Base upgrade</span></b><br>This upgrade would increase the base, located at the value before the exponents, for more powerful neutron boosts. You can buy this upgrade up to 15 times, which is the maximum of this upgrade.',nbPPPower:'<b>Neutron boosts <span style="font-size:66.6%">PP power</span></b><br>This upgrade will increase the prestige power gain from neutron boosts at sublinear (x<sup>n</sup> for all n<1) rates. You can buy this upgrade up to 5 times, which is the maximum of this upgrade.',
 	neutronTiers:'<b>Neutron tiers</b><br>Beside the normal generators, there is another group of generators which are called neutron tiers. The first generator in this type of generator produces neutrons, which reduces the cost for all other generators; and buying one will increases the production multiplier by 5x multiplicatively!'}
 maxValueLog=Math.log10(Number.MAX_VALUE)
 tupg6mult=new Decimal(1)
@@ -1768,14 +1768,14 @@ function preSupernova() {
 function buyBoost(id) {
 	switch (id) {
 		case 1: 
-			if (player.stars.gte(costs.neutronBoosts[0])&&player.neutronBoosts.powers[0]<20) {
+			if (player.stars.gte(costs.neutronBoosts[0])&&player.neutronBoosts.powers[0]<25) {
 				player.stars=player.stars.sub(costs.neutronBoosts[0])
 				player.neutronBoosts.powers[0]=BigInteger.add(player.neutronBoosts.powers[0],1)
 			}
 		break
 		
 		case 2: 
-			if (player.transferPoints.gte(costs.neutronBoosts[1])&&player.neutronBoosts.powers[1]<20) {
+			if (player.transferPoints.gte(costs.neutronBoosts[1])&&player.neutronBoosts.powers[1]<25) {
 				player.transferPoints=player.transferPoints.sub(costs.neutronBoosts[1])
 				player.neutronBoosts.powers[1]=BigInteger.add(player.neutronBoosts.powers[1],1)
 			}
@@ -1789,7 +1789,7 @@ function buyBoost(id) {
 		break
 		
 		case 4: 
-			if (player.neutronStars.gte(costs.neutronBoosts[3])&&player.neutronBoosts.basePower<10) {
+			if (player.neutronStars.gte(costs.neutronBoosts[3])&&player.neutronBoosts.basePower<15) {
 				player.neutronStars=player.neutronStars.sub(costs.neutronBoosts[3])
 				player.neutronBoosts.basePower++
 			}
