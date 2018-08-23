@@ -26,7 +26,7 @@ player={version:0.652,
 	gainPeak:[0,0],
 	transferUpgrades:[],
 	supernovaPlaytime:0,
-	fastestSupernova:999999999,
+	fastestSupernova:Number.MAX_VALUE,
 	lastSupernovas:[],
 	neutronStars:new Decimal(0),
 	totalNS:new Decimal(0),
@@ -53,10 +53,10 @@ story={messages:['Commander: We report that someone is making stars.','Scientist
 		'Visitor: It seems that someone has become powerful than us.','Researcher: Let me see who has become powerful. I see the light of power too.','Sun god: It seems you have enough power. You can now become spiritual and become more powerful.','Reseacher: Finally, spirits are real. Hooray for us!','Scientist: I found out our universe is expanding with new stars.<br>Researcher: Oh yeah, we need to change the amount of stars.','Visitor: Oh, wait a minute, spirits are upgrades...','Wishman: I wish our universe was bigger to have new generators and stars.','System: WARNING! THE UNIVERSE WILL COLLAPSE SOON!<br>Driver: That means the spaceship will be gone too?<br>Visitors: We need to evacuate the facility now!','Commander: Yep, they\'re right. We\'ll wait to see.<br>System: Many stars have been exploded.','Astronomist: We\'re now seeing zombie stars. Something went wrong.',
 		'Sun god: Our stars are critical to survive.','Sun god: Then it\'s getting faster than excepted.','Commander: We are now travelling through the universes!','Scientist: The studies says, it turns out that the multiverse theory was confirmed.','Researcher: We also found out the stars have different types of groups.<br>Scientist: Is it due to the universes?','Researcher: I might agree with your situation. Some universes look different.','Observer: The mysterious type of the universe has been discovered.<br>Reseacher: Are we living in a type 4 civilization...?','Scientist: Kind of. We might discover type 5 civilization soon.<br>Reseacher: But some people agree that there are 4 types. We might be wrong.','Scientist: We will see new aliens right around us, but there is nowhere to live.<br>Observer: I have to start new study because of your thoughts.<br>Reseacher: I have go for observer, scientist. Maybe it is time to prove a trend is real.','Commander: We are now travelling the endless universe. Hooray!<br>Driver: But, it might be similar to our first universe.',
 		'Sun god: Ugh. This universe is endless, which holding too much stars.<br>Researcher: Sun god is right. We need to escape that universe.','Observer: We found the mysterious part which boosts the production without affecting anything.','Scientist: This universe might be too big to handle our stars. We need to tell the Commander to turn back.','Observer: We also found the another part which affects the power of the sun god.<br>Researcher: We found the location which it is in the previously discovered part.','Sun god: That person is really good for making stars. If the person only creates stars, I\'m correct.','Observer: Another generator is coming. Be prepared.','Researcher: It seems that it was a newly discovered type of generators.','Scientist: Researcher, there\'s one more.<br>Researcher: Oh right. I have to change my mind...','Scientist: There\'s two more tiers.','Scientist: Three...',
-		'Scientist: Might have ten tiers!<br>Observer: Silly Scientist, we found there are ten tiers for new type.'],
+		'Scientist: Might have ten tiers!<br>Observer: Silly Scientist, we found that there are ten tiers for new type.'],
 	requirements:['Buy the first generator','Reach 150 stars','Buy tier 2 generator','Buy tier 3 generator','Buy tier 5 generator','Buy tier 8 generator','Buy tier 10 generator','Reach 1.00DD stars','Go prestige','Reach 10x prestige power',
 		'Reach 30x prestige power','Reach 50x prestige power','Reach 100x prestige power','Go transfer','Reach 1.00SV stars','Buy first 2 transfer upgrades','Reach 10.0DT stars','Buy all transfer upgrades','Go supernova','Supernova in a hour',
-		'Supernova in a minute','Buy all supernova upgrades','Supernova 1,500 times','Supernova in a second','Complete any challenge','Complete all challenges','Buy all interval upgrades','Buy all bulk buy upgrades','Buy 4 buyinshop features','Buy your first neutron boost',
+		'Supernova in a minute','Buy all supernova upgrades','Supernova 1,500 times','Supernova in a second','Complete any challenge','Complete all challenges','Buy all interval upgrades','Buy all bulk buy upgrades','Buy 4 buyinshop features','Buy your first f',
 		'Reach 10.0DTTn stars','Reach 20 neutron boost power','Reach 1.00MI stars','Max neutron boost PP gain upgrade','Start producing neutrons','Reach 100MI-QiSSn stars','Buy the 2nd neutron tier generator','Buy the 3rd neutron tier generator','Buy the 5th neutron tier generator','Buy the 8th neutron tier generator',
 		'Buy the 10th neutron tier generator']}
 achList={names:['We don\'t need many tiers','Nobody would believe this','Perfect layers','Stellar pyramid','CRITICAL SYSTEM ERROR','Nowhere upon a prestige','That was a good prestige','So close...','That\'s a low tier','You don\'t need them anymore',
@@ -73,7 +73,7 @@ explainList={stars:'<b>Stars</b><br>Stars is the main currency and is the most i
 	autoupgrader:'<b>Autoupgrader</b><br>This autobuyer will automatically buy all transfer upgrades in order, if it has the transfer points to do so.',autotransfer:'<b>Autotransfer</b><br>This autobuyer will automatically transfer when TP gain reaches the amount times your transfer points or TP gain reached the another amount.',autoprestige:'<b>Autoprestige</b><br>This autobuyer would automatically prestige when PP gain reaches the amount times your prestige power.',autogenerator:'<b>Autogenerator</b><br>This autobuyer can automatically buy generators.',autonova:'<b>Autonova</b><br>This autobuyer automatically supernovas when NS gain reaches a amount.',
 	bisfeature1:'<b>Buyinshop feature <span style="font-size:66.6%">#1</span></b><br>This autobuyer feature allows autogenerator to buy multiple each tier per autobuyer interval.',bisfeature2:'<b>Buyinshop feature <span style="font-size:66.6%">#2</span></b><br>This autobuyer feature allows to change the order of autogenerator that wants to buy.',bisfeature3:'<b>Buyinshop feature <span style="font-size:66.6%">#3</span></b><br>This autobuyer feature allows you to change the autoprestige multiplier (auto prestiges if prestige power gain reaches the multiplier times your prestige power)',bisfeature4:'<b>Buyinshop feature <span style="font-size:66.6%">#4</span></b><br>This autobuyer feature allows you to change the autotransfer multiplier (auto transfer if transfer point gain reaches the multiplier times your transfer points)',bisfeature5:'<b>Buyinshop feature <span style="font-size:66.6%">#5</span></b><br>This autobuyer feature unlocks autotransfer in different way, which it waits for auto transfer when transfer point gain has been reached the value.',bisfeature6:'<b>Buyinshop feature <span style="font-size:66.6%">#6</span></b><br>This autobuyer feature unlocks autonova, automating supernovas.',
 	nbPowers:'<b>Neutron boosts</b><br>Neutron boosts have some limited upgrades that increases the production multiplier for all generators except the last one. The first 3 upgrades will increases the production multiplier by the base, located before the exponents come; and you can spend it by either stars, transfer points, or neutron stars.<br>You can buy one of the upgrades up to 20 times (or 30 if you are buying with neutron stars instead), which is the maximum of these upgrade.<br>Beside neutron boosts, you can able to break limit for more stars! Hooray!',nbBase:'<b>Neutron boosts <span style="font-size:66.6%">Base upgrade</span></b><br>This upgrade would increase the base, located at the value before the exponents, for more powerful neutron boosts. You can buy this upgrade up to 10 times, which is the maximum of this upgrade.',nbPPPower:'<b>Neutron boosts <span style="font-size:66.6%">PP power</span></b><br>This upgrade will increase the prestige power gain from neutron boosts at sublinear (x<sup>n</sup> for all n<1) rates. You can buy this upgrade up to 5 times, which is the maximum of this upgrade.',
-	neutronTiers:'<b>Neutron tiers</b><br>Beside the normal generators, there is another group of generators which called neutron tiers. Instead, the first generator in this group will produces neutrons, which translated to reduces the cost for all other generators; and buying one will increases the production multiplier by 5x multiplicatively!'}
+	neutronTiers:'<b>Neutron tiers</b><br>Beside the normal generators, there is another group of generators which are called neutron tiers. The first generator in this type of generator produces neutrons, which reduces the cost for all other generators; and buying one will increases the production multiplier by 5x multiplicatively!'}
 maxValueLog=Math.log10(Number.MAX_VALUE)
 tupg6mult=new Decimal(1)
 	
@@ -94,7 +94,7 @@ keysPressed=[]
 notOnFocus=true
 notOnShift=1
 
-costs={tiers:[],tupgs:[1,1,1,1,2,8,20,50,100,250,300,500,750,3000],snupgs:[1,15,300,1,1,1,2,2,3,4,5,6,8,9,10,12],intReduceCost:1,bisfeatures:[1000,2000,3000,5000,7500,1e4],bbCost:1000,neutronBoosts:[0,0,0,0,0],neutronTiers:[]}
+costs={tiers:[],tupgs:[1,1,1,1,2,8,20,50,100,250,300,500,750,3000],snupgs:[1,15,250,1,1,1,2,2,3,4,5,6,8,9,10,12],intReduceCost:1,bisfeatures:[1000,2000,3000,5000,7500,1e4],bbCost:1000,neutronBoosts:[0,0,0,0,0],neutronTiers:[]}
 gainRate=[0,0]
 streqs=[200,3000,10000,1e16]
 challreqs=[200,300,500,750,1000,1200,1500,1750,2000,2200,2500,2750]
@@ -1164,11 +1164,11 @@ function updateStory() {
 		temp++
 	} while (document.getElementById('ach'+temp))
 	if (oldDesign) {
-		updateElement('ach7',achList.names[6]+' - '+achList.requirements[6]+'<br>Reward: Prestige power gain increased over your prestige power')
-		updateElement('ach8',achList.names[7]+' - '+achList.requirements[7]+'<br>Reward: Transfer point gain increased over your prestige power')
+		updateElement('ach7',achList.names[6]+' - '+achList.requirements[6]+'<br>Reward: Prestige power gain is increased over your prestige power')
+		updateElement('ach8',achList.names[7]+' - '+achList.requirements[7]+'<br>Reward: Transfer point gain is increased over your prestige power')
 	} else {
-		updateElement('ach7tip','<b>'+achList.names[6]+'</b><br>Reward: Prestige power gain increased over your prestige power<br>'+achList.requirements[6])
-		updateElement('ach8tip','<b>'+achList.names[7]+'</b><br>Reward: Transfer point gain increased over your prestige power<br>'+achList.requirements[7])
+		updateElement('ach7tip','<b>'+achList.names[6]+'</b><br>Reward: Prestige power gain is increased over your prestige power<br>'+achList.requirements[6])
+		updateElement('ach8tip','<b>'+achList.names[7]+'</b><br>Reward: Transfer point gain is increased over your prestige power<br>'+achList.requirements[7])
 	}
 }
 
@@ -2381,14 +2381,14 @@ function gameTick() {
 		}
 		if (player.prestigePeak[1].gt(1)) {
 			showElement('statsTPPeak','block')
-			updateElement('statsTPPeak','Your highest amount of transfer points you got is '+format(player.prestigePeak[1])+' TP.')
+			updateElement('statsTPPeak','Your highest amount of transfer points you ever got is '+format(player.prestigePeak[1])+' TP.')
 		} else {
 			hideElement('statsTPPeak')
 		}
 		if (player.prestiges[2]>0) {
 			showElement('statsSupernova','block')
 			showElement('statsSupernovaTime','block')
-			updateElement('statsSupernova','You have supernova '+format(player.prestiges[2],2,2)+' times.')
+			updateElement('statsSupernova','You have supernovaed '+format(player.prestiges[2],2,2)+' times.')
 			updateElement('statsSupernovaTime','Your time in this supernova is '+formatTime(player.supernovaPlaytime)+'.')
 		} else {
 			hideElement('statsSupernova')
