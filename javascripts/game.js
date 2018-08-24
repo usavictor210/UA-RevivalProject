@@ -1732,7 +1732,7 @@ function changePriority(id) {
 function buyBulk() {
 	if (player.neutronStars.gte(costs.bbCost)&&(player.breakLimit||player.autobuyers.gens.bulk<256)) {
 		player.neutronStars=player.neutronStars.sub(costs.bbCost)
-		player.autobuyers.gens.bulk=BigInteger.multiply(player.autobuyers.gens.bulk,2)
+		player.autobuyers.gens.bulk=BigInteger.multiply(player.autobuyers.gens.bulk,1.5)
 		updateCosts('autobuyers')
 		
 		if (player.autobuyers.gens.bulk==256) newStory(29)
@@ -1789,7 +1789,7 @@ function buyBoost(id) {
 		break
 		
 		case 4: 
-			if (player.neutronStars.gte(costs.neutronBoosts[3])&&player.neutronBoosts.basePower<15) {
+			if (player.neutronStars.gte(costs.neutronBoosts[3])&&player.neutronBoosts.basePower<10) {
 				player.neutronStars=player.neutronStars.sub(costs.neutronBoosts[3])
 				player.neutronBoosts.basePower++
 			}
