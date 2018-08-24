@@ -1732,7 +1732,7 @@ function changePriority(id) {
 function buyBulk() {
 	if (player.neutronStars.gte(costs.bbCost)&&(player.breakLimit||player.autobuyers.gens.bulk<256)) {
 		player.neutronStars=player.neutronStars.sub(costs.bbCost)
-		player.autobuyers.gens.bulk=BigInteger.multiply(player.autobuyers.gens.bulk,1.5)
+		player.autobuyers.gens.bulk=BigInteger.multiply(player.autobuyers.gens.bulk,2)
 		updateCosts('autobuyers')
 		
 		if (player.autobuyers.gens.bulk==256) newStory(29)
@@ -2495,7 +2495,7 @@ function gameTick() {
 			}
 		}
 		if (player.supernovaTabsUnlocked>2) {
-			if (player.neutronBoosts.powers[0]==25&&player.neutronBoosts.powers[1]==25&&player.neutronBoosts.powers[2]==30&&player.neutronBoosts.basePower==15&&player.neutronBoosts.ppPower==0.15) {
+			if (player.neutronBoosts.powers[0]==25&&player.neutronBoosts.powers[1]==25&&player.neutronBoosts.powers[2]==30&&player.neutronBoosts.basePower==10&&player.neutronBoosts.ppPower==0.15) {
 				if (oldDesign) updateClass('supernovaLockedTab3','boughtUpgrade')
 				else updateClass('neutronBoostTabButton','boughtUpgrade')
 			} else {
