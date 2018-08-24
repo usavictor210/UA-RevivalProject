@@ -2495,7 +2495,7 @@ function gameTick() {
 			}
 		}
 		if (player.supernovaTabsUnlocked>2) {
-			if (player.neutronBoosts.powers[0]==20&&player.neutronBoosts.powers[1]==20&&player.neutronBoosts.powers[2]==30&&player.neutronBoosts.basePower==10&&player.neutronBoosts.ppPower==0.15) {
+			if (player.neutronBoosts.powers[0]==25&&player.neutronBoosts.powers[1]==25&&player.neutronBoosts.powers[2]==30&&player.neutronBoosts.basePower==15&&player.neutronBoosts.ppPower==0.15) {
 				if (oldDesign) updateClass('supernovaLockedTab3','boughtUpgrade')
 				else updateClass('neutronBoostTabButton','boughtUpgrade')
 			} else {
@@ -2689,7 +2689,7 @@ function gameTick() {
 			} else {
 				updateElement('breakLimit','Break infinity limit')
 			}
-			updateTooltipBase('neutronboost','x'+(Math.round(1e3+100*Math.sqrt(player.neutronBoosts.basePower))/100)+'<sup>'+format(Decimal.add(player.neutronBoosts.powers[0],player.neutronBoosts.powers[1]).add(player.neutronBoosts.powers[2]),2,1)+'</sup> = <b>x'+format(neutronBoost)+'</b> for all production')
+			updateTooltipBase('neutronboost','x'+(Math.round(1e3+100*Math.sqrt(player.neutronBoosts.basePower))/100)+'<sup>'+format(Decimal.add(player.neutronBoosts.powers[0],player.neutronBoosts.powers[1]).add(player.neutronBoosts.powers[2]),2,1)+'</sup> = <b>x'+format(neutronBoost)+'</b> on all normal generator production.')
 			
 			var items=['powerStars','powerTP','powerNS','basePower','ppPower']
 			var boostType=['stars','transfer points','neutron stars']
