@@ -98,13 +98,13 @@ ordinals=['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th']
 lastSave=0
 timeSinceSave=0
 themeSelected='Normal'
-milestoneRequirements=['Buy the first generator','Buy first tier 2 generator','Buy first tier 3 generator','Buy first tier 4 generator','Buy first tier 5 generator','Buy first tier 6 generator','Buy first tier 7 generator','Buy first tier 8 generator','Buy first tier 9 generator','Buy first tier 10 generator',
-	'Buy 5 10th tier generators','Prestige for first time','Reach 5x prestige power','Reach 10x prestige power','Reach 20x prestige power','Reach 50x prestige power','Reach 75x prestige power','Transfer for first time','Buy 2 transfer upgrades','Buy 4 transfer upgrades',
-	'Buy 8 transfer upgrades','Buy 12 transfer upgrades','Buy 14 transfer upgrades','Supernova for first time','Buy 2 supernova upgrades','Buy 4 supernova upgrades','Buy 8 supernova upgrades','Buy 12 supernova upgrades','Earn 100 neutron stars in total','Unlock challenges',
+milestoneRequirements=['Buy your first tier 1 generator','Buy your first tier 2 generator','Buy your first tier 3 generator','Buy your first tier 4 generator','Buy your first tier 5 generator','Buy your first tier 6 generator','Buy your first tier 7 generator','Buy your first tier 8 generator','Buy your first tier 9 generator','Buy your first tier 10 generator',
+	'Buy 5 10th tier generators','Prestige for the first time','Reach 5x prestige power','Reach 10x prestige power','Reach 20x prestige power','Reach 50x prestige power','Reach 75x prestige power','Transfer for the first time','Buy 2 transfer upgrades','Buy 4 transfer upgrades',
+	'Buy 8 transfer upgrades','Buy 12 transfer upgrades','Buy 14 transfer upgrades','Supernova for the first time','Buy 2 supernova upgrades','Buy 4 supernova upgrades','Buy 8 supernova upgrades','Buy 12 supernova upgrades','Earn 100 neutron stars in total','Unlock challenges',
 	'Complete a challenge','Complete 2 challenges','Complete 4 challenges','Complete 8 challenges','Complete 12 challenges','Max all of autobuyer upgrades','Buy 1 buyinshop feature','Buy 2 buyinshop features','Buy 4 buyinshop features','Break limit!',
-	'Buy all buyinshop features','Reach 5 neutron boost power','Reach 10 neutron boost power','Reach 20 neutron boost power','Buy first neutron tier generator','Buy first neutron tier 2 generator','Buy first neutron tier 3 generator','Buy first neutron tier 5 generator','Buy first neutron tier 8 generator','Buy first neutron tier 10 generator']
-storyMessages=['The breakfast is ready!','Sorry but this breakfast is belong to yo- oh wait.','Our home got invaded by aliens! Oh no, we need to do something!','Quick, put on your clothes and let go with your parents!','Phew, that was close. We are going to the planet who invaded us.','We made it to the airport, let fly around to the rocket!','And we here are. I could control the rocket if I was the owner.','This is it, get your spacesuit on.','Blast off! We are going to the planet that invaded us!','Oooo, stars are shiny. Wait a minute... whenever I see, I see too many stars. Who did this?',
-	'The person that generators stars must be the god of stellar.','Oh no! All of our favorite stars are gone! What should I do now?!','Wait a minute, this guy reproduces everything! He must be fantastic for remaking our favorite stars too!','Get ready... we are now raiding somewhere that invaded us!']
+	'Buy all buyinshop features','Reach 5 neutron boost power','Reach 10 neutron boost power','Reach 20 neutron boost power','Buy your first neutron tier 1 generator','Buy your first neutron tier 2 generator','Buy your first neutron tier 3 generator','Buy your first neutron tier 5 generator','Buy your first neutron tier 8 generator','Buy your first neutron tier 10 generator']
+storyMessages=['Breakfast is ready!','Sorry, but this breakfast belongs to yo- oh wait..','Our home got invaded by aliens! Oh no, we need to do something!','Quick, put on your clothes and lets go with your parents!','Phew, that was close. We are going to the planet who invaded us.','We made it to the airport, lets fly around to the rocket!','And here we are. I could control the rocket, if I was the owner.','This is it, get your spacesuit on.','Blast off! We are going to the planet that invaded us!','Oooo, stars are shiny. Wait a minute... whenever I see, I see too many stars. Who did this?',
+	'The person that generated stars must be the god of stellar.','Oh no! All of our favorite stars are gone! What should I do now?!','Wait a minute, this guy reproduces everything! He must be fantastic for remaking our favorite stars too!','Get ready... we are now raiding somewhere that invaded us!']
 achList={names:['Speedrunner','I don\'t need those','What are you doing?','We can\'t show tier 11','Supernova Demon','Is the person Todd Rogers?','Do I really need to upgrade?','Challenge Speedway','Renewed Novas'],
 	requirements:['Supernova in 10 seconds without headstarts','Supernova in 4 minutes but no autobuyers, hotkeys, and max all','Buy 40 tier 1 generators without having transfer upgrades nor prestige power','Buy 111 tier 10 generators but buy tier 9 generator once','Supernova without tiers 5-10','Supernova in 0.2 seconds without headstarts','Supernova without having transfer upgrades','Complete a challenge in under a second','Supernova while you are in pre-supernova mode']}
 explainList={stars:'<b>Stars</b><br>Stars is your main currency and is a currency part of the game. You could buy generators by spending this!',gens:'<b>Generators</b><br>Generators is a production part of this game. There are 10 tiers in this game, each tier will produces the previous tier but the first tier would produces stars.<br>When you buy one, the generator you bought will produce 5% faster multiplicatively.',prestige:'<b>Prestige</b><br>Prestige is a <i>soft</i> reset but you keep some of your features and content.<br>In this game, if you prestige right away, you will get a production multiplier bonus for all of the generators multiplicatively.',transfer:'<b>Transfer</b><br>Transfer is like prestige, but it resets all of your prestiges and give the player upgrades instead of production multiplier. The currency when you transfer is called transfer points, where you can spend upgrades with it.',
@@ -1472,7 +1472,7 @@ function importSave() {
 }
 
 function reset(tier,challid=0,gain=1) {
-	if (tier==Infinity?confirm('If you hard reset, everything including the save will be lost and you have to start over! Are you sure to do that?'):true) {
+	if (tier==Infinity?confirm('If you hard reset, all progress in your save will be lost and you have to start over! Are you sure you want to do this?'):true) {
 		if (challid>0) {
 			switch (tier) {
 				case 3: if (challid==player.currentChallenge) {return} break;
@@ -1484,7 +1484,7 @@ function reset(tier,challid=0,gain=1) {
 					if (checkNotation=='Mixed') {
 						var checkNotation=getNotation(308)
 					}
-					if (!confirm('You need to '+((checkNotation=='Polynominal exponent'||checkNotation=='Color'||checkNotation=='Megacolor'||checkNotation=='Progress')?'go supernova':format(Number.MAX_VALUE)+' stars')+' with special conditions. Some supernova upgrades doesn\'t work while you are in challenge.')) {return}
+					if (!confirm('You need to '+((checkNotation=='Polynominal exponent'||checkNotation=='Color'||checkNotation=='Megacolor'||checkNotation=='Progress')?'go supernova':format(Number.MAX_VALUE)+' stars')+' with special conditions. Some supernova upgrades doesn\'t work while you are in a challenge.')) {return}
 					break
 				case 4: 
 					var checkNotation=player.notation
@@ -1495,7 +1495,7 @@ function reset(tier,challid=0,gain=1) {
 					break
 			}
 			if (tier==3&&player.preSupernova) {
-				if (confirm('You can\'t take a challenge while you are in pre-supernova mode. If you take a challenge, pre-supernova mode would be off.')) player.preSupernova=false
+				if (confirm('You can\'t go in a challenge while you are in pre-supernova mode. If you enter a challenge, pre-supernova mode will turn off.')) player.preSupernova=false
 				else return
 			}
 		}
@@ -1797,17 +1797,17 @@ function toggle(id) {
 	}
 	if (id=='preSupernova') {
 		if (player.preSupernova) {
-			if (!confirm('Pre-supernova mode is a mode where you start at beginning even before your first supernova. Are you sure you want to do that?')) {
+			if (!confirm('Pre-supernova mode is where you start at the beginning even before your first supernova. Are you sure you want to do that?')) {
 				player.preSupernova=false
 			} else if (player.currentChallenge==0) {
 				reset(3,0,0)
-			} else if (!confirm('If you start with pre-supernova mode on, your current challenge will be lost! Are you sure you want to do that?')) {
+			} else if (!confirm('If you start with pre-supernova mode on, you will exit the current challenge. Are you sure you want to do that?')) {
 				player.preSupernova=false
 			} else {
 				reset(3,0,0)
 			}
 		} else {
-			if (!confirm('You are leaving pre-supernova mode. This will enable your supernova features again that you got.')) player.preSupernova=true
+			if (!confirm('You are leaving pre-supernova mode. This will reenable any supernova features.')) player.preSupernova=true
 		}
 	}
 	if (id=='useMonospaced') updateFont()
@@ -3077,12 +3077,12 @@ function gameTick() {
 		}
 	}
 	if (showTooMuch) {
-		explainList.supernova='<b>Supernova</b><br>After the first, couple layers of reset, as I called them prestige and transfer; there is third layer of reset called supernova.<br>You need to reach '+format(Number.MAX_VALUE)+' stars to get your first supernova. Each time you supernova, you will get a single neutron star which you can buy it for upgrades and more content.'
+		explainList.supernova='<b>Supernova</b><br>After the layers of reset called prestige and transfer; there is a third layer of reset called supernova.<br>You need to reach '+format(Number.MAX_VALUE)+' stars to get your first supernova. Each time you supernova, you will get a single neutron star which you can buy it for upgrades and more content.'
 		if (tooMuch) {
-			updateElement('tooMuchMessage','The universe has been destroyed due to too much stars.')
+			updateElement('tooMuchMessage','The universe has been destroyed because of too many stars.')
 			hideElement('notNow')
 		} else {
-			updateElement('tooMuchMessage','You now able to destroy your stars and gain your neutron stars. But however, if you reach too many, then you must to.')
+			updateElement('tooMuchMessage','You are now able to destroy your stars and gain your neutron stars. However, if you reach too many stars, supernova will be forced.')
 			showElement('notNow','table-cell')
 		}
 		if (player.explanations) {
@@ -3108,13 +3108,13 @@ function gameTick() {
 		oldLayout=player.layout
 	}
 	if (player.stars.gte(Number.MAX_VALUE)&&!showTooMuch) {
-		explainList.supernova='<b>Supernova</b><br>After the first, couple layers of reset, as I called them prestige and transfer; there is third layer of reset called supernova.<br>You need to reach '+format(Number.MAX_VALUE)+' stars to get your first supernova. Each time you supernova, you will get a single neutron star which you can buy it for upgrades and more content.'
+		explainList.supernova='<b>Supernova</b><br>After the layers of reset called prestige and transfer; there is a third layer of reset called supernova.<br>You need to reach '+format(Number.MAX_VALUE)+' stars to get your first supernova. Each time you supernova, you will get a single neutron star which you can buy it for upgrades and more content.'
 		if (oldDesign) {
 			showElement('prestige3bl','inline')
 		} else {
 			showElement('prestige3bl','table-cell')
 		}
-		updateElement('prestige3bl','Explode your stars and get undead stars.<br>+'+format(getPostPrestigePoints(3))+' NS')
+		updateElement('prestige3bl','Supernova (explode stars) for<br>+'+format(getPostPrestigePoints(3))+' NS.')
 		if (player.breakLimit) {
 			enableTooltip('p3tt')
 			updateTooltip('p3tt',(player.explanations?explainList.supernova+'<br>':'')+'NS gain rate: '+formatRate(gainRate[1],'NS')+'<br>Peak: '+formatRate(player.gainPeak[1],'NS'))
@@ -3226,7 +3226,7 @@ function gameTick() {
 			}
 			if (player.prestigePower.gt(1)) {
 				showElement('tooltipBaseprestigePower','inline')
-				updateTooltipBase('prestigePower','<b>x'+format(player.prestigePower,3,0,false)+'</b> (prestige power) for all production<br>')
+				updateTooltipBase('prestigePower','<b>x'+format(player.prestigePower,3,0,false)+'</b> (prestige power) for all generator production<br>')
 				if (player.explanations) {
 					enableTooltip('prestigePower')
 					updateTooltip('prestigePower',explainList.prestige)
@@ -3246,7 +3246,7 @@ function gameTick() {
 				if (!showPrestigeButton&&player.showProgress) {
 					if (player.destabilization.timeLeft>0&&player.destabilization.upgrades[3]==0) {
 						showElement('prestigeProgress','block')
-						updateElement('prestigeProgress','<b>Progress till prestige</b>: Wait until destabilization is finished or transfer!')
+						updateElement('prestigeProgress','<b>Progress to prestige</b>: Wait until destabilization is finished, or transfer!')
 					} else {
 						var pp=player.prestigePower.log10()
 						var gpp=getPrestigePower()
@@ -3259,12 +3259,12 @@ function gameTick() {
 						}
 						showElement('prestigeProgress','block')
 						if (percentage<0) {
-							updateElement('prestigeProgress','<b>Progress till prestige</b>: 0.00%')
+							updateElement('prestigeProgress','<b>Progress to prestige</b>: 0.00%')
 						} else if (percentage>0.99995) {
-							if (pp>=500) updateElement('prestigeProgress','<b>Progress till prestige</b>: '+format(Decimal.add(player.prestigePower.div(gpp).log10(),0.01),2,0,false)+' OoM left')
-							else updateElement('prestigeProgress','<b>Progress till prestige</b>: 99.99%')
+							if (pp>=500) updateElement('prestigeProgress','<b>Progress to prestige</b>: '+format(Decimal.add(player.prestigePower.div(gpp).log10(),0.01),2,0,false)+' OoM left')
+							else updateElement('prestigeProgress','<b>Progress to prestige</b>: 99.99%')
 						} else {
-							updateElement('prestigeProgress','<b>Progress till prestige</b>: '+Decimal.times(percentage,100).toFixed(2)+'%')
+							updateElement('prestigeProgress','<b>Progress to prestige</b>: '+Decimal.times(percentage,100).toFixed(2)+'%')
 						}
 					}
 				} else {
@@ -3281,7 +3281,7 @@ function gameTick() {
 				}
 				var gpp=getPrestigePower()
 				var multi=gpp.div(player.prestigePower)
-				updateElement('prestige1','Reset this game and get the boost.<br>x'+format(multi,3,0,false)+' production')
+				updateElement('prestige1','Reset this game and get a boost:<br>x'+format(multi,3,0,false)+' production')
 				enableTooltip('p1tt')
 				updateTooltip('p1tt',(player.explanations?explainList.prestige+'<br>':'')+'Total multiplier for next prestige: x'+format(gpp,3,0,false)+'<br>Growth rate: '+format(multi.pow(1/player.prestigePlaytime).sub(1).times(100),2,0,false)+'%')
 			} else if (!showTooMuch&&(player.currentChallenge==8||player.currentChallenge==13)) {
@@ -3290,9 +3290,9 @@ function gameTick() {
 				} else {
 					showElement('p1row','table-cell')
 				}
-				updateElement('prestige1','Lose a prestige, but reduce your prestige power by 2x.')
+				updateElement('prestige1','Lose a prestige, but lose 50% of your prestige power.')
 				enableTooltip('p1tt')
-				updateTooltip('p1tt',(player.explanations?explainList.prestige+'<br>':'')+'If you lose prestige, you will reduce your prestige power to x'+format(player.prestigePower.div(2).max(1),3,0,false)+'.')
+				updateTooltip('p1tt',(player.explanations?explainList.prestige+'<br>':'')+'If you lose a prestige, you will reduce your prestige power to x'+format(player.prestigePower.div(2).max(1),3,0,false)+'.')
 			} else {
 				hideElement((oldDesign)?'prestige1':'p1row')
 			}
@@ -3302,7 +3302,7 @@ function gameTick() {
 				} else {
 					showElement('p2row','table-cell')
 				}
-				updateElement('prestige2','Transfer your power and upgrade this game.<br>+'+format(getTransferPoints())+' TP')
+				updateElement('prestige2','Transfer prestige power for<br>+'+format(getTransferPoints())+' TP.')
 				enableTooltip('p2tt')
 				updateTooltip('p2tt',(player.explanations?explainList.transfer+'<br>':'')+'TP gain rate: '+formatRate(gainRate[0],'TP')+'<br>Peak: '+formatRate(player.gainPeak[0],'TP'))
 			} else {
@@ -3322,8 +3322,8 @@ function gameTick() {
 			if (!showTooMuch&&player.showProgress&&player.prestigePower.lt(100)) {
 				showElement('transferProgress','block')
 				var percentage=player.prestigePower.log10()/2
-				if (percentage>0.99995) updateElement('transferProgress','<b>Progress till transfer</b>: 99.99%')
-				else updateElement('transferProgress','<b>Progress till transfer</b>: '+(percentage*100).toFixed(2)+'%')
+				if (percentage>0.99995) updateElement('transferProgress','<b>Progress to transfer</b>: 99.99%')
+				else updateElement('transferProgress','<b>Progress to transfer</b>: '+(percentage*100).toFixed(2)+'%')
 			} else {
 				hideElement('transferProgress')
 			}
@@ -3336,26 +3336,26 @@ function gameTick() {
 					var percentage=player.stars.add(1).log10()/maxValueLog
 					var type=(player.currentChallenge>0)?'challenge goal':'supernova'
 				}
-				if (percentage>0.99995) updateElement('supernovaProgress','<b>Progress till '+type+'</b>: 99.99%')
-				else updateElement('supernovaProgress','<b>Progress till '+type+'</b>: '+(percentage*100).toFixed(2)+'%')
+				if (percentage>0.99995) updateElement('supernovaProgress','<b>Progress to '+type+'</b>: 99.99%')
+				else updateElement('supernovaProgress','<b>Progress to '+type+'</b>: '+(percentage*100).toFixed(2)+'%')
 			} else {
 				hideElement('supernovaProgress')
 			}
 			if (!showTooMuch&&player.showProgress&&player.breakLimit&&player.neutronStars.lt(Number.MAX_VALUE)) {
 				showElement('hypernovaProgress','block')
 				var percentage=player.neutronStars.add(1).log10()/maxValueLog
-				if (percentage>0.99995) updateElement('hypernovaProgress','<b>Progress till hypernova</b>: 99.99%')
-				else updateElement('hypernovaProgress','<b>Progress till hypernova</b>: '+(percentage*100).toFixed(2)+'%')
+				if (percentage>0.99995) updateElement('hypernovaProgress','<b>Progress to hypernova</b>: 99.99%')
+				else updateElement('hypernovaProgress','<b>Progress to hypernova</b>: '+(percentage*100).toFixed(2)+'%')
 			} else {
 				hideElement('hypernovaProgress')
 			}
 		}
 		if (genTab=='neutronTiers') {
-			updateElement('neutrons','You have <b>'+format(player.neutrons)+'</b> neutrons which reduced the cost of normal generators by <b>'+format(neutronPower)+'x</b> (neutron power)')
+			updateElement('neutrons','You have <b>'+format(player.neutrons)+'</b> neutrons, reducing the cost of normal generators by <b>'+format(neutronPower)+'x</b> (neutron power).')
 			if (ntpps[0].eq(0)) {
-				updateElement('neutronsRate','<b>0</b> neutrons/s')
+				updateElement('neutronsRate','You are producing <b>0</b> neutrons per second.')
 			} else {
-				updateElement('neutronsRate','<b>'+format(ntpps[0],(ntpps[0].gte(1000))?2:1,0,false)+'</b> neutrons/s ('+format(ntpps[0].div(player.neutrons).times(100),2,0,false)+'%)')
+				updateElement('neutronsRate','You are producing <b>'+format(ntpps[0],(ntpps[0].gte(1000))?2:1,0,false)+'</b> neutrons per second. ('+format(ntpps[0].div(player.neutrons).times(100),2,0,false)+'%)')
 			}
 			for (a=0;a<10;a++) {
 				var currentText='<b>Neutron tier '+(a+1)+' generator</b><br>'
@@ -3406,7 +3406,7 @@ function gameTick() {
 		} else {
 			showElement('statsTPS',displayType)
 			if (oldDesign) {
-				updateElement('statsTPS','You are running this game in '+format(1000/tickspeed,0,1)+' ticks per second.')
+				updateElement('statsTPS','You are running this game at '+format(1000/tickspeed,0,1)+' ticks per second.')
 			} else {
 				updateElement('statsTPSValue',format(1000/tickspeed,0,1))
 			}
@@ -3499,7 +3499,7 @@ function gameTick() {
 				updateElement('statsTransfer','You have transferred '+format(player.prestiges[1],2,2)+' times.')
 				updateElement('statsTransferTime','Your time in this transfer is '+formatTime(player.transferPlaytime)+'.')
 				updateElement('statsTP','You have gained '+format(player.totalTP)+' transfer points in total.')
-				updateElement('statsTPPeak','Your highest amount of transfer points you got is '+format(player.prestigePeak[1])+' TP.')
+				updateElement('statsTPPeak','Your highest amount of transfer points ever got is '+format(player.prestigePeak[1])+' TP.')
 			} else {
 				updateElement('statsTransferValue',format(player.prestiges[1],2,2))
 				updateElement('statsTransferTimeValue',formatTime(player.transferPlaytime))
@@ -3576,7 +3576,7 @@ function gameTick() {
 	}
 	if (tab=='transfer') {
 		if (oldDesign) updateTooltipBase('transferPoints','You have <b>'+format(player.transferPoints)+'</b> transfer point'+(player.transferPoints.eq(1)?'':'s'))
-		explainList.tupg7='<b>Transfer upgrade <span style="font-size:66.6%">#7</span></b><br>This upgrade would able to prestige with 1% of your stars as without the upgrade, which is equal to '+format(1e37)+' stars.<br>Prestige power gain is increased slighty after buying this upgrade too.'
+		explainList.tupg7='<b>Transfer upgrade <span style="font-size:66.6%">#7</span></b><br>This upgrade will allow you to be able to prestige with 1% of your stars as without the upgrade, which is equal to '+format(1e37)+' stars.<br>Prestige power gain is increased slighty after buying this upgrade.'
 		updateElement('tupg12button',((oldDesign)?'Production increased by x3<br><br>':'')+'Cost: '+format(1000)+' TP')
 		updateElement('tupg13button',((oldDesign)?'Increase prestige power gain based on transfer points<br>':'')+'Cost: '+format(3000)+' TP')
 		updateElement('tupg14button',((oldDesign)?'Increase transfer point gain based on prestige power<br>':'')+'Cost: '+format(5000)+' TP')
@@ -3725,15 +3725,15 @@ function gameTick() {
 				showElement('snupgrow6','table-row')
 				showElement('snupgrow7','table-row')
 				updateElement('snupg17button',(oldDesign?'Production multiplier per bought neutron tier 1 generator is 10x<br>':'')+'Cost: '+formatNSCosts(1e55))
-				updateElement('snupg18button',(oldDesign?'Neutron tier 2 generator production increase over neutrons<br>':'')+'Cost: '+formatNSCosts(1e70))
-				updateElement('snupg19button',(oldDesign?'Neutron tier 3 generator production increase over your bought eighth neutron tier generators<br>':'')+'Cost: '+formatNSCosts(1e85))
-				updateElement('snupg20button',(oldDesign?'Neutron tier 4 generator production increase over prestige power<br>':'')+'Cost: '+formatNSCosts(1e100))
-				updateElement('snupg21button',(oldDesign?'Neutron tier 5 generator production increase<br>':'')+'Cost: '+formatNSCosts(1e110))
-				updateElement('snupg22button',(oldDesign?'Neutron tier 6 generator production increase<br>':'')+'Cost: '+formatNSCosts(1e120))
-				updateElement('snupg23button',(oldDesign?'Neutron tier 7 generator production increase<br>':'')+'Cost: '+formatNSCosts(1e135))
-				updateElement('snupg24button',(oldDesign?'Neutron tier 8 generator production increase<br>':'')+'Cost: '+formatNSCosts(1e150))
-				updateElement('snupg25button',(oldDesign?'Neutron tier 9 generator production increase<br>':'')+'Cost: '+formatNSCosts(1e165))
-				updateElement('snupg26button',(oldDesign?'Neutron tier 10 generator production increase<br>':'')+'Cost: '+formatNSCosts(1e180))
+				updateElement('snupg18button',(oldDesign?'Neutron tier 2 generator production increases over neutrons<br>':'')+'Cost: '+formatNSCosts(1e70))
+				updateElement('snupg19button',(oldDesign?'Neutron tier 3 generator production increases over your bought eighth neutron tier generators<br>':'')+'Cost: '+formatNSCosts(1e85))
+				updateElement('snupg20button',(oldDesign?'Neutron tier 4 generator production increases over prestige power<br>':'')+'Cost: '+formatNSCosts(1e100))
+				updateElement('snupg21button',(oldDesign?'Neutron tier 5 generator production increases<br>':'')+'Cost: '+formatNSCosts(1e110))
+				updateElement('snupg22button',(oldDesign?'Neutron tier 6 generator production increases<br>':'')+'Cost: '+formatNSCosts(1e120))
+				updateElement('snupg23button',(oldDesign?'Neutron tier 7 generator production increases<br>':'')+'Cost: '+formatNSCosts(1e135))
+				updateElement('snupg24button',(oldDesign?'Neutron tier 8 generator production increases<br>':'')+'Cost: '+formatNSCosts(1e150))
+				updateElement('snupg25button',(oldDesign?'Neutron tier 9 generator production increases<br>':'')+'Cost: '+formatNSCosts(1e165))
+				updateElement('snupg26button',(oldDesign?'Neutron tier 10 generator production increases<br>':'')+'Cost: '+formatNSCosts(1e180))
 			} else {
 				hideElement('snupgrow5')
 				hideElement('snupgrow6')
@@ -4006,11 +4006,11 @@ function gameTick() {
 					updateElement('destabilizationStatus','<b>Status</b>: Running')
 					showElement('destabilizationInfo','inline-block')
 					updateElement('destabilizationInfo','Destabilization is duplicating in '+formatTime(dsInterval)+'/tick<br><b>Time left</b>: '+(player.destabilization.timeLeft==1?'1 tick':player.destabilization.timeLeft+' ticks')+'<br>('+formatTime(player.destabilization.timeLeft*dsInterval-player.playtime+player.destabilization.lastTick)+')')
-					updateElement('destabilizationWarning','<b>WARNING</b>: If you transfer or supernova now, destabilization would be interupted!')
+					updateElement('destabilizationWarning','<b>WARNING</b>: If you transfer or supernova now, destabilization will be interupted!')
 				} else {
 					updateElement('destabilizationStatus','<b>Status</b>: Activated')
 					hideElement('destabilizationInfo')
-					updateElement('destabilizationWarning','<b>WARNING</b>: If you prestige, transfer, or supernova now, all of your unstable stars would be reset!')
+					updateElement('destabilizationWarning','<b>WARNING</b>: If you prestige, transfer, or supernova now, all of your unstable stars will reset!')
 				}
 				hideElement('destabilizationActivation')
 				hideElement('destabilizationUpgrades')
