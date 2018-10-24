@@ -1,3 +1,4 @@
+diffMultiplier = 1
 player={version:0.7,
 	beta:20.41,
 	alpha:0,
@@ -2710,7 +2711,7 @@ function gameTick() {
 			save()
 		}
 		
-		var diff=(currentTime-player.lastUpdate)/1000
+		var diff=(currentTime-player.lastUpdate)/1000*diffMultiplier
 		player.playtime+=diff
 		player.prestigePlaytime+=diff
 		player.transferPlaytime+=diff
