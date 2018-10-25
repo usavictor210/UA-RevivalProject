@@ -935,7 +935,7 @@ function load(savefile) {
 		var savefile=JSON.parse(atob(savefile))
 		
         if (savefile.version<0.7) {
-          alert("Sorry! due to nyan cat being lazy to support old saves, your obsolete save will now be deleted, sorry again!")
+          alert("Sorry, but your save will be deleted due to the complications of the update. Saves that were before the test was merged into master are sort of messed up, since inflation and other bugs/confusing things happened. Once you dismiss this notice, the game will hard reset (the game will reload).")
           if (oldDesign) {
 		    localStorage.clear('save')
 		  } else {
@@ -1155,7 +1155,7 @@ function reset(tier,challid=0,gain=1) {
 					break
 			}
 			if (tier==3&&player.preSupernova) {
-				if (confirm('You can\'t go in a challenge while you are in pre-supernova mode. If you enter a challenge, pre-supernova mode will turn off.')) player.preSupernova=false
+				if (confirm('You can\'t enter a challenge while you are in pre-supernova mode. Entering a challenge will disable pre-supernova mode.')) player.preSupernova=false
 				else return
 			}
 		}
@@ -1567,7 +1567,7 @@ function showMilestone(id,isAch) {
 		} else {
 			updateElement('milestoneMessage','Milestone got!')
 			updateElement('milestoneRequirement',milestoneRequirements[id-1])
-			updateElement('milestoneCheck','Check in milestones tab.')
+			updateElement('milestoneCheck','Check in the milestones tab.')
 		}
 	}
 	updateMilestones()
@@ -2737,9 +2737,9 @@ function gameTick() {
 		}
 	}
 	if (showTooMuch) {
-		explainList.supernova='<b>Supernova</b><br>After the layers of reset called prestige and transfer; there is a third layer of reset called supernova.<br>You need to reach '+format(Number.MAX_VALUE)+' stars to get your first supernova. Each time you supernova, you will get a single neutron star which you can buy it for upgrades and more content.'
+		explainList.supernova='<b>Supernova</b><br>After the layers of reset called prestige and transfer; there is a third layer of reset called supernova.<br>You need to reach '+format(Number.MAX_VALUE)+' stars to get your first supernova. Every time you supernova, you will get a single neutron star which you can buy it for upgrades and more content.'
 		if (tooMuch) {
-			updateElement('tooMuchMessage','The universe has been destroyed because of too many stars.')
+			updateElement('tooMuchMessage','The universe has been destroyed due to a overflow of stars.')
 			hideElement('notNow')
 		} else {
 			updateElement('tooMuchMessage','You are now able to destroy your stars and gain your neutron stars. However, if you reach too many stars, supernova will be forced.')
@@ -3159,7 +3159,7 @@ function gameTick() {
 				updateElement('statsTransfer','You have transferred '+format(player.prestiges[1],2,2)+' times.')
 				updateElement('statsTransferTime','Your time in this transfer is '+formatTime(player.transferPlaytime)+'.')
 				updateElement('statsTP','You have gained '+format(player.totalTP)+' transfer points in total.')
-				updateElement('statsTPPeak','Your highest amount of transfer points ever got is '+format(player.prestigePeak[1])+' TP.')
+				updateElement('statsTPPeak','Your highest amount of transfer points is '+format(player.prestigePeak[1])+' TP.')
 			} else {
 				updateElement('statsTransferValue',format(player.prestiges[1],2,2))
 				updateElement('statsTransferTimeValue',formatTime(player.transferPlaytime))
@@ -3176,8 +3176,8 @@ function gameTick() {
 			showElement('statsPrestige',displayType)
 			showElement('statsPP',displayType)
 			if (oldDesign) {
-				updateElement('statsPrestige','You have prestige '+format(player.prestiges[0],2,2)+' times.')
-				updateElement('statsPP','Your highest prestige power ever got is x'+format(player.prestigePeak[0],3,0,false)+'.')
+				updateElement('statsPrestige','You have prestiged '+format(player.prestiges[0],2,2)+' times.')
+				updateElement('statsPP','Your highest prestige power was x'+format(player.prestigePeak[0],3,0,false)+'.')
 			} else {
 				updateElement('statsPrestigeValue',format(player.prestiges[0],2,2))
 				updateElement('statsPPValue','x'+format(player.prestigePeak[0],3,0,false))
@@ -3237,7 +3237,7 @@ function gameTick() {
 	if (tab=='transfer') {
 		if (oldDesign) updateTooltipBase('transferPoints','You have <b>'+format(player.transferPoints)+'</b> transfer point'+(player.transferPoints.eq(1)?'':'s'))
 		explainList.tupg7='<b>Transfer upgrade <span style="font-size:66.6%">#7</span></b><br>This upgrade will allow you to be able to prestige with 1% of your stars as without the upgrade, which is equal to '+format(1e37)+' stars.<br>Prestige power gain is increased slighty after buying this upgrade.'
-		updateElement('tupg12button',((oldDesign)?'Production increased by x3<br><br>':'')+'Cost: '+format(1000)+' TP')
+		updateElement('tupg12button',((oldDesign)?'Production increases by x3<br><br>':'')+'Cost: '+format(1000)+' TP')
 		updateElement('tupg13button',((oldDesign)?'Increase prestige power gain based on transfer points<br>':'')+'Cost: '+format(3000)+' TP')
 		updateElement('tupg14button',((oldDesign)?'Increase transfer point gain based on prestige power<br>':'')+'Cost: '+format(5000)+' TP')
 		for (a=1;a<15;a++) {
@@ -3342,7 +3342,7 @@ function gameTick() {
 			hideElement('snupg16row')
 			if (player.supernovaUpgrades.includes(3)) if (player.supernovaTabsUnlocked>2) if (player.headstarts&&player.currentChallenge==0&&!player.preSupernova) {
 				showElement('snupg16row','table-row')
-				var ppHeadstartMessage='You start with <b>x'+format(ppHeadstart)+'</b> prestige power after transfering or supernova'
+				var ppHeadstartMessage='You start with <b>x'+format(ppHeadstart)+'</b> prestige power after transferring or supernova.'
 				if (oldDesign) {
 					updateElement('ppHeadstartUpg1button','<b>Normal subformula</b>: x'+format(player.neutronStars)+'<sup>min(max('+format(player.neutronStars.log10(),2,1,false)+',5),'+(12.5+0.05*player.ppHeadstartUpgrades[0]).toPrecision(4)+')</sup> =<br>x'+format(ppHSValue1)+(player.ppHeadstartUpgrades[0]==20?'':'<br>Cost: '+formatNSCosts(costs.ppHeadstartUpgs[0])))
 					updateElement('ppHeadstartUpg2button','<b>Pre-break limit</b>: x'+format(ppHSPreBreakLimit)+'<br>Cost: '+formatNSCosts(costs.ppHeadstartUpgs[1]))
@@ -3384,7 +3384,7 @@ function gameTick() {
 				showElement('snupgrow5','table-row')
 				showElement('snupgrow6','table-row')
 				showElement('snupgrow7','table-row')
-				updateElement('snupg17button',(oldDesign?'Production multiplier per bought neutron tier 1 generator is 10x<br>':'')+'Cost: '+formatNSCosts(1e55))
+				updateElement('snupg17button',(oldDesign?'Production multiplier per bought neutron tier 1 generator increases to 10x<br>':'')+'Cost: '+formatNSCosts(1e55))
 				updateElement('snupg18button',(oldDesign?'Neutron tier 2 generator production increases over neutrons<br>':'')+'Cost: '+formatNSCosts(1e70))
 				updateElement('snupg19button',(oldDesign?'Neutron tier 3 generator production increases over your bought eighth neutron tier generators<br>':'')+'Cost: '+formatNSCosts(1e85))
 				updateElement('snupg20button',(oldDesign?'Neutron tier 4 generator production increases over prestige power<br>':'')+'Cost: '+formatNSCosts(1e100))
@@ -3665,8 +3665,8 @@ function gameTick() {
 				if (player.destabilization.timeLeft>0) {
 					updateElement('destabilizationStatus','<b>Status</b>: Running')
 					showElement('destabilizationInfo','inline-block')
-					updateElement('destabilizationInfo','Destabilization is duplicating in '+formatTime(dsInterval)+'/tick<br><b>Time left</b>: '+(player.destabilization.timeLeft==1?'1 tick':player.destabilization.timeLeft+' ticks')+'<br>('+formatTime(player.destabilization.timeLeft*dsInterval-player.playtime+player.destabilization.lastTick)+')')
-					updateElement('destabilizationWarning','<b>WARNING</b>: If you transfer or supernova now, destabilization will be interupted!')
+					updateElement('destabilizationInfo','Destabilization will duplicate stars in '+formatTime(dsInterval)+'/tick<br><b>Time left</b>: '+(player.destabilization.timeLeft==1?'1 tick':player.destabilization.timeLeft+' ticks')+'<br>('+formatTime(player.destabilization.timeLeft*dsInterval-player.playtime+player.destabilization.lastTick)+')')
+					updateElement('destabilizationWarning','<b>WARNING</b>: If you transfer or supernova now, destabilization will be interrupted!')
 				} else {
 					updateElement('destabilizationStatus','<b>Status</b>: Activated')
 					hideElement('destabilizationInfo')
@@ -3680,7 +3680,7 @@ function gameTick() {
 				hideElement('destabilizationInfo')
 				showElement('destabilizationUpgrades','table')
 				updateElement('destabilizationActivation','Activate Destabilization!<br>('+format(unstableStarsAfterActivation)+' unstable stars)')
-				updateElement('destabilizationWarning','<b>WARNING</b>: If you destabilize the stars, all your generators would be lost!')
+				updateElement('destabilizationWarning','<b>WARNING</b>: If you destabilize stars, you will lose all your generators!')
 				if (oldDesign) {
 					updateElement('destabilizationUpg1button','Interval: '+formatTime(dsInterval)+'/tick'+(player.destabilization.upgrades[0]==20?'':'<br>Cost: '+formatNSCosts(costs.destabilization[0])))
 					updateElement('destabilizationUpg2button','Time: '+formatTime(dsTime)+' tick'+(player.destabilization.upgrades[1]==20?'':'<br>Cost: '+formatNSCosts(costs.destabilization[1])))
