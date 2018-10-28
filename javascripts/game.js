@@ -3310,7 +3310,7 @@ function gameTick() {
 				hideElement('headstart')
 			}
 			var disabledUpgrades=[2,3,6,7,8,9,11,12,14]
-			for (a=1;a<(player.secondSetUnlocked?21:17);a++) {
+			for (a=1;a<(player.secondSetUnlocked?27:17);a++) {
 				var tooltipText=''
 				if (player.explanations) tooltipText=explainList['snupg'+a]
 				if (player.supernovaUpgrades.includes(a)) {
