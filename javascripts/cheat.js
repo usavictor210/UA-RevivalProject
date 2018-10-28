@@ -46,7 +46,7 @@ function doubleNS() {
 }
 
 function squareNS() {
-	player.neutronStars=player.neutronStars.square()
+	player.neutronStars=player.neutronStars.pow(2)
 }
 
 function freeSNUpgrades() {
