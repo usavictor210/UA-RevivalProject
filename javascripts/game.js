@@ -916,11 +916,7 @@ function removeNotation() {
 
 function save() {
 	try {
-		if (oldDesign) {
-			localStorage.setItem('save',btoa(JSON.stringify(player)))
-		} else {
-			localStorage.setItem('save2',btoa(JSON.stringify(player)))
-		}
+		localStorage.setItem('save2',btoa(JSON.stringify(player)))
 		console.log('Game saved!')
 		lastSave=new Date().getTime()/1000
 	} catch (e) {
@@ -936,11 +932,7 @@ function load(savefile) {
 		
         if (savefile.version<0.7) {
           alert("Sorry, but your save will be deleted due to the complications of the update. Saves that were before the test was merged into master are sort of messed up, since inflation and other bugs/confusing things happened. Once you dismiss this notice, the game will hard reset (the game will reload).")
-          if (oldDesign) {
-		    localStorage.clear('save')
-		  } else {
-		    localStorage.clear('save2')
-		  }
+		  localStorage.clear('save2')
 		  location.reload()
           return 1
         }
@@ -1183,11 +1175,7 @@ function reset(tier,challid=0,gain=1) {
 			player.achievements=[]
 			player.challConfirm=true
 			player.totalNeutrons=new Decimal(0)
-			if (oldDesign) {
-				localStorage.clear('save')
-			} else {
-				localStorage.clear('save2')
-			}
+			localStorage.clear('save2')
 			
 			tab='gen'
 			clickedWrong=0
@@ -1509,14 +1497,9 @@ function updateMilestones() {
 			hideElement('milestone'+temp)
 		} else {
 			var message=''
-			if (oldDesign) {
-				showElement('milestone'+temp,'table-cell')
-				message='<b>Milestone #'+temp+'</b>: '+milestoneRequirements[temp-1]+'<br>'
-			} else {
-				showElement('milestone'+temp,'table-row')
-				updateElement('ms'+temp+'requirement','<b>Milestone #'+temp+'</b>:<br>'+milestoneRequirements[temp-1])
-			}
-			var msCompletion=(oldDesign)?'milestone'+temp:'ms'+temp+'completion'
+			showElement('milestone'+temp,'table-row')
+			updateElement('ms'+temp+'requirement','<b>Milestone #'+temp+'</b>:<br>'+milestoneRequirements[temp-1])
+			var msCompletion='ms'+temp+'completion'
 			if (player.milestones>=temp) {
 				updateElement(msCompletion,message+'Completed'+((player.storyEnabled&&storyMessages.length>=temp)?'<br><b>Story</b>: '+storyMessages[temp-1]:''))
 				updateClass(msCompletion,'achCompleted')
@@ -1531,10 +1514,10 @@ function updateMilestones() {
 	var temp=1
 	do {
 		if (player.achievements.includes(temp)) {
-			if (!oldDesign) updateElement('ach'+temp,'Completed')
+			updateElement('ach'+temp,'Completed')
 			updateClass('ach'+temp,'achCompleted')
 		} else {
-			if (!oldDesign) updateElement('ach'+temp,'Incomplete')
+			updateElement('ach'+temp,'Incomplete')
 			updateClass('ach'+temp,'ach')
 		}
 		temp++
@@ -1542,33 +1525,18 @@ function updateMilestones() {
 }
 
 function showMilestone(id,isAch) {
-	if (oldDesign) {
-		var milestoneBox=document.getElementById('achievement')
-		milestoneBox.style.opacity=1
-		clearTimeout(showMilestoneTimeout)
-		showMilestoneTimeout=setTimeout(function(){milestoneBox.style.opacity=0;},6000)
-	} else {
-		var milestoneBox=document.getElementById('milestone')
-		milestoneBox.style.transform='translate(0%,0%)'
-		clearTimeout(showMilestoneTimeout)
-		showMilestoneTimeout=setTimeout(function(){milestoneBox.style.transform='translate(-100%,0%)';},6000)
-	}
+    var milestoneBox=document.getElementById('milestone')
+    milestoneBox.style.transform='translate(0%,0%)'
+    clearTimeout(showMilestoneTimeout)
+    showMilestoneTimeout=setTimeout(function(){milestoneBox.style.transform='translate(-100%,0%)';},6000)
 	if (isAch) {
-		if (oldDesign) {
-			updateElement('achievement','<b>Achievement unlocked!</b><br>'+achList.names[id-1]+'<br>'+achList.requirements[id-1])
-		} else {
-			updateElement('milestoneMessage','Achievement unlocked!')
-			updateElement('milestoneRequirement',achList.names[id-1])
-			updateElement('milestoneCheck',achList.requirements[id-1])
-		}
+		updateElement('milestoneMessage','Achievement unlocked!')
+		updateElement('milestoneRequirement',achList.names[id-1])
+		updateElement('milestoneCheck',achList.requirements[id-1])
 	} else {
-		if (oldDesign) {
-			updateElement('achievement','<b>Milestone #'+id+' got!</b><br>'+milestoneRequirements[id-1]+'<br>Check in milestones tab.')
-		} else {
-			updateElement('milestoneMessage','Milestone got!')
-			updateElement('milestoneRequirement',milestoneRequirements[id-1])
-			updateElement('milestoneCheck','Check in the milestones tab.')
-		}
+		updateElement('milestoneMessage','Milestone got!')
+		updateElement('milestoneRequirement',milestoneRequirements[id-1])
+		updateElement('milestoneCheck','Check in the milestones tab.')
 	}
 	updateMilestones()
 }
@@ -1656,7 +1624,7 @@ function updateFont() {
 }
 
 function updateTheme(id) {
-	if (!oldDesign&&themeSelected!=id) {
+	if (themeSelected!=id) {
 		themeSelected=id
 		document.getElementById('theme').href='stylesheets/theme_'+id.toLowerCase()+'.css'
 	}
@@ -2629,62 +2597,70 @@ function gameTick() {
 		enableTooltip('sPSExplanation')
 		updateTooltip('sPSExplanation',(player.explanations?explainList.growthRate+'<br>':'')+'Growth rate: '+format(pps[0].div(player.stars).times(100),2,0,false)+'%')
 	}
-	if (!oldDesign) {
-		if (player.supernovaTabsUnlocked>4) {
-			showElement('unstableStars','block')
-			updateElement('unstableStars','<b>'+format(player.destabilization.unstableStars)+'</b> unstable')
-		} else {
-			hideElement('unstableStars')
-		}
-	}
+    if (player.supernovaTabsUnlocked>4) {
+		showElement('unstableStars','block')
+		updateElement('unstableStars','<b>'+format(player.destabilization.unstableStars)+'</b> unstable')
+    } else {
+		hideElement('unstableStars')
+    }
 	if (player.prestiges[1]>0||player.transferPoints.gt(0)||player.transferUpgrades.length>0) {
-		showElement('transferTabButton',(oldDesign)?'inline-block':'table-cell')
+		showElement('transferTabButton','table-cell')
 	} else {
 		hideElement('transferTabButton')
 		if (tab=='transfer') tab='gen'
 	}
-	if (!oldDesign) {
-		var shown=false
-		for (i=2;i>=0;i--) {
-			if (!shown) {
-				if (player.prestiges[i+1]>0) shown=true
-				else switch (i) {
-					case 0: if (player.transferPoints.gt(0)||player.transferUpgrades.length>0) {shown=true}; break
-					case 1: if (player.neutronStars.gt(0)) {shown=true}; break
-					case 2: if (player.quarkStars.gt(0)) {shown=true}; break
-				}
-			}
-			if (shown) {
-				if (i==0) {
-					showElement('prestigePoints','table')
-					updateTooltipBase('transferPoints',format(player.transferPoints)+' transfer point'+(player.transferPoints.eq(1)?'':'s'))
-				} else if (i==1) {
-					showElement('neutronStars','table-cell')
-					updateTooltipBase('neutronStars',format(player.neutronStars)+' neutron star'+(player.neutronStars.eq(1)?'':'s'))
-				} else {
-					showElement('quarkStars','table-cell')
-					updateTooltipBase('quarkStars',format(player.quarkStars)+' quark star'+(player.quarkStars.eq(1)?'':'s'))
-				}
-			} else {
-				if (i==0) hideElement('prestigePoints')
-				else if (i==1) hideElement('neutronStars')
-				else hideElement('quarkStars')
-			}
-		}
-	}
+    var shown = false
+    for (i = 2; i >= 0; i--) {
+        if (!shown) {
+            if (player.prestiges[i + 1] > 0) shown = true
+            else switch (i) {
+                case 0:
+                    if (player.transferPoints.gt(0) || player.transferUpgrades.length > 0) {
+                        shown = true
+                    };
+                    break
+                case 1:
+                    if (player.neutronStars.gt(0)) {
+                        shown = true
+                    };
+                    break
+                case 2:
+                    if (player.quarkStars.gt(0)) {
+                        shown = true
+                    };
+                    break
+            }
+        }
+        if (shown) {
+            if (i == 0) {
+                showElement('prestigePoints', 'table')
+                updateTooltipBase('transferPoints', format(player.transferPoints) + ' transfer point' + (player.transferPoints.eq(1) ? '' : 's'))
+            } else if (i == 1) {
+                showElement('neutronStars', 'table-cell')
+                updateTooltipBase('neutronStars', format(player.neutronStars) + ' neutron star' + (player.neutronStars.eq(1) ? '' : 's'))
+            } else {
+                showElement('quarkStars', 'table-cell')
+                updateTooltipBase('quarkStars', format(player.quarkStars) + ' quark star' + (player.quarkStars.eq(1) ? '' : 's'))
+            }
+        } else {
+            if (i == 0) hideElement('prestigePoints')
+            else if (i == 1) hideElement('neutronStars')
+            else hideElement('quarkStars')
+        }
+    }
 	if (player.prestiges[2]>0||player.neutronStars.gt(0)) {
-		showElement('supernovaTabButton',(oldDesign)?'inline-block':'table-cell')
+		showElement('supernovaTabButton','table-cell')
 		if (player.supernovaTabsUnlocked==streqs.length) {
-			hideElement('requirement'+((oldDesign)?'':'Child'))
+			hideElement('requirementChild')
 		} else {
-			showElement('requirement'+((oldDesign)?'':'Child'),(oldDesign)?'table-cell':'inline-block')
-			moveElement('requirement'+((oldDesign)?'':'Child'),((player.supernovaTabsUnlocked==3)?'genTabs':'supernovaTabs')+((oldDesign)?'':'Row'))
+			showElement('requirementChild','inline-block')
+			moveElement('requirementChild',((player.supernovaTabsUnlocked==3)?'genTabs':'supernovaTabs')+'Row')
 			updateElement('requirement','Next requires '+format(streqs[player.supernovaTabsUnlocked])+' NS')
-			updateClass('requirement',(player.supernovaTabsUnlocked==3)?(oldDesign?'supernovaTabButton':'supernovaLockedTab'):(oldDesign)?'lockedTabButton':'lockedUpgrade')
+			updateClass('requirement',(player.supernovaTabsUnlocked==3)?'supernovaLockedTab':'lockedUpgrade')
 		}
 		for (a=1;a<=streqs.length;a++) {
 			if (player.supernovaTabsUnlocked>=a) {
-				showElement('supernovaLockedTab'+a,(oldDesign)?'inline-block':'table-cell')
+				showElement('supernovaLockedTab'+a,'table-cell')
 			} else {
 				hideElement('supernovaLockedTab'+a)
 			}
@@ -2693,27 +2669,25 @@ function gameTick() {
 		hideElement('supernovaTabButton')
 	}
 	if (player.prestiges[3]>0||player.quarkStars.gt(0)) {
-		showElement('hypernovaTabButton',(oldDesign)?'inline-block':'table-cell')
+		showElement('hypernovaTabButton','table-cell')
 	} else {
 		hideElement('hypernovaTabButton')
 	}
 	if (player.prestiges[4]>0||player.particles.gt(0)) {
-		showElement('exoticTabButton',(oldDesign)?'inline-block':'table-cell')
+		showElement('exoticTabButton','table-cell')
 	} else {
 		hideElement('exoticTabButton')
 	}
 	if (player.prestiges[5]>0||player.strings.gt(0)) {
-		showElement('quantumTabButton',(oldDesign)?'inline-block':'table-cell')
+		showElement('quantumTabButton','table-cell')
 	} else {
 		hideElement('quantumTabButton')
 	}
-	if (!oldDesign) {
-		if (player.customScrolling) {
-			showElement('tabsCustomScrolling','table')
-		} else {
-			hideElement('tabsCustomScrolling')
-		}
-	}
+	if (player.customScrolling) {
+        showElement('tabsCustomScrolling', 'table')
+    } else {
+        hideElement('tabsCustomScrolling')
+    }
 	
 	if (tab!=oldTab) {
 		showElement('tab'+tab,'block')
@@ -2762,18 +2736,14 @@ function gameTick() {
 			setTimeout(function(){hideElement('tooMuch2')},500)
 		}
 	}
-	if (!oldDesign&&player.layout!=oldLayout) {
+	if (player.layout!=oldLayout) {
 		showElement('layout'+player.layout,'table')
 		hideElement('layout'+oldLayout)
 		oldLayout=player.layout
 	}
 	if (player.stars.gte(Number.MAX_VALUE)&&!showTooMuch) {
 		explainList.supernova='<b>Supernova</b><br>After the layers of reset called prestige and transfer; there is a third layer of reset called supernova.<br>You need to reach '+format(Number.MAX_VALUE)+' stars to get your first supernova. Each time you supernova, you will get a single neutron star which you can buy it for upgrades and more content.'
-		if (oldDesign) {
-			showElement('prestige3bl','inline')
-		} else {
-			showElement('prestige3bl','table-cell')
-		}
+		showElement('prestige3bl','table-cell')
 		updateElement('prestige3bl','Supernova (explode stars) for<br>+'+format(getPostPrestigePoints(3))+' NS.')
 		if (player.breakLimit) {
 			enableTooltip('p3tt')
@@ -2792,16 +2762,14 @@ function gameTick() {
 	if (tab=='gen') {
 		if (player.supernovaTabsUnlocked>2) {
 			showElement('genTabs','block')
-			if (!oldDesign) {
-				if (player.customScrolling) {
-					showElement('genTabsCustomScrolling','table')
-				} else {
-					hideElement('genTabsCustomScrolling')
-				}
-			}
+			if (player.customScrolling) {
+                showElement('genTabsCustomScrolling', 'table')
+            } else {
+                hideElement('genTabsCustomScrolling')
+            }
 		} else {
 			hideElement('genTabs')
-			if (!oldDesign) hideElement('genTabsCustomScrolling')
+			hideElement('genTabsCustomScrolling')
 		}
 		
 		if (genTab!=oldGenTab) {
@@ -2812,28 +2780,26 @@ function gameTick() {
 		if (genTab=='tiers') {
 			for (a=0;a<10;a++) {
 				var showGenerator=true
-				if (!oldDesign) {
-					if (a>0&&player.layout==1) {
-						if (player.highestTierPrestiges[0]>=a&&(a<9||player.currentChallenge!=3)) {
-							showElement('t'+(a+1)+'GenRow','table-row')
-						} else {
-							hideElement('t'+(a+1)+'GenRow')
-							showGenerator=false
-						}
-					}
-					if (a>0&&player.layout==2) {
-						if (player.highestTierPrestiges[0]>=a&&(a<9||player.currentChallenge!=3)) {
-							visibleElement('t'+(a+1)+'GenCell')
-							visibleElement('t'+(a+1)+'GenCell2')
-						} else {
-							invisibleElement('t'+(a+1)+'GenCell')
-							invisibleElement('t'+(a+1)+'GenCell2')
-							showGenerator=false
-						}
-					}
-				}
+				if (a > 0 && player.layout == 1) {
+                    if (player.highestTierPrestiges[0] >= a && (a < 9 || player.currentChallenge != 3)) {
+                        showElement('t' + (a + 1) + 'GenRow', 'table-row')
+                    } else {
+                        hideElement('t' + (a + 1) + 'GenRow')
+                        showGenerator = false
+                    }
+                }
+                if (a > 0 && player.layout == 2) {
+                    if (player.highestTierPrestiges[0] >= a && (a < 9 || player.currentChallenge != 3)) {
+                        visibleElement('t' + (a + 1) + 'GenCell')
+                        visibleElement('t' + (a + 1) + 'GenCell2')
+                    } else {
+                        invisibleElement('t' + (a + 1) + 'GenCell')
+                        invisibleElement('t' + (a + 1) + 'GenCell2')
+                        showGenerator = false
+                    }
+                }
 				if (showGenerator) {
-					var name='t'+(a+1)+'Gen'+((player.layout==2&&!oldDesign)?'2':'')
+					var name='t'+(a+1)+'Gen'+(player.layout==2?'2':'')
 					var currentText='<b>Tier '+(a+1)+' generator</b><br>'
 					var tooltipText=''
 					if (player.explanations) tooltipText=explainList.gens
@@ -2846,10 +2812,10 @@ function gameTick() {
 						tooltipText=(tooltipText==''?'':tooltipText+'<br>')+'Growth rate: '+format(pps[a+1].div(player.generators[a].amount).times(100),2,0,false)+'%'
 					}
 					if (Decimal.gt(player.generators[a].amount,0)) if (ppsSingles[a]!=undefined) tooltipText=(tooltipText==''?'':tooltipText+'<br>')+'Production for 1 generator: '+format(ppsSingles[a],(ppsSingles[a].gte(1000))?2:1,0,false)+'/s'
-					if (tooltipText=='') disableTooltip('t'+(a+1)+'Gen'+((player.layout==2&&!oldDesign)?'2':''))
+					if (tooltipText=='') disableTooltip('t'+(a+1)+'Gen'+(player.layout==2?'2':''))
 					else {
-						enableTooltip('t'+(a+1)+'Gen'+((player.layout==2&&!oldDesign)?'2':''))
-						updateTooltip('t'+(a+1)+'Gen'+((player.layout==2&&!oldDesign)?'2':''),tooltipText)
+						enableTooltip('t'+(a+1)+'Gen'+(player.layout==2?'2':''))
+						updateTooltip('t'+(a+1)+'Gen'+(player.layout==2?'2':''),tooltipText)
 					}
 					var lastLine=''
 					var cost=costs.tiers[a]
@@ -2866,19 +2832,11 @@ function gameTick() {
 					} else {
 						lastLine='Cost: '+formatCosts(cost)
 					}
-					if (oldDesign) {
-						updateElement(name,currentText+'<br>'+lastLine)
-					} else {
-						updateTooltipBase(name,currentText)
-						var name='t'+(a+1)+'GenButton'+((player.layout==2)?'2':'')
-						updateElement(name,lastLine)
-					}
+				    updateTooltipBase(name,currentText)
+				    var name='t'+(a+1)+'GenButton'+((player.layout==2)?'2':'')
+				    updateElement(name,lastLine)
 					if (player.highestTierPrestiges[0]>=a&&isWorthIt(a+1)) {
-						if (oldDesign) {
-							updateClass(name,'shopButton')
-						} else {
-							updateClass(name,'longButton')
-						}
+				        updateClass(name,'longButton')
 					} else {
 						updateClass(name,'shopUnafford')
 					}
@@ -2934,43 +2892,27 @@ function gameTick() {
 				hideElement('prestigeProgress')
 			}
 			if (showPrestigeButton) {
-				if (oldDesign) {
-					showElement('prestige1','inline')
-				} else {
-					showElement('p1row','table-cell')
-				}
+				showElement('p1row','table-cell')
 				var gpp=getPrestigePower()
 				var multi=gpp.div(player.prestigePower)
 				updateElement('prestige1','Reset this game and get a boost:<br>x'+format(multi,3,0,false)+' production')
 				enableTooltip('p1tt')
 				updateTooltip('p1tt',(player.explanations?explainList.prestige+'<br>':'')+'Total multiplier for next prestige: x'+format(gpp,3,0,false)+'<br>Growth rate: '+format(multi.pow(1/player.prestigePlaytime).sub(1).times(100),2,0,false)+'%')
 			} else if (!showTooMuch&&(player.currentChallenge==8||player.currentChallenge==13)) {
-				if (oldDesign) {
-					showElement('prestige1','inline')
-				} else {
-					showElement('p1row','table-cell')
-				}
+				showElement('p1row','table-cell')
 				updateElement('prestige1','Lose a prestige, but lose 50% of your prestige power.')
 				enableTooltip('p1tt')
 				updateTooltip('p1tt',(player.explanations?explainList.prestige+'<br>':'')+'If you lose a prestige, you will reduce your prestige power to x'+format(player.prestigePower.div(2).max(1),3,0,false)+'.')
 			} else {
-				hideElement((oldDesign)?'prestige1':'p1row')
+				hideElement('p1row')
 			}
 			if (!showTooMuch&&player.prestigePower.gte(100)) {
-				if (oldDesign) {
-					showElement('prestige2','inline')
-				} else {
-					showElement('p2row','table-cell')
-				}
+				showElement('p2row','table-cell')
 				updateElement('prestige2','Transfer prestige power for<br>+'+format(getTransferPoints())+' TP.')
 				enableTooltip('p2tt')
 				updateTooltip('p2tt',(player.explanations?explainList.transfer+'<br>':'')+'TP gain rate: '+formatRate(gainRate[0],'TP')+'<br>Peak: '+formatRate(player.gainPeak[0],'TP'))
 			} else {
-				if (oldDesign) {
-					hideElement('prestige2')
-				} else {
-					hideElement('p2row')
-				}
+				hideElement('p2row')
 				disableTooltip('p2tt')
 			}
 			if (((player.currentChallenge==8||player.currentChallenge==13)&&player.generators[0].amount.gt(0))||player.currentChallenge==11) {
@@ -3026,12 +2968,8 @@ function gameTick() {
 				}
 				var name='nt'+(a+1)+'Gen'
 				var lastLine='Cost: '+formatNSCosts(costs.neutronTiers[a])
-				if (oldDesign) {
-					updateElement(name+'Button',currentText+'<br>'+lastLine)
-				} else {
-					updateTooltipBase(name,currentText)
-					updateElement(name+'Button',lastLine)
-				}
+				updateTooltipBase(name,currentText)
+				updateElement(name+'Button',lastLine)
 				var tooltipText=''
 				if (player.explanations) tooltipText=explainList.neutronTiers
 				if (a==9||player.neutronTiers[a].amount.eq(player.neutronTiers[a].bought)) {
@@ -3047,57 +2985,35 @@ function gameTick() {
 					updateTooltip('nt'+(a+1)+'Gen',tooltipText)
 				}
 				if (player.neutronStars.gte(costs.neutronTiers[a])) {
-					updateClass('nt'+(a+1)+'GenButton',(oldDesign)?'supernovaUpgrade':'supernovaButton')
+					updateClass('nt'+(a+1)+'GenButton','supernovaButton')
 				} else {
 					updateClass('nt'+(a+1)+'GenButton','shopUnafford')
 				}
 			}
 		}
-	}
+    }
 	if (tab=='statistics') {
-		var displayType=(oldDesign)?'block':'table-row'
-		if (oldDesign) {
-			updateElement('statsPlaytime','You have played for '+formatTime(player.playtime)+'.')
-		} else {
-			updateElement('statsPlaytimeValue',formatTime(player.playtime))
-		}
+		var displayType='table-row'
+		updateElement('statsPlaytimeValue',formatTime(player.playtime))
 		if (player.updateRate==Math.round(1000/tickspeed)) {
 			hideElement('statsTPS')
 		} else {
 			showElement('statsTPS',displayType)
-			if (oldDesign) {
-				updateElement('statsTPS','You are running this game at '+format(1000/tickspeed,0,1)+' ticks per second.')
-			} else {
-				updateElement('statsTPSValue',format(1000/tickspeed,0,1))
-			}
+			updateElement('statsTPSValue',format(1000/tickspeed,0,1))
 		}
-		if (oldDesign) {
-			updateElement('statsTotal','You have gained '+format(player.totalStars)+' stars in total.')
-		} else {
-			updateElement('statsTotalValue',format(player.totalStars))
-		}
+		updateElement('statsTotalValue',format(player.totalStars))
 		var shown=false
 		if (player.totalNeutrons.gt(0)||shown) {
 			shown=true
-			
 			showElement('statsTotalNeutrons',displayType)
-			if (oldDesign) {
-				updateElement('statsTotalNeutrons','You have gained '+format(player.totalNeutrons)+' neutrons in total.')
-			} else {
-				updateElement('statsTotalNeutronsValue',format(player.totalNeutrons))
-			}
+			updateElement('statsTotalNeutronsValue',format(player.totalNeutrons))
 		} else {
 			hideElement('statsTotalNeutrons')
 		}
-		if ((player.rewardBoxes[2]>0&&(!oldDesign||player.rewardBoxes[2]<12))||shown) {
+		if ((player.rewardBoxes[2]>0&&player.rewardBoxes[2]<12)||shown) {
 			shown=true
-			
 			showElement('statsRewardBoxes',displayType)
-			if (oldDesign) {
-				updateElement('statsRewardBoxes','You opened '+player.rewardBoxes[2]+' reward box'+(player.rewardBoxes[2]==1?'':'es')+'.')
-			} else {
-				updateElement('statsRewardBoxesValue',player.rewardBoxes[2])
-			}
+			updateElement('statsRewardBoxesValue',player.rewardBoxes[2])
 		} else {
 			hideElement('statsRewardBoxes')
 		}
@@ -3108,19 +3024,11 @@ function gameTick() {
 			showElement('statsSupernovaTime',displayType)
 			showElement('statsSupernovaFastest',displayType)
 			showElement('statsNS',displayType)
-			if (oldDesign) {
-				updateElement('statsSupernova','You have supernova\'d your stars '+format(player.prestiges[2],2,2)+' times.')
-				updateElement('statsSupernovaTime','Your time in this supernova is '+formatTime(player.supernovaPlaytime)+'.')
-				updateElement('statsSupernovaFastest','Your fastest supernova is in '+formatTime(player.fastestSupernova)+'.')
-				updateElement('statsLastTransferTime','You took '+formatTime(player.lastTransferPlaytime)+' in last transfer before this supernova.')
-				updateElement('statsNS','You have gained '+format(player.totalNS)+' neutron stars in total.')
-			} else {
-				updateElement('statsSupernovaValue',format(player.prestiges[2],2,2))
-				updateElement('statsSupernovaTimeValue',formatTime(player.supernovaPlaytime))
-				updateElement('statsSupernovaFastestValue',formatTime(player.fastestSupernova))
-				updateElement('statsLastTransferTimeValue',format(player.lastTransferPlaytime))
-				updateElement('statsNSValue',format(player.totalNS))
-			}
+			updateElement('statsSupernovaValue',format(player.prestiges[2],2,2))
+			updateElement('statsSupernovaTimeValue',formatTime(player.supernovaPlaytime))
+			updateElement('statsSupernovaFastestValue',formatTime(player.fastestSupernova))
+			updateElement('statsLastTransferTimeValue',format(player.lastTransferPlaytime))
+			updateElement('statsNSValue',format(player.totalNS))
 		} else {
 			hideElement('statsSupernova')
 			hideElement('statsSupernovaTime')
@@ -3134,18 +3042,14 @@ function gameTick() {
 			} else {
 				showElement('statsPrevSupernova'+(a+1),displayType)
 				var message=''
-				if (oldDesign) message='The '+((a>0)?ordinals[a]+' ':'')+'previous supernova took '
 				if (player.lastSupernovas[a][3]>1) {
 					message=message+format(player.lastSupernovas[a][3]-1,0,2)+' supernovas and '
 				}
 				message=message+formatTime(player.lastSupernovas[a][0])
 				if (player.lastSupernovas[a][2].gt(1)) {
-					if (oldDesign) message=message+' with '+format(player.lastSupernovas[a][1])+' stars and earned '+format(player.lastSupernovas[a][2])+' NS. ('+formatRate(player.lastSupernovas[a][2].div(player.lastSupernovas[a][0]),'NS')+')'
-					else message=message+'<br>('+format(player.lastSupernovas[a][1])+' stars, +'+format(player.lastSupernovas[a][2])+' NS; '+formatRate(player.lastSupernovas[a][2].div(player.lastSupernovas[a][0]),'NS')+')'
-				} else if (oldDesign) {
-					message=message+'.'
+					message=message+'<br>('+format(player.lastSupernovas[a][1])+' stars, +'+format(player.lastSupernovas[a][2])+' NS; '+formatRate(player.lastSupernovas[a][2].div(player.lastSupernovas[a][0]),'NS')+')'
 				}
-				updateElement('statsPrevSupernova'+(a+1)+(oldDesign?'':'Value'),message)
+				updateElement('statsPrevSupernova'+(a+1)+'Value',message)
 			}
 		}
 		if (player.prestiges[1]>0||shown) {
@@ -3155,17 +3059,10 @@ function gameTick() {
 			showElement('statsTransferTime',displayType)
 			showElement('statsTP',displayType)
 			showElement('statsTPPeak',displayType)
-			if (oldDesign) {
-				updateElement('statsTransfer','You have transferred '+format(player.prestiges[1],2,2)+' times.')
-				updateElement('statsTransferTime','Your time in this transfer is '+formatTime(player.transferPlaytime)+'.')
-				updateElement('statsTP','You have gained '+format(player.totalTP)+' transfer points in total.')
-				updateElement('statsTPPeak','Your highest amount of transfer points is '+format(player.prestigePeak[1])+' TP.')
-			} else {
-				updateElement('statsTransferValue',format(player.prestiges[1],2,2))
-				updateElement('statsTransferTimeValue',formatTime(player.transferPlaytime))
-				updateElement('statsTPValue',format(player.totalTP))
-				updateElement('statsTPPeakValue',format(player.prestigePeak[1]))
-			}
+			updateElement('statsTransferValue',format(player.prestiges[1],2,2))
+			updateElement('statsTransferTimeValue',formatTime(player.transferPlaytime))
+			updateElement('statsTPValue',format(player.totalTP))
+			updateElement('statsTPPeakValue',format(player.prestigePeak[1]))
 		} else {
 			hideElement('statsTransfer')
 			hideElement('statsTransferTime')
@@ -3175,13 +3072,8 @@ function gameTick() {
 		if (player.prestiges[0]>0||shown) {
 			showElement('statsPrestige',displayType)
 			showElement('statsPP',displayType)
-			if (oldDesign) {
-				updateElement('statsPrestige','You have prestiged '+format(player.prestiges[0],2,2)+' times.')
-				updateElement('statsPP','Your highest prestige power was x'+format(player.prestigePeak[0],3,0,false)+'.')
-			} else {
-				updateElement('statsPrestigeValue',format(player.prestiges[0],2,2))
-				updateElement('statsPPValue','x'+format(player.prestigePeak[0],3,0,false))
-			}
+			updateElement('statsPrestigeValue',format(player.prestiges[0],2,2))
+			updateElement('statsPPValue','x'+format(player.prestigePeak[0],3,0,false))
 		} else {
 			hideElement('statsPrestige')
 			hideElement('statsPP')
@@ -3200,7 +3092,7 @@ function gameTick() {
 		} else {
 			updateElement('urOption','Update rate:<br>'+player.updateRate+' TPS')
 		}
-		if (!oldDesign) updateElement('csOption','Mobile scrolling:<br>'+(player.customScrolling?'On':'Off'))
+		updateElement('csOption','Mobile scrolling:<br>'+(player.customScrolling?'On':'Off'))
 		updateElement('exOption','Explanations:<br>'+(player.explanations?'On':'Off'))
 		updateElement('msOption','Use monospaced:<br>'+(player.useMonospaced?'On':'Off'))
 		updateElement('opOption','Offline progress:<br>'+(player.offlineProgress?'On':'Off'))
@@ -3219,27 +3111,24 @@ function gameTick() {
 			hideElement('ccOptionC')
 		}
 		if (player.supernovaTabsUnlocked>3) {
-			if (!oldDesign) showElement('modrow','block')
+			showElement('modrow','block')
 			showElement('blOptionC','table-cell')
 			showElement('psOptionC','table-cell')
 			updateElement('blOption',(player.breakLimit?'Fix':'Break')+' limit')
 			updateElement('psOption','Pre-supernova mode:<br>'+(player.preSupernova?'On':'Off'))
 		} else {
-			if (!oldDesign) hideElement('modrow')
+			hideElement('modrow')
 			hideElement('blOptionC')
 			hideElement('psOptionC')
 		}
-		if (!oldDesign) {
-			updateElement('stOption','Theme:<br>'+player.theme)
-			updateElement('slOption','Layout (generators):<br>Two '+(player.layout==1?'columns':'rows'))
-		}
+		updateElement('stOption','Theme:<br>'+player.theme)
+		updateElement('slOption','Layout (generators):<br>Two '+(player.layout==1?'columns':'rows'))
 	}
 	if (tab=='transfer') {
-		if (oldDesign) updateTooltipBase('transferPoints','You have <b>'+format(player.transferPoints)+'</b> transfer point'+(player.transferPoints.eq(1)?'':'s'))
 		explainList.tupg7='<b>Transfer upgrade <span style="font-size:66.6%">#7</span></b><br>This upgrade will allow you to be able to prestige with 1% of your stars as without the upgrade, which is equal to '+format(1e37)+' stars.<br>Prestige power gain is increased slighty after buying this upgrade.'
-		updateElement('tupg12button',((oldDesign)?'Production increases by x3<br><br>':'')+'Cost: '+format(1000)+' TP')
-		updateElement('tupg13button',((oldDesign)?'Increase prestige power gain based on transfer points<br>':'')+'Cost: '+format(3000)+' TP')
-		updateElement('tupg14button',((oldDesign)?'Increase transfer point gain based on prestige power<br>':'')+'Cost: '+format(5000)+' TP')
+		updateElement('tupg12button','Cost: '+format(1000)+' TP')
+		updateElement('tupg13button','Cost: '+format(3000)+' TP')
+		updateElement('tupg14button','Cost: '+format(5000)+' TP')
 		for (a=1;a<15;a++) {
 			var tooltipText=''
 			if (player.explanations) tooltipText=explainList['tupg'+a]
@@ -3258,44 +3147,37 @@ function gameTick() {
 			} else if (a>12&&player.transferUpgrades.length<12) {
 				updateClass('tupg'+a+'button','lockedUpgrade')
 			} else if (player.transferPoints.gte(costs.tupgs[a-1])) {
-				updateClass('tupg'+a+'button',(oldDesign)?'upgradeButton':'longButton')
+				updateClass('tupg'+a+'button','longButton')
 			} else {
-				updateClass('tupg'+a+'button',(oldDesign)?'unaffordUpgrade':'shopUnafford')
+				updateClass('tupg'+a+'button','shopUnafford')
 			}
 		}
 	}
 	if (tab=='supernova') {
-		if (oldDesign) updateTooltipBase('neutronStars','You have <b>'+format(player.neutronStars)+'</b> neutron star'+(player.neutronStars.eq(1)?'':'s'))
 		if (player.supernovaUpgrades.length>19) {
-			updateClass('supernovaUpgradesTabButton',(oldDesign)?'completeTabButton':'boughtUpgrade')
+			updateClass('supernovaUpgradesTabButton','boughtUpgrade')
 		} else {
-			updateClass('supernovaUpgradesTabButton',(oldDesign)?'supernovaTabButton':'longButton')
+			updateClass('supernovaUpgradesTabButton','longButton')
 		}
 		if (player.supernovaTabsUnlocked>0) {
 			if (player.buyinshopFeatures.length>5) {
-				if (oldDesign) updateClass('supernovaLockedTab2','completeTabButton')
-				else updateClass('buyinshopTabButton','boughtUpgrade')
+				updateClass('buyinshopTabButton','boughtUpgrade')
 			} else {
-				if (oldDesign) updateClass('supernovaLockedTab2','supernovaTabButton')
-				else updateClass('buyinshopTabButton','longButton')
+				updateClass('buyinshopTabButton','longButton')
 			}
 		}
 		if (player.supernovaTabsUnlocked>2) {
 			if (player.neutronBoosts.powers[0]==40&&player.neutronBoosts.powers[1]==40&&player.neutronBoosts.powers[2]==60&&player.neutronBoosts.basePower==10&&player.neutronBoosts.ppPower==0.15) {
-				if (oldDesign) updateClass('supernovaLockedTab3','completeTabButton')
-				else updateClass('neutronBoostTabButton','boughtUpgrade')
+				updateClass('neutronBoostTabButton','boughtUpgrade')
 			} else {
-				if (oldDesign) updateClass('supernovaLockedTab3','supernovaTabButton')
-				else updateClass('neutronBoostTabButton','evenButton')
+				updateClass('neutronBoostTabButton','evenButton')
 			}
 		}
-		if (!oldDesign) {
-			if (player.customScrolling) {
-				showElement('supernovaTabsCustomScrolling','table')
-			} else {
-				hideElement('supernovaTabsCustomScrolling')
-			}
-		}
+		if (player.customScrolling) {
+                showElement('supernovaTabsCustomScrolling', 'table')
+        } else {
+                hideElement('supernovaTabsCustomScrolling')
+        }
 		
 		if (SNTab!=oldSNTab) {
 			showElement('supernova'+SNTab,'block')
@@ -3334,40 +3216,28 @@ function gameTick() {
 						updateClass('snupg'+a+'button','boughtUpgrade')
 					}
 				} else if (player.neutronStars.gte(costs.snupgs[a-1])) {
-					updateClass('snupg'+a+'button',(oldDesign)?'supernovaUpgrade':'supernovaButton')
+					updateClass('snupg'+a+'button','supernovaButton')
 				} else {
-					updateClass('snupg'+a+'button',(oldDesign)?'unaffordUpgrade':'shopUnafford')
+					updateClass('snupg'+a+'button','shopUnafford')
 				}
 			}
 			hideElement('snupg16row')
 			if (player.supernovaUpgrades.includes(3)) if (player.supernovaTabsUnlocked>2) if (player.headstarts&&player.currentChallenge==0&&!player.preSupernova) {
 				showElement('snupg16row','table-row')
 				var ppHeadstartMessage='You start with <b>x'+format(ppHeadstart)+'</b> prestige power after transferring or supernova.'
-				if (oldDesign) {
-					updateElement('ppHeadstartUpg1button','<b>Normal subformula</b>: x'+format(player.neutronStars)+'<sup>min(max('+format(player.neutronStars.log10(),2,1,false)+',5),'+(12.5+0.05*player.ppHeadstartUpgrades[0]).toPrecision(4)+')</sup> =<br>x'+format(ppHSValue1)+(player.ppHeadstartUpgrades[0]==20?'':'<br>Cost: '+formatNSCosts(costs.ppHeadstartUpgs[0])))
-					updateElement('ppHeadstartUpg2button','<b>Pre-break limit</b>: x'+format(ppHSPreBreakLimit)+'<br>Cost: '+formatNSCosts(costs.ppHeadstartUpgs[1]))
-					updateElement('ppHeadstartUpg3button','<b>Post-break subformula</b>: x'+format(player.prestigePeak[0])+'<sup>'+(1-1/(player.ppHeadstartUpgrades[2]+10)).toPrecision(2)+'</sup> =<br>x'+format(ppHSValue2)+(player.ppHeadstartUpgrades[2]==10?'':'<br>Cost: '+formatNSCosts(costs.ppHeadstartUpgs[2])))
-				} else {
-					updateElement('ppHeadstartUpg1','<b>Normal subformula</b>: x'+format(player.neutronStars)+'<sup>min(max('+format(player.neutronStars.log10(),2,1,false)+',5),'+(12.5+0.05*player.ppHeadstartUpgrades[0]).toPrecision(4)+')</sup> =<br>x'+format(ppHSValue1))
-					updateElement('ppHeadstartUpg2','<b>Pre-break limit</b>: x'+format(ppHSPreBreakLimit))
-					updateElement('ppHeadstartUpg3','<b>Post-break subformula</b>: x'+format(player.prestigePeak[0])+'<sup>'+(1-1/(player.ppHeadstartUpgrades[2]+10)).toPrecision(2)+'</sup> = x'+format(ppHSValue2))
-				}
+				updateElement('ppHeadstartUpg1','<b>Normal subformula</b>: x'+format(player.neutronStars)+'<sup>min(max('+format(player.neutronStars.log10(),2,1,false)+',5),'+(12.5+0.05*player.ppHeadstartUpgrades[0]).toPrecision(4)+')</sup> =<br>x'+format(ppHSValue1))
+				updateElement('ppHeadstartUpg2','<b>Pre-break limit</b>: x'+format(ppHSPreBreakLimit))
+				updateElement('ppHeadstartUpg3','<b>Post-break subformula</b>: x'+format(player.prestigePeak[0])+'<sup>'+(1-1/(player.ppHeadstartUpgrades[2]+10)).toPrecision(2)+'</sup> = x'+format(ppHSValue2))
 				for (a=1;a<4;a++) {
 					if ((a==1&&player.ppHeadstartUpgrades[0]==20)||(a==3&&player.ppHeadstartUpgrades[2]==10)) {
-						if (oldDesign) {
-							updateClass('ppHeadstartUpg'+a+'button','boughtUpgrade')
-						} else {
-							hideElement('ppHeadstartUpg'+a+'button')
-						}
+						hideElement('ppHeadstartUpg'+a+'button')
 					} else {
-						if (!oldDesign) {
-							showElement('ppHeadstartUpg'+a+'button','inline-block')
-							updateElement('ppHeadstartUpg'+a+'button','Cost: '+formatNSCosts(costs.ppHeadstartUpgs[a-1]))
-						}
+						showElement('ppHeadstartUpg'+a+'button','inline-block')
+						updateElement('ppHeadstartUpg'+a+'button','Cost: '+formatNSCosts(costs.ppHeadstartUpgs[a-1]))
 						if (player.neutronStars.gte(costs.ppHeadstartUpgs[a-1])) {
-							updateClass('ppHeadstartUpg'+a+'button',(oldDesign)?'supernovaUpgrade':'supernovaButton')
+							updateClass('ppHeadstartUpg'+a+'button','supernovaButton')
 						} else {
-							updateClass('ppHeadstartUpg'+a+'button',(oldDesign)?'unaffordUpgrade':'shopUnafford')
+							updateClass('ppHeadstartUpg'+a+'button','shopUnafford')
 						}
 					}
 				}
@@ -3384,16 +3254,16 @@ function gameTick() {
 				showElement('snupgrow5','table-row')
 				showElement('snupgrow6','table-row')
 				showElement('snupgrow7','table-row')
-				updateElement('snupg17button',(oldDesign?'Production multiplier per bought neutron tier 1 generator increases to 10x<br>':'')+'Cost: '+formatNSCosts(1e55))
-				updateElement('snupg18button',(oldDesign?'Neutron tier 2 generator production increases over neutrons<br>':'')+'Cost: '+formatNSCosts(1e70))
-				updateElement('snupg19button',(oldDesign?'Neutron tier 3 generator production increases over your bought eighth neutron tier generators<br>':'')+'Cost: '+formatNSCosts(1e85))
-				updateElement('snupg20button',(oldDesign?'Neutron tier 4 generator production increases over prestige power<br>':'')+'Cost: '+formatNSCosts(1e100))
-				updateElement('snupg21button',(oldDesign?'Neutron tier 5 generator production increases<br>':'')+'Cost: '+formatNSCosts(1e110))
-				updateElement('snupg22button',(oldDesign?'Neutron tier 6 generator production increases<br>':'')+'Cost: '+formatNSCosts(1e120))
-				updateElement('snupg23button',(oldDesign?'Neutron tier 7 generator production increases<br>':'')+'Cost: '+formatNSCosts(1e135))
-				updateElement('snupg24button',(oldDesign?'Neutron tier 8 generator production increases<br>':'')+'Cost: '+formatNSCosts(1e150))
-				updateElement('snupg25button',(oldDesign?'Neutron tier 9 generator production increases<br>':'')+'Cost: '+formatNSCosts(1e165))
-				updateElement('snupg26button',(oldDesign?'Neutron tier 10 generator production increases<br>':'')+'Cost: '+formatNSCosts(1e180))
+				updateElement('snupg17button','Cost: '+formatNSCosts(1e55))
+				updateElement('snupg18button','Cost: '+formatNSCosts(1e70))
+				updateElement('snupg19button','Cost: '+formatNSCosts(1e85))
+				updateElement('snupg20button','Cost: '+formatNSCosts(1e100))
+				updateElement('snupg21button','Cost: '+formatNSCosts(1e110))
+				updateElement('snupg22button','Cost: '+formatNSCosts(1e120))
+				updateElement('snupg23button','Cost: '+formatNSCosts(1e135))
+				updateElement('snupg24button','Cost: '+formatNSCosts(1e150))
+				updateElement('snupg25button','Cost: '+formatNSCosts(1e165))
+				updateElement('snupg26button','Cost: '+formatNSCosts(1e180))
 			} else {
 				hideElement('snupgrow5')
 				hideElement('snupgrow6')
@@ -3410,14 +3280,14 @@ function gameTick() {
 		if (SNTab=='challenges') {
 			if (player.neutronChallengeUnlocked>0||player.neutronChallengesCompleted[1]!=undefined) {
 				showElement('challTabs','block')
-				if (!oldDesign) if (player.customScrolling) {
+				if (player.customScrolling) {
 					showElement('challTabsCustomScrolling','table')
 				} else {
 					hideElement('challTabsCustomScrolling')
 				}
 			} else {
 				hideElement('challTabs')
-				if (!oldDesign) hideElement('challTabsCustomScrolling')
+				hideElement('challTabsCustomScrolling')
 				challTab='normal'
 			}
 		
@@ -3446,20 +3316,19 @@ function gameTick() {
 						var timesCompleted=(player.challengesCompleted[a]==undefined)?0:player.challengesCompleted[a]
 						if (player.currentChallenge==a) {
 							updateElement('chall'+a+'button','Running')
-							updateClass('chall'+a+'button',(oldDesign)?'challRunning':'shopUnafford')
+							updateClass('chall'+a+'button','shopUnafford')
 						} else if (timesCompleted>0) {
 							updateElement('chall'+a+'button','Completed')
-							updateClass('chall'+a+'button',(oldDesign)?'challCompleted':'boughtUpgrade')
+							updateClass('chall'+a+'button','boughtUpgrade')
 						} else {
 							updateElement('chall'+a+'button','Start')
-							updateClass('chall'+a+'button',(oldDesign)?'tabButton':'longButton')
+							updateClass('chall'+a+'button','longButton')
 						}
 						updateElement('chall'+a+'comp',(timesCompleted==0)?'':'Completed '+format(timesCompleted)+' time'+((timesCompleted==1)?'':'s'))
 					}
 				}
 			}
 			if (challTab=='neutron') {
-				if (oldDesign) updateElement('challengesQuarkStars','You have <b>'+format(player.quarkStars)+'</b> quark star'+(player.quarkStars.eq(1)?'':'s'))
 				if (player.currentNeutronChallenge==0) {
 					hideElement('exitNeutronChall')
 				} else {
@@ -3473,13 +3342,13 @@ function gameTick() {
 						showElement('neutronChall'+a,'table-cell')
 						if (player.currentChallenge==a) {
 							updateElement('neutronChall'+a+'button','Running')
-							updateClass('neutronChall'+a+'button',(oldDesign)?'challRunning':'shopUnafford')
+							updateClass('neutronChall'+a+'button','shopUnafford')
 						} else if (timesCompleted>0) {
 							updateElement('neutronChall'+a+'button','Completed')
-							updateClass('neutronChall'+a+'button',(oldDesign)?'challCompleted':'boughtUpgrade')
+							updateClass('neutronChall'+a+'button','boughtUpgrade')
 						} else {
 							updateElement('neutronChall'+a+'button','Start')
-							updateClass('neutronChall'+a+'button',(oldDesign)?'tabButton':'longButton')
+							updateClass('neutronChall'+a+'button','longButton')
 						}
 						updateElement('neutronChall'+a+'comp',(timesCompleted==0)?'':'Completed '+format(timesCompleted)+' time'+((timesCompleted==1)?'':'s'))
 					}
@@ -3488,31 +3357,31 @@ function gameTick() {
 		}
 		if (SNTab=='autobuyers') {
 			var currentText='Interval: '+formatTime(player.autobuyers.interval)+'<br>'
-			updateElement((oldDesign)?'intReduceCost':'interval',currentText)
-			if (!oldDesign) currentText=''
-			if (player.autobuyers.interval>0.05||oldDesign) {
-				if (!oldDesign) showElement('intervalReduction','block')
-				updateElement('intReduceCost',currentText+((player.autobuyers.interval==0.05)?'':((oldDesign)?'Reduce the interval by 20%<br>':'')+'Cost: '+formatNSCosts(costs.intReduceCost)))
+			updateElement('interval',currentText)
+			currentText=''
+			if (player.autobuyers.interval>0.05) {
+				showElement('intervalReduction','block')
+				updateElement('intReduceCost',currentText+((player.autobuyers.interval==0.05)?'':'Cost: '+formatNSCosts(costs.intReduceCost)))
 				if (player.autobuyers.interval==0.05) {
 					updateClass('intReduceCost','boughtUpgrade')
 				} else if (player.neutronStars.gte(costs.intReduceCost)) {
-					updateClass('intReduceCost',(oldDesign)?'supernovaUpgrade':'supernovaButton')
+					updateClass('intReduceCost','supernovaButton')
 				} else {
-					updateClass('intReduceCost',(oldDesign)?'unaffordUpgrade':'shopUnafford')
+					updateClass('intReduceCost','shopUnafford')
 				}
 			} else {
-				if (!oldDesign) hideElement('intervalReduction',currentText)
+				hideElement('intervalReduction',currentText)
 			}
 			if (player.rewardBoxes[0]>0) {
 				showElement('rewardBoxes','inline-block')
-				currentText='You have <b>'+player.rewardBoxes[0]+'</b> unopened reward boxes'+((oldDesign)?'<br><br>':'')
-				updateElement((oldDesign)?'openRewardBox':'rewardBoxAmount',currentText)
-				if (!oldDesign) currentText=''
+				currentText='You have <b>'+player.rewardBoxes[0]+'</b> unopened reward boxes'
+				updateElement('rewardBoxAmount',currentText)
+				currentText=''
 				if (player.rewardBoxes[1]>0) {
-					updateClass('openRewardBox',(oldDesign)?'unaffordUpgrade':'shopUnafford')
+					updateClass('openRewardBox','shopUnafford')
 					updateElement('openRewardBox',currentText+'Opening in '+formatTime(player.rewardBoxes[1]))
 				} else {
-					updateClass('openRewardBox',(oldDesign)?'supernovaUpgrade':'supernovaButton')
+					updateClass('openRewardBox','supernovaButton')
 					updateElement('openRewardBox',currentText+'Open')
 				}
 			} else {
@@ -3557,17 +3426,17 @@ function gameTick() {
 			if (player.buyinshopFeatures.includes(1)) {
 				showElement('bisBulkBuy','table-cell')
 				currentText='Bulk: '+format(player.autobuyers.gens.bulk)+'x<br>'
-				updateElement((oldDesign)?'bbIncreaseCost':'bulkBuy',currentText)
-				if (!oldDesign) currentText=''
+				updateElement('bulkBuy',currentText)
+				currentText=''
 				if (player.autobuyers.gens.bulk==256&&!player.breakLimit) {
 					hideElement('bulkBuyIncrease')
 				} else {
 					showElement('bulkBuyIncrease','block')
-					updateElement('bbIncreaseCost',currentText+((player.autobuyers.gens.bulk==256&&!player.breakLimit)?'':((oldDesign)?'Increase the bulk by 2x.<br>':'')+'Cost: '+formatNSCosts(costs.bbCost)))
+					updateElement('bbIncreaseCost',currentText+((player.autobuyers.gens.bulk==256&&!player.breakLimit)?'':'Cost: '+formatNSCosts(costs.bbCost)))
 					if (player.neutronStars.gte(costs.bbCost)) {
-						updateClass('bbIncreaseCost',(oldDesign)?'supernovaUpgrade':'supernovaButton')
+						updateClass('bbIncreaseCost','supernovaButton')
 					} else {
-						updateClass('bbIncreaseCost',(oldDesign)?'unaffordUpgrade':'shopUnafford')
+						updateClass('bbIncreaseCost','shopUnafford')
 					}
 				}
 			} else {
@@ -3594,7 +3463,7 @@ function gameTick() {
 		if (SNTab=='buyinshop') {
 			var descriptions={1:'Autogenerator bulk buy',2:'Autogenerator priorities',3:'Autoprestige options',4:'Autotransfer options',5:'Autotransfer options II',6:'Autonova',7:'Pre-break autonova options',8:'Autotransfer options III'}
 			for (a in descriptions) {
-				updateElement('bisfeature'+a+'button',((oldDesign)?descriptions[a]+'<br><br>':'')+'Cost: '+formatNSCosts(costs.bisfeatures[a-1]))
+				updateElement('bisfeature'+a+'button','Cost: '+formatNSCosts(costs.bisfeatures[a-1]))
 			}
 			for (a=1;a<9;a++) {
 				if (player.explanations) {
@@ -3606,9 +3475,9 @@ function gameTick() {
 				if (player.buyinshopFeatures.includes(a)) {
 					updateClass('bisfeature'+a+'button','boughtUpgrade')
 				} else if (player.neutronStars.gte(costs.bisfeatures[a-1])) {
-					updateClass('bisfeature'+a+'button',(oldDesign)?'supernovaUpgrade':'supernovaButton')
+					updateClass('bisfeature'+a+'button','supernovaButton')
 				} else {
-					updateClass('bisfeature'+a+'button',(oldDesign)?'unaffordUpgrade':'shopUnafford')
+					updateClass('bisfeature'+a+'button','shopUnafford')
 				}
 			}
 		}
@@ -3623,33 +3492,33 @@ function gameTick() {
 			for (a=0;a<5;a++) {
 				var currentText=''
 				switch (a) {
-					case 0: currentText='Power (stars): +'+player.neutronBoosts.powers[0]+(player.neutronBoosts.powers[0]<40?' (+1)'+((oldDesign)?'<br><br>':''):'')
+					case 0: currentText='Power (stars): +'+player.neutronBoosts.powers[0]+(player.neutronBoosts.powers[0]<40?' (+1)':'')
 					break
 					
-					case 1: currentText='Power (transfer points): +'+format(player.neutronBoosts.powers[a],2,1)+(player.neutronBoosts.powers[1]<40?' (+1)'+((oldDesign)?'<br><br>':''):'')
+					case 1: currentText='Power (transfer points): +'+format(player.neutronBoosts.powers[a],2,1)+(player.neutronBoosts.powers[1]<40?' (+1)':'')
 					break
 					
-					case 2: currentText='Power (neutron stars): +'+format(player.neutronBoosts.powers[a],2,1)+(player.neutronBoosts.powers[2]<60?' (+1)'+((oldDesign)?'<br><br>':''):'')
+					case 2: currentText='Power (neutron stars): +'+format(player.neutronBoosts.powers[a],2,1)+(player.neutronBoosts.powers[2]<60?' (+1)':'')
 					break
 					
-					case 3: currentText='Base: '+(Math.round(1e3+100*Math.sqrt(player.neutronBoosts.basePower))/100)+((player.neutronBoosts.basePower<10)?' (+'+(Math.round(100*(Math.sqrt(player.neutronBoosts.basePower+1)-Math.sqrt(player.neutronBoosts.basePower)))/100)+')'+((oldDesign)?'<br><br>':''):'')
+					case 3: currentText='Base: '+(Math.round(1e3+100*Math.sqrt(player.neutronBoosts.basePower))/100)+((player.neutronBoosts.basePower<10)?' (+'+(Math.round(100*(Math.sqrt(player.neutronBoosts.basePower+1)-Math.sqrt(player.neutronBoosts.basePower)))/100)+')':'')
 					break
 					
-					case 4: currentText='<b>x'+format(neutronBoostPP)+'</b> for PP gain increase<br>Power (prestige): '+player.neutronBoosts.ppPower+((player.neutronBoosts.ppPower<0.15)?' (+0.0375)'+((oldDesign)?'<br>':''):'')
+					case 4: currentText='<b>x'+format(neutronBoostPP)+'</b> for PP gain increase<br>Power (prestige): '+player.neutronBoosts.ppPower+((player.neutronBoosts.ppPower<0.15)?' (+0.0375)':'')
 					break
 				}
-				updateElement(items[a]+((oldDesign)?'Cost':''),currentText)
-				if (!oldDesign) currentText=''
-				if (oldDesign||((a==2)?(player.neutronBoosts.powers[2]<60):(a==3)?(player.neutronBoosts.basePower<10):(a==4)?(player.neutronBoosts.ppPower<0.15):(player.neutronBoosts.powers[a]<40))) {
+				updateElement(items[a],currentText)
+				currentText=''
+				if ((a==2)?(player.neutronBoosts.powers[2]<60):(a==3)?(player.neutronBoosts.basePower<10):(a==4)?(player.neutronBoosts.ppPower<0.15):(player.neutronBoosts.powers[a]<40)) {
 					showElement(items[a]+'Cost','inline-block')
 					if ((a==2)?(player.neutronBoosts.powers[2]<60):(a==3)?(player.neutronBoosts.basePower<10):(a==4)?(player.neutronBoosts.ppPower<0.15):(player.neutronBoosts.powers[a]<40)) currentText=currentText+'Cost: '+((a==0)?formatCosts(costs.neutronBoosts[a]):(a==1)?(format(costs.neutronBoosts[a])+' TP'):formatNSCosts(costs.neutronBoosts[a]))
 					updateElement(items[a]+'Cost',currentText)
 					if ((a==2)?(player.neutronBoosts.powers[2]==60):(a==3)?(player.neutronBoosts.basePower==10):(a==4)?(player.neutronBoosts.ppPower==0.15):(player.neutronBoosts.powers[a]==40)) {
 						updateClass(items[a]+'Cost','boughtUpgrade')
 					} else if ((a==0)?player.stars.gte(costs.neutronBoosts[0]):(a==1)?player.transferPoints.gte(costs.neutronBoosts[1]):player.neutronStars.gte(costs.neutronBoosts[a])) {
-						updateClass(items[a]+'Cost',(oldDesign)?'supernovaUpgrade':'supernovaButton')
+						updateClass(items[a]+'Cost','supernovaButton')
 					} else {
-						updateClass(items[a]+'Cost',(oldDesign)?'unaffordUpgrade':'shopUnafford')
+						updateClass(items[a]+'Cost','shopUnafford')
 					}
 				} else {
 					hideElement(items[a]+'Cost','block')
@@ -3658,9 +3527,6 @@ function gameTick() {
 			updateElement('neutronBoostPower','<b>Neutron boost power</b>: '+format(Decimal.add(player.neutronBoosts.powers[0],player.neutronBoosts.powers[1]).add(player.neutronBoosts.powers[2]),2,1))
 		}
 		if (SNTab=='destabilization') {
-			if (oldDesign) {
-				updateElement('unstableStars','You have <b>'+format(player.destabilization.unstableStars)+'</b> unstable stars')
-			}
 			if (player.destabilization.activated) {
 				if (player.destabilization.timeLeft>0) {
 					updateElement('destabilizationStatus','<b>Status</b>: Running')
@@ -3681,35 +3547,24 @@ function gameTick() {
 				showElement('destabilizationUpgrades','table')
 				updateElement('destabilizationActivation','Activate Destabilization!<br>('+format(unstableStarsAfterActivation)+' unstable stars)')
 				updateElement('destabilizationWarning','<b>WARNING</b>: If you destabilize stars, you will lose all your generators!')
-				if (oldDesign) {
-					updateElement('destabilizationUpg1button','Interval: '+formatTime(dsInterval)+'/tick'+(player.destabilization.upgrades[0]==20?'':'<br>Cost: '+formatNSCosts(costs.destabilization[0])))
-					updateElement('destabilizationUpg2button','Time: '+formatTime(dsTime)+' tick'+(player.destabilization.upgrades[1]==20?'':'<br>Cost: '+formatNSCosts(costs.destabilization[1])))
-					updateElement('destabilizationUpg3button','Logarithmically percentage of unstable stars after activation: '+dsPercentage.toPrecision(4)+'%<br>Cost: '+formatNSCosts(costs.destabilization[2]))
-					updateElement('destabilizationUpg4button','Unlock prestige on destabilizing, but it shortens destabilizing when you prestige<br>Cost: '+formatNSCosts(1e45))
-				} else {
-					updateElement('destabilizationInterval','Interval: '+formatTime(dsInterval)+'/tick')
-					updateElement('destabilizationTime','Time: '+format(dsTime,2,1)+' ticks')
-					updateElement('destabilizationPercentage','Logarithmically percentage of unstable stars after activation: '+dsPercentage.toPrecision(4)+'%')		
-				}
+				updateElement('destabilizationInterval','Interval: '+formatTime(dsInterval)+'/tick')
+				updateElement('destabilizationTime','Time: '+format(dsTime,2,1)+' ticks')
+				updateElement('destabilizationPercentage','Logarithmically percentage of unstable stars after activation: '+dsPercentage.toPrecision(4)+'%')		
 				for (a=1;a<5;a++) {
 					if ((a<3&&player.destabilization.upgrades[a-1]==20)||(a==4&&player.destabilization.upgrades[3]==1)) {
-						if (oldDesign) {
-							updateClass('destabilizationUpg'+a+'button','boughtUpgrade')
-						} else if (a==4) {
+						if (a==4) {
 							updateClass('destabilizationUpg4button','boughtUpgrade')
 							updateElement('destabilizationUpg4button','Cost: '+formatNSCosts(1e45))
 						} else {
 							hideElement('destabilizationUpg'+a+'button')
 						}
 					} else {
-						if (!oldDesign) {
-							showElement('destabilizationUpg'+a+'button','inline-block')
-							updateElement('destabilizationUpg'+a+'button','Cost: '+formatNSCosts(costs.destabilization[a-1]))
-						}
+						showElement('destabilizationUpg'+a+'button','inline-block')
+						updateElement('destabilizationUpg'+a+'button','Cost: '+formatNSCosts(costs.destabilization[a-1]))
 						if (player.neutronStars.gte(costs.destabilization[a-1])) {
-							updateClass('destabilizationUpg'+a+'button',(oldDesign)?'supernovaUpgrade':'supernovaButton')
+							updateClass('destabilizationUpg'+a+'button','supernovaButton')
 						} else {
-							updateClass('destabilizationUpg'+a+'button',(oldDesign)?'unaffordUpgrade':'shopUnafford')
+							updateClass('destabilizationUpg'+a+'button','shopUnafford')
 						}
 					}
 				}
@@ -3730,14 +3585,11 @@ function gameTick() {
 		}
 	}
 	if (tab=='hypernova') {
-		if (oldDesign) updateElement('quarkStars','You have <b>'+format(player.quarkStars)+'</b> quark star'+(player.quarkStars.eq(1)?'':'s'))
-		else {
-			if (player.customScrolling) {
-				showElement('hypernovaTabsCustomScrolling','table')
-			} else {
-				hideElement('hypernovaTabsCustomScrolling')
-			}
-		}
+        if (player.customScrolling) {
+            showElement('hypernovaTabsCustomScrolling','table')
+        } else {
+            hideElement('hypernovaTabsCustomScrolling')
+        }
 		
 		if (HNTab!=oldHNTab) {
 			showElement('hypernova'+HNTab,'block')
@@ -3764,7 +3616,6 @@ function gameTick() {
 		updateElement('breakLimitNS',(player.cheatOptions.breakLimitNS?'Fix ':'Bypass ')+format(Number.MAX_VALUE)+' NS limit')
 	}
 }
-
 function gameLoop() {
 	if (updated) {
 		updated=false
@@ -3787,11 +3638,11 @@ function gameInit() {
 	initTooltips()
 	updateCosts()
 
-	var tempSave=localStorage.getItem('save'+(oldDesign?'':2))
+	var tempSave=localStorage.getItem('save2')
 	if (tempSave==null) {
 		tempSave=localStorage.getItem('savemgn')
 		if (tempSave==null) {
-			tempSave=localStorage.getItem('save'+(oldDesign?2:''))
+			tempSave=localStorage.getItem('save2')
 		}
 	}
 	updated=true
