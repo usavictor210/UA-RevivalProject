@@ -3160,7 +3160,7 @@ function gameTick() {
 			updateClass('supernovaUpgradesTabButton','longButton')
 		}
 		if (player.supernovaTabsUnlocked>0) {
-			if (player.buyinshopFeatures.length>5) {
+			if (player.buyinshopFeatures.length>7) {
 				updateClass('buyinshopTabButton','boughtUpgrade')
 			} else {
 				updateClass('buyinshopTabButton','longButton')
