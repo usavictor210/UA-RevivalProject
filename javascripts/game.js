@@ -2525,7 +2525,7 @@ function gameTick() {
 			if (keysPressed.includes(16)) notOnShift=0
 			for (a=1;a<11;a++) {
 				var keyid=48+(a%10)
-				if (keysPressed.includes(keyid)) {
+				if (keysPressed.includes(keyid) || keysPressed.includes(96+(a%10))) {
 					if (keysPressed.includes(16)) {
 						if (isWorthIt(a)) {
 							buyGen(a,0,true)
