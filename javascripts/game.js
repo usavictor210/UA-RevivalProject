@@ -3423,7 +3423,7 @@ function gameTick() {
 			} else {
 				showElement('autogenerator','table-cell')
 			}
-			if (player.buyinshopFeatures.includes(1)) {
+			if (player.buyinshopFeatures.includes(1) && player.autobuyers.gens !== undefined) {
 				showElement('bisBulkBuy','table-cell')
 				currentText='Bulk: '+format(player.autobuyers.gens.bulk)+'x<br>'
 				updateElement('bulkBuy',currentText)
@@ -3442,7 +3442,7 @@ function gameTick() {
 			} else {
 				hideElement('bisBulkBuy')
 			}
-			if (player.buyinshopFeatures.includes(2)) {
+			if (player.buyinshopFeatures.includes(2) && player.autobuyers.gens !== undefined) {
 				showElement('bisPriorities','table-cell')
 			} else {
 				hideElement('bisPriorities')
