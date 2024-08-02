@@ -1,13 +1,7 @@
 **This is meant for all the contributors.**
 
-Look.
+I don't care what you do as long as commits are worthy contributions;
+the original creators don't care about the original project anymore.
 
-Be honest.
-
-No trolling.
-
-Ask before commiting.
-
-Signed~
-
-~FrostBite5
+The goal is to just make UA not suck. I don't think that's possible but I'll try.
+~ usavictor
