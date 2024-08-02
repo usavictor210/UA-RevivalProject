@@ -1,4 +1,4 @@
-﻿# Universal Attractor: Revival Project
+﻿# Universal Attractor: ~~Revival Project~~ Shattered Fate
 If you didn't know already, UA:RP is dead. 
 
 This is the unannounced spinoff of it.
