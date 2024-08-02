@@ -340,3 +340,57 @@ td {
 	background-color:#191919;
 	color:#728599
 }
+
+.lightnessUpgButton {
+	width: 224px; 
+	height: 64px; 
+	margin: 5px; 
+	display: inline-block;
+	background: linear-gradient(90deg, #d8d8d8, #afafaf, #d8d8d8);
+	background-size: 125% 125%;
+	border: #ffffff;
+	animation: quasarGradient 16s infinite;
+	transition-duration: 0.2s;
+}
+
+.lightnessUpgButton:hover {
+	background: #363636;
+	transition-duration: 0.2s;
+}
+
+.lightnessUpgButton:active {
+	background: #FFFFFF;
+	transition-duration: 0.2s;
+}
+
+.darknessUpgButton {
+	width: 224px; 
+	height: 64px; 
+	margin: 5px; 
+	display: inline-block;
+	background: linear-gradient(90deg, #727272, #363636, #727272);
+	background-size: 125% 125%;
+	border: #000000;
+	animation: quasarGradient 16s infinite;
+	transition-duration: 0.2s;
+}
+
+.darknessUpgButton:hover {
+	background: #CFCFCF;
+	transition-duration: 0.2s;
+}
+
+@keyframes quasarGradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	33% {
+		background-position: 100% 50%;
+	}
+	66% {
+		background-position: 50% 0%;
+	}
+	100% {
+		background-position: 0% 0%;
+	}
+}

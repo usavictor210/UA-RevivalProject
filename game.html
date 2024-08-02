@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <head>
 	<link id='font' href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-	<title>Universal Attractor</title>
+	<title>Universal Attractor : Shattered Fate</title>
 	<link id='theme' href='stylesheets/theme_normal.css' rel='stylesheet'>
 	<script type="text/javascript" src="javascripts/break_infinity.min.js"></script>
-	<script type="text/javascript" src="javascripts/game.js"></script>
+	<script type="text/javascript" src="javascripts/starResidue.js"></script>
+	<script type="text/javascript" src="javascripts/update.js"></script>
+	<script type="text/javascript" src="javascripts/format.js"></script>
 	<script type="text/javascript" src="javascripts/tooltips.js"></script>
+	<script type="text/javascript" src="javascripts/prestige/core.js"></script>
+	<script type="text/javascript" src="javascripts/transfer/core.js"></script>
+	<script type="text/javascript" src="javascripts/transfer/compression.js"></script>
+	<script type="text/javascript" src="javascripts/transfer/quasar.js"></script>
+	<script type="text/javascript" src="javascripts/supernova/core.js"></script>
+	<script type="text/javascript" src="javascripts/supernova/neutronStar.js"></script>
+	<script type="text/javascript" src="javascripts/supernova/planetarium.js"></script>
+	<script type="text/javascript" src="javascripts/supernova/upgrades.js"></script>
 	<script type="text/javascript" src="javascripts/cheat.js"></script>
+	<script type="text/javascript" src="javascripts/game.js" defer></script>
 </head>
 <body onload='gameInit()'>
-	<NOSCRIPT><table style='position:fixed; height:100%; width:100%; background-color:#E5E5E5; color:#191919; text-align:center; z-index:1'><tr><td>You have to enable JavaScript to play!</td></tr></table></NOSCRIPT>
+	<NOSCRIPT><table style='position:fixed; height:100%; width:100%; background-color:#494949; color:#999999; font-size: 32px; text-align:center; z-index:1'><tr><td>You have to enable JavaScript to play!<br><p style="font-size:16px;">(there's really not much to see here)</p></td></tr></table></NOSCRIPT>
 	<div id='starsRow' style='position:relative'><tooltip id='starsExplanation' malign='bottom' disabled=true><b id='stars'>10</b> stars</tooltip>
 		<div class='supernovaTab' id='unstableStars' style='position:absolute;right:0;bottom:0;width:initial;font-size:12px;display:none'>0 unstable</div>
 	</div>
@@ -17,16 +28,22 @@
 	<div class='tabs'><table id='prestigePoints' style='display:none;width:100%'><tr><td><tooltip id='transferPoints' malign='bottom' disabled=true></tooltip></td>
 		<td id='neutronStars' style='display:none'><tooltip id='neutronStars' malign='bottom' disabled=true></tooltip></td>
 		<td id='quarkStars' style='display:none'><tooltip id='quarkStars' malign='bottom' disabled=true></tooltip></td></tr></table></div>
-	<div class='tabs' id='tabsScroll'><table id='tabs'><tr><td><button class='longButton' onClick='switchTab("gen")'>Generators</button></td>
-	<td><button class='evenButton' onClick='switchTab("milestones")'>Milestones</button></td>
-	<td><button class='longButton' onClick='switchTab("statistics")'>Statistics</button></td>
-	<td><button class='evenButton' onClick='switchTab("options")'>Options</button></td>
-	<td id='transferTabButton' style='display:none'><button class='longButton' onClick='switchTab("transfer")'>Transfer</button></td>
-	<td id='supernovaTabButton' style='display:none'><button class='supernovaButton' onClick='switchTab("supernova")'>Supernova</button></td>
-	<td id='hypernovaTabButton' style='display:none'><button class='hypernovaButton' onClick='switchTab("hypernova")'>Hypernova</button></td>
-	<td id='exoticTabButton' style='display:none'><button class='exoticButton' onClick='switchTab("exotic")'>Exotic</button></td>
-	<td id='quantumTabButton' style='display:none'><button class='quantumButton' onClick='switchTab("quantum")'>Quantum</button></td>
-	<td><button class='longButton' onClick='switchTab("cheat")' style='display:inline-block'>Cheat</button></td></tr></table></div>
+	<div class='tabs' id='tabsScroll'>
+		<table id='tabs'>
+			<tr>
+				<td><button class='longButton' onClick='switchTab("gen")'>Generators</button></td>
+				<td><button class='evenButton' onClick='switchTab("milestones")'>Milestones</button></td>
+				<td><button class='longButton' onClick='switchTab("statistics")'>Statistics</button></td>
+				<td><button class='evenButton' onClick='switchTab("options")'>Options</button></td>
+				<td id='transferTabButton' style='display:none'><button class='longButton transferButton' onClick='switchTab("transfer")'>Transfer</button></td>
+				<td id='supernovaTabButton' style='display:none'><button class='supernovaButton' onClick='switchTab("supernova")'>Supernova</button></td>
+				<td id='hypernovaTabButton' style='display:none'><button class='hypernovaButton' onClick='switchTab("hypernova")'>Hypernova</button></td>
+				<td id='exoticTabButton' style='display:none'><button class='exoticButton' onClick='switchTab("exotic")'>Exotic</button></td>
+				<td id='quantumTabButton' style='display:none'><button class='quantumButton' onClick='switchTab("quantum")'>Beyond</button></td>
+				<td><button class='longButton' onClick='switchTab("cheat")' style='display:inline-block'>Cheat</button></td>
+			</tr>
+		</table>
+	</div>
 	<div class='tabs'><table id='tabsCustomScrolling' style='display:none'><tr><td><button class='longButton' onClick='leftScroll("tabsScroll")'>Scroll left</button></td><td><button class='evenButton' onClick='rightScroll("tabsScroll")'>Scroll right</button></td></tr></table></div>
 	<br>
 	<div id='tabgen'>
@@ -36,8 +53,17 @@
 		<div class='center' id='gentiers'>
 			<table style="width:100%; padding:0; display:table" id='layout1'>
 				<tr>
-					<td style='max-width:100%'></td>
+					<td style='max-width:50%'></td>
+					<div id="starResDisplay" style="text-align: center;">Star residue is accumulating based on total generators bought</div>
+					<br>
+					<div id="starResImpact" style="text-align: center;">Some effect here...</div>
+					<br>
+					<button id='condenseResidue' class='longButton' style='width:256px; height:64px'onClick='buyStarCondense()'>Condense star residue into something greater</button>
 					<td style='width:192px'><button id='maxAll' class='longButton' onClick='maxAll()'>Max all</button></td>
+				</tr>
+				<tr>
+					<td style='max-width:50%'></td>
+					<td style='width:192px'><button  id="maxAllLever" class='longButton' onClick='maxAllLeverToggle()'>Lever: OFF</button></td>
 				</tr>
 				<tr>
 					<td style='text-align:left' id='t1Gen'><tooltip id='t1Gen' malign='left'><b>Tier 1 generator</b><br>0</tooltip></td>
@@ -180,212 +206,227 @@
 		</div>
 	</div>
 	<div id='tabmilestones' style='display:none'>
-		<table style="width:100%; padding:0; display:table">
-			<tr>
-				<td style='max-width:100%'><button id='storyOption' class='longButton' onClick='toggle("storyEnabled")'></button></td>
-				<td style='width:192px' id='milestones'></td>
-			</tr>
-			<tr id='milestone1'>
-				<td id='ms1requirement' style='text-align:left'></td>
-				<td class='ach' id='ms1completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone2' style='display:none'>
-				<td id='ms2requirement' style='text-align:left'></td>
-				<td class='ach' id='ms2completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone3' style='display:none'>
-				<td id='ms3requirement' style='text-align:left'></td>
-				<td class='ach' id='ms3completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone4' style='display:none'>
-				<td id='ms4requirement' style='text-align:left'></td>
-				<td class='ach' id='ms4completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone5' style='display:none'>
-				<td id='ms5requirement' style='text-align:left'></td>
-				<td class='ach' id='ms5completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone6' style='display:none'>
-				<td id='ms6requirement' style='text-align:left'></td>
-				<td class='ach' id='ms6completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone7' style='display:none'>
-				<td id='ms7requirement' style='text-align:left'></td>
-				<td class='ach' id='ms7completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone8' style='display:none'>
-				<td id='ms8requirement' style='text-align:left'></td>
-				<td class='ach' id='ms8completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone9' style='display:none'>
-				<td id='ms9requirement' style='text-align:left'></td>
-				<td class='ach' id='ms9completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone10' style='display:none'>
-				<td id='ms10requirement' style='text-align:left'></td>
-				<td class='ach' id='ms10completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone11' style='display:none'>
-				<td id='ms11requirement' style='text-align:left'></td>
-				<td class='ach' id='ms11completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone12' style='display:none'>
-				<td id='ms12requirement' style='text-align:left'></td>
-				<td class='ach' id='ms12completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone13' style='display:none'>
-				<td id='ms13requirement' style='text-align:left'></td>
-				<td class='ach' id='ms13completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone14' style='display:none'>
-				<td id='ms14requirement' style='text-align:left'></td>
-				<td class='ach' id='ms14completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone15' style='display:none'>
-				<td id='ms15requirement' style='text-align:left'></td>
-				<td class='ach' id='ms15completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone16' style='display:none'>
-				<td id='ms16requirement' style='text-align:left'></td>
-				<td class='ach' id='ms16completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone17' style='display:none'>
-				<td id='ms17requirement' style='text-align:left'></td>
-				<td class='ach' id='ms17completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone18' style='display:none'>
-				<td id='ms18requirement' style='text-align:left'></td>
-				<td class='ach' id='ms18completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone19' style='display:none'>
-				<td id='ms19requirement' style='text-align:left'></td>
-				<td class='ach' id='ms19completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone20' style='display:none'>
-				<td id='ms20requirement' style='text-align:left'></td>
-				<td class='ach' id='ms20completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone21' style='display:none'>
-				<td id='ms21requirement' style='text-align:left'></td>
-				<td class='ach' id='ms21completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone22' style='display:none'>
-				<td id='ms22requirement' style='text-align:left'></td>
-				<td class='ach' id='ms22completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone23' style='display:none'>
-				<td id='ms23requirement' style='text-align:left'></td>
-				<td class='ach' id='ms23completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone24' style='display:none'>
-				<td id='ms24requirement' style='text-align:left'></td>
-				<td class='ach' id='ms24completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone25' style='display:none'>
-				<td id='ms25requirement' style='text-align:left'></td>
-				<td class='ach' id='ms25completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone26' style='display:none'>
-				<td id='ms26requirement' style='text-align:left'></td>
-				<td class='ach' id='ms26completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone27' style='display:none'>
-				<td id='ms27requirement' style='text-align:left'></td>
-				<td class='ach' id='ms27completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone28' style='display:none'>
-				<td id='ms28requirement' style='text-align:left'></td>
-				<td class='ach' id='ms28completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone29' style='display:none'>
-				<td id='ms29requirement' style='text-align:left'></td>
-				<td class='ach' id='ms29completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone30' style='display:none'>
-				<td id='ms30requirement' style='text-align:left'></td>
-				<td class='ach' id='ms30completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone31' style='display:none'>
-				<td id='ms31requirement' style='text-align:left'></td>
-				<td class='ach' id='ms31completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone32' style='display:none'>
-				<td id='ms32requirement' style='text-align:left'></td>
-				<td class='ach' id='ms32completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone33' style='display:none'>
-				<td id='ms33requirement' style='text-align:left'></td>
-				<td class='ach' id='ms33completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone34' style='display:none'>
-				<td id='ms34requirement' style='text-align:left'></td>
-				<td class='ach' id='ms34completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone35' style='display:none'>
-				<td id='ms35requirement' style='text-align:left'></td>
-				<td class='ach' id='ms35completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone36' style='display:none'>
-				<td id='ms36requirement' style='text-align:left'></td>
-				<td class='ach' id='ms36completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone37' style='display:none'>
-				<td id='ms37requirement' style='text-align:left'></td>
-				<td class='ach' id='ms37completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone38' style='display:none'>
-				<td id='ms38requirement' style='text-align:left'></td>
-				<td class='ach' id='ms38completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone39' style='display:none'>
-				<td id='ms39requirement' style='text-align:left'></td>
-				<td class='ach' id='ms39completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone40' style='display:none'>
-				<td id='ms40requirement' style='text-align:left'></td>
-				<td class='ach' id='ms40completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone41' style='display:none'>
-				<td id='ms41requirement' style='text-align:left'></td>
-				<td class='ach' id='ms41completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone42' style='display:none'>
-				<td id='ms42requirement' style='text-align:left'></td>
-				<td class='ach' id='ms42completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone43' style='display:none'>
-				<td id='ms43requirement' style='text-align:left'></td>
-				<td class='ach' id='ms43completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone44' style='display:none'>
-				<td id='ms44requirement' style='text-align:left'></td>
-				<td class='ach' id='ms44completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone45' style='display:none'>
-				<td id='ms45requirement' style='text-align:left'></td>
-				<td class='ach' id='ms45completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone46' style='display:none'>
-				<td id='ms46requirement' style='text-align:left'></td>
-				<td class='ach' id='ms46completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone47' style='display:none'>
-				<td id='ms47requirement' style='text-align:left'></td>
-				<td class='ach' id='ms47completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone48' style='display:none'>
-				<td id='ms48requirement' style='text-align:left'></td>
-				<td class='ach' id='ms48completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone49' style='display:none'>
-				<td id='ms49requirement' style='text-align:left'></td>
-				<td class='ach' id='ms49completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-			<tr id='milestone50' style='display:none'>
-				<td id='ms50requirement' style='text-align:left'></td>
-				<td class='ach' id='ms50completion' style='width:192px; vertical-align:middle'></td>
-			</tr>
-		</table>
+		<div style="text-align: center;">
+			<button class='longButton' onclick="switchMilestoneTab('milestoneDiv')">Milestones</button><button class='longButton' onclick="switchMilestoneTab('fragAchDiv')">Fragmented Achievements</button>
+		</div>
+		<div id="milestoneDiv">
+			<table style="width:100%; padding:0; display:table">
+				<h1 id="milestoneCounter" style="text-align: center;">Your current milestones start you with 10 stars</p>
+				<h2 id="milestoneCounter2" style="text-align: center;">Unlock fragmented achievements after your first Prestige</p>
+				<tr style="text-align: center;">
+					<td>
+						<button id='toggleMilestoneReward' style="width: 256px;" class='longButton' onClick='toggleMilestoneReward'>Toggle milestone star reward: ON</button>
+						<button id='toggleFragAchReward' style="width: 256px;" class='longButton' onClick='toggleMilestoneReward'>Toggle achievement multiplier reward: ON</button>
+					</td>
+				<tr>
+					<td style='max-width:100%'><button id='storyOption' class='longButton' onClick='toggleStory("original")'></button></td>
+					<td style='width:192px' id='milestones'></td>
+				</tr>
+				<tr id='milestone1'>
+					<td id='ms1requirement' style='text-align:left'></td>
+					<td class='ach' id='ms1completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone2' style='display:none'>
+					<td id='ms2requirement' style='text-align:left'></td>
+					<td class='ach' id='ms2completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone3' style='display:none'>
+					<td id='ms3requirement' style='text-align:left'></td>
+					<td class='ach' id='ms3completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone4' style='display:none'>
+					<td id='ms4requirement' style='text-align:left'></td>
+					<td class='ach' id='ms4completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone5' style='display:none'>
+					<td id='ms5requirement' style='text-align:left'></td>
+					<td class='ach' id='ms5completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone6' style='display:none'>
+					<td id='ms6requirement' style='text-align:left'></td>
+					<td class='ach' id='ms6completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone7' style='display:none'>
+					<td id='ms7requirement' style='text-align:left'></td>
+					<td class='ach' id='ms7completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone8' style='display:none'>
+					<td id='ms8requirement' style='text-align:left'></td>
+					<td class='ach' id='ms8completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone9' style='display:none'>
+					<td id='ms9requirement' style='text-align:left'></td>
+					<td class='ach' id='ms9completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone10' style='display:none'>
+					<td id='ms10requirement' style='text-align:left'></td>
+					<td class='ach' id='ms10completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone11' style='display:none'>
+					<td id='ms11requirement' style='text-align:left'></td>
+					<td class='ach' id='ms11completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone12' style='display:none'>
+					<td id='ms12requirement' style='text-align:left'></td>
+					<td class='ach' id='ms12completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone13' style='display:none'>
+					<td id='ms13requirement' style='text-align:left'></td>
+					<td class='ach' id='ms13completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone14' style='display:none'>
+					<td id='ms14requirement' style='text-align:left'></td>
+					<td class='ach' id='ms14completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone15' style='display:none'>
+					<td id='ms15requirement' style='text-align:left'></td>
+					<td class='ach' id='ms15completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone16' style='display:none'>
+					<td id='ms16requirement' style='text-align:left'></td>
+					<td class='ach' id='ms16completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone17' style='display:none'>
+					<td id='ms17requirement' style='text-align:left'></td>
+					<td class='ach' id='ms17completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone18' style='display:none'>
+					<td id='ms18requirement' style='text-align:left'></td>
+					<td class='ach' id='ms18completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone19' style='display:none'>
+					<td id='ms19requirement' style='text-align:left'></td>
+					<td class='ach' id='ms19completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone20' style='display:none'>
+					<td id='ms20requirement' style='text-align:left'></td>
+					<td class='ach' id='ms20completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone21' style='display:none'>
+					<td id='ms21requirement' style='text-align:left'></td>
+					<td class='ach' id='ms21completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone22' style='display:none'>
+					<td id='ms22requirement' style='text-align:left'></td>
+					<td class='ach' id='ms22completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone23' style='display:none'>
+					<td id='ms23requirement' style='text-align:left'></td>
+					<td class='ach' id='ms23completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone24' style='display:none'>
+					<td id='ms24requirement' style='text-align:left'></td>
+					<td class='ach' id='ms24completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone25' style='display:none'>
+					<td id='ms25requirement' style='text-align:left'></td>
+					<td class='ach' id='ms25completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone26' style='display:none'>
+					<td id='ms26requirement' style='text-align:left'></td>
+					<td class='ach' id='ms26completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone27' style='display:none'>
+					<td id='ms27requirement' style='text-align:left'></td>
+					<td class='ach' id='ms27completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone28' style='display:none'>
+					<td id='ms28requirement' style='text-align:left'></td>
+					<td class='ach' id='ms28completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone29' style='display:none'>
+					<td id='ms29requirement' style='text-align:left'></td>
+					<td class='ach' id='ms29completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone30' style='display:none'>
+					<td id='ms30requirement' style='text-align:left'></td>
+					<td class='ach' id='ms30completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone31' style='display:none'>
+					<td id='ms31requirement' style='text-align:left'></td>
+					<td class='ach' id='ms31completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone32' style='display:none'>
+					<td id='ms32requirement' style='text-align:left'></td>
+					<td class='ach' id='ms32completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone33' style='display:none'>
+					<td id='ms33requirement' style='text-align:left'></td>
+					<td class='ach' id='ms33completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone34' style='display:none'>
+					<td id='ms34requirement' style='text-align:left'></td>
+					<td class='ach' id='ms34completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone35' style='display:none'>
+					<td id='ms35requirement' style='text-align:left'></td>
+					<td class='ach' id='ms35completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone36' style='display:none'>
+					<td id='ms36requirement' style='text-align:left'></td>
+					<td class='ach' id='ms36completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone37' style='display:none'>
+					<td id='ms37requirement' style='text-align:left'></td>
+					<td class='ach' id='ms37completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone38' style='display:none'>
+					<td id='ms38requirement' style='text-align:left'></td>
+					<td class='ach' id='ms38completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone39' style='display:none'>
+					<td id='ms39requirement' style='text-align:left'></td>
+					<td class='ach' id='ms39completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone40' style='display:none'>
+					<td id='ms40requirement' style='text-align:left'></td>
+					<td class='ach' id='ms40completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone41' style='display:none'>
+					<td id='ms41requirement' style='text-align:left'></td>
+					<td class='ach' id='ms41completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone42' style='display:none'>
+					<td id='ms42requirement' style='text-align:left'></td>
+					<td class='ach' id='ms42completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone43' style='display:none'>
+					<td id='ms43requirement' style='text-align:left'></td>
+					<td class='ach' id='ms43completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone44' style='display:none'>
+					<td id='ms44requirement' style='text-align:left'></td>
+					<td class='ach' id='ms44completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone45' style='display:none'>
+					<td id='ms45requirement' style='text-align:left'></td>
+					<td class='ach' id='ms45completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone46' style='display:none'>
+					<td id='ms46requirement' style='text-align:left'></td>
+					<td class='ach' id='ms46completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone47' style='display:none'>
+					<td id='ms47requirement' style='text-align:left'></td>
+					<td class='ach' id='ms47completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone48' style='display:none'>
+					<td id='ms48requirement' style='text-align:left'></td>
+					<td class='ach' id='ms48completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone49' style='display:none'>
+					<td id='ms49requirement' style='text-align:left'></td>
+					<td class='ach' id='ms49completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+				<tr id='milestone50' style='display:none'>
+					<td id='ms50requirement' style='text-align:left'></td>
+					<td class='ach' id='ms50completion' style='width:192px; vertical-align:middle'></td>
+				</tr>
+			</table>
+		</div>
+		<div id="fragAchDiv" style="display: none;">
+			Test
+		</div>
 	</div>
 	<div id='tabstatistics' style='display:none'>
 		<table style="width:100%; padding:0; display:table">
@@ -503,7 +544,7 @@
 			<td><button class='optionButton' onClick='importSave()'>Import</button></td>
 			<td><button class='optionButton' onClick='reset(Infinity)'>Reset</button></td>
 		</tr></table>
-		<div id='exportSave' style='display:none'>Here is your export save. Enjoy!<br><textarea id='exportText' style='height:60px;width:480px'></textarea></div>
+		<div id='exportSave' style='display:none'>Here is your exported save. Enjoy!<br><textarea id='exportText' style='height:60px;width:480px'></textarea></div>
 		<b style='font-size:24px'>Display</b>
 		<table><tr>
 			<td><button class='optionButton' id='urOption' onClick='switchUR()'></button></td>
@@ -535,33 +576,91 @@
 		</tr></table>
 	</div>
 	<div class='center' id='tabtransfer' style='display:none'>
-		<table style="width:100%; padding:0">
-			<tr>
-				<td style='width:25%'><tooltip class='center' id='tupg2'>Increase production based on your playtime<br><button id='tupg2button' class='shopUnafford' onClick='buyTransferUpgrade(2)'>Cost: 1 TP</button></tooltip></td>
-				<td style='width:25%'><tooltip class='center' id='tupg3'>Increase production based on your playtime this transfer<br><button id='tupg3button' class='shopUnafford' onClick='buyTransferUpgrade(3)'>Cost: 3 TP</button></tooltip></td>
-				<td style='width:25%'><tooltip class='center' id='tupg1'>x1.02 bonus for every OoM of generator amount<br><button id='tupg1button' class='longButton' onClick='buyTransferUpgrade(1)'>Cost: 6 TP</button></tooltip></td>
-				<td style='width:25%'><tooltip class='center' id='tupg4'>Increase production based on your highest prestige power<br><button id='tupg4button' class='shopUnafford' onClick='buyTransferUpgrade(4)'>Cost: 10 TP</button></tooltip></td>
-			</tr>
-			<tr>
-				<td><tooltip class='center' id='tupg5'>Increase production based on your highest transfer points<br><button id='tupg5button' class='shopUnafford' onClick='buyTransferUpgrade(5)'>Cost: 15 TP</button></tooltip></td>
-				<td><tooltip class='center' id='tupg6'>Increase prestige power gain based on prestige power<br><button id='tupg6button' class='shopUnafford' onClick='buyTransferUpgrade(6)'>Cost: 25 TP</button></tooltip></td>
-				<td><tooltip class='center' id='tupg7'>Prestige starts 2 OoMs earlier (1e37 stars)<br><button id='tupg7button' class='shopUnafford' onClick='buyTransferUpgrade(7)'>Cost: 35 TP</button></tooltip></td>
-				<td><tooltip class='center' id='tupg8'>Reduce the tier 10 generator price increase<br><button id='tupg8button' class='shopUnafford' onClick='buyTransferUpgrade(8)'>Cost: 50 TP</button></tooltip></td>
-			</tr>
-			<tr>
-				<td><tooltip class='center' id='tupg9'>Prestige power gain is doubled<br><button id='tupg9button' class='shopUnafford' onClick='buyTransferUpgrade(9)'>Cost: 100 TP</button></tooltip></td>
-				<td><tooltip class='center' id='tupg10'>Buying tier 10 generators gives 1.07x bonus<br><button id='tupg10button' class='shopUnafford' onClick='buyTransferUpgrade(10)'>Cost: 250 TP</button></tooltip></td>
-				<td><tooltip class='center' id='tupg11'>Buying tier 5 generators increases all production by 0.145%<br><button id='tupg11button' class='shopUnafford' onClick='buyTransferUpgrade(11)'>Cost: 500 TP</button></tooltip></td>
-				<td><tooltip class='center' id='tupg12'>Production is multiplied by x3<br><button id='tupg12button' class='shopUnafford' onClick='buyTransferUpgrade(12)'>Cost: 1000 TP</button></tooltip></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><tooltip class='center' id='tupg13'>Increase prestige power gain based on transfer points<br><button id='tupg13button' class='lockedUpgrade' onClick='buyTransferUpgrade(13)'>Cost: 3000 TP</button></tooltip></td>
-				<td><tooltip class='center' id='tupg14'>Increase transfer point gain based on prestige power<br><button id='tupg14button' class='lockedUpgrade' onClick='buyTransferUpgrade(14)'>Cost: 5000 TP</button></tooltip></td>
-				<td></td>
-			</tr>
-		</table>
-		<div class='center' style='opacity:0.5'>You can hover a bought upgrade to see your current multiplier for that upgrade.</div>
+		<button class='longButton' onclick="switchTransferTab('UpgradeTab')">Upgrades</button><button class='longButton' onclick="switchTransferTab('Quasar')">Quasar</button>
+			<div id="transferUpgradeTabDiv" class="center">
+				<table style="width:100%; padding:0; border-spacing: 12px;">
+					<tr>
+						<td style='width:25%'><tooltip class='center' id='tupg1'>Increase generator production based on your playtime<br><button id='tupg1button' class='longButton' onClick='buyTransferUpgrade(1)'>Cost: 1 TP</button></tooltip></td>
+						<td style='width:25%'><tooltip class='center' id='tupg2'>Increase star residue production based on your playtime this transfer and highest TP<br><button id='tupg2button' class='shopUnafford' onClick='buyTransferUpgrade(2)'>Cost: 2 TP</button></tooltip></td>
+						<td style='width:25%'><tooltip class='center' id='tupg3'>x1.025 bonus for every OoM of generator amount<br><button id='tupg3button' class='shopUnafford' onClick='buyTransferUpgrade(3)'>Cost: 3 TP</button></tooltip></td>
+						<td style='width:25%'><tooltip class='center' id='tupg4'>Slightly improve the star residue effect based on highest prestige power<br><button id='tupg4button' class='shopUnafford' onClick='buyTransferUpgrade(4)'>Cost: 5 TP</button></tooltip></td>
+					</tr>
+					<tr>
+						<td><tooltip class='center' id='tupg5'>Prestige starts 3 OoMs earlier (1e36 stars)<br><button id='tupg5button' class='shopUnafford' onClick='buyTransferUpgrade(5)'>Cost: 8 TP</button></tooltip></td>
+						<td><tooltip class='center' id='tupg6'>Condenses slightly improve TP and residue gain<br><button id='tupg6button' class='shopUnafford' onClick='buyTransferUpgrade(6)'>Cost: 15 TP</button></tooltip></td>
+						<td><tooltip class='center' id='tupg7'>Prestige power gain increases over its exponent<br><button id='tupg7button' class='shopUnafford' onClick='buyTransferUpgrade(7)'>Cost: 40 TP</button></tooltip></td>
+						<td><tooltip class='center' id='tupg8'>Reduce the tier 10 generator price increase<br><button id='tupg8button' class='shopUnafford' onClick='buyTransferUpgrade(8)'>Cost: 100 TP</button></tooltip></td>
+					</tr>
+					<tr>
+						<td><tooltip class='center' id='tupg9'>Raise the condense bonus to x2<br><button id='tupg9button' class='shopUnafford' onClick='buyTransferUpgrade(9)'>Cost: 250 TP</button></tooltip></td>
+						<td><tooltip class='center' id='tupg10'>Condensing no longer removes residue and condenses are 33% cheaper<br><button id='tupg10button' class='shopUnafford' onClick='buyTransferUpgrade(10)'>Cost: 500 TP</button></tooltip></td>
+						<td><tooltip class='center' id='tupg11'>Increase prestige power gain based on transfer points<br><button id='tupg11button' class='lockedUpgrade' onClick='buyTransferUpgrade(11)'>Cost: 3000 TP</button></tooltip></td>
+						<td><tooltip class='center' id='tupg12'>Increase transfer point gain based on prestige power<br><button id='tupg12button' class='lockedUpgrade' onClick='buyTransferUpgrade(12)'>Cost: 5000 TP</button></tooltip></td>
+					</tr>
+					<!--
+					<tr>
+						<td><tooltip class='center' id='tupg10'>Compression is slightly weaker based on highest TP<br><button id='tupg10button' class='shopUnafford' onClick='buyTransferUpgrade(10)'>Cost: 500 TP</button></tooltip></td>
+						<td><tooltip class='center' id='tupg11'>Give a 0.125% boost for every bought Tier 7 generator<br><button id='tupg11button' class='shopUnafford' onClick='buyTransferUpgrade(11)'>Cost: 1000 TP</button></tooltip></td>
+					</tr>
+					-->
+				</table>
+				<div class='center' style='opacity:0.5'>
+					You can hover a bought upgrade to see your current multiplier for that upgrade.
+					<br><br>
+					Some upgrades have went missing...
+				</div>
+			</div>
+			<!--
+			<div id="transferCompressionDiv" style="display: none">
+				<br>
+				<div style="text-align: center; font-size:20px;">
+					You have <span id="compressionDisplay">0</span>x compression magnification</b>, which resets on prestige</div>
+
+				<div id="compressionInfo" style='text-align: center;'>Not being scientifically accurate to how the theories of expanding universes work,<br>
+					Compression takes effect as the universe grows beyond 1.8e308 stars<br>
+					The compression is raising all multipliers to ^0.8 <span id="compressionReduction"></span> above 1e45x<br>
+				</div>
+			</div>
+			-->
+			
+			<div id="transferQuasarDiv" style="display: none">
+				<div id="quasarLocked" style="display: block">
+					<p style='font-size:24px; text-align: center;'>There is a feeling of suppression present within the flow of spacetime</p>
+					<p style='text-align: center;'>Unlock the Quasar by reaching 500 highest TP</p>
+				</div>
+				<div id="quasar" class="center" style="display: none">
+					<p class="redshift" id="redshiftIndicator">You have 0 red shifts</p>
+					<p class="redshift-light">Red shifts are performed with accumulated light, sufficient enough to cover more of what doesn't currently exist
+						<br>
+						Each red shift extends the spacial limit of your universe and empowers your condenses, with some limitations
+						<br>
+						You can still supernova past 1.79e308 stars, but more stars will mean more Neutron Star output
+					</p>
+					<p class="lightness" id="lightnessIndicator">You have <span id="lnAmount">0.000 / 1.000</span> lightness</p>
+					<p class="darkness" id="darknessIndicator">You have <span id="dnAmount">0.000 / 1.000</span> darkness</p>
+					<p>Lightness is contributing to 1.00x stronger star residue power</p>
+					<p>Lightness is generated as long as your universe contains less than <span id="lightnessStarLimit" class="center">1.79e308</span> stars, up to a limit
+						<br>
+						Darkness is generated beyond the star limit or once your lightness is capped, except for specific situations
+						<br>
+						For this reason you are able to be more cautious with how upgrades are toggled, and you can turn off any Transfer upgrade at will.
+						<br>
+						At some point, there will be diminishing effects and your universe will naturally collapse; be aware of how long you need to build up lightness!</p>
+					<div id="quasarUpgLight" class="center">
+						<button class="longButton lightnessUpgButton" onClick="buyQuasarUpg(1)">Slightly improve lightness gain<br>Effect: <span id="lightUpg1eff">1.00x &#8594; 1.50x</span><br>Cost: <span id="lightUpg1cost">0.050 lightness</span></button>
+						<button class="longButton lightnessUpgButton" onClick="buyQuasarUpg(2)">Slightly improve star residue gain<br>Effect: <span id="lightUpg2eff">1.00x &#8594; 1.15x</span><br>Cost: <span id="lightUpg2cost">0.100 lightness</span></button>
+						<button class="longButton lightnessUpgButton" onClick="buyQuasarUpg(3)" style="font-size: 10px;">Divide Star Generator costs based on lightness<br>Effect: <span id="lightUpg3eff">&#247;1 &#8594; &#247;5</span><br>Cost: <span id="lightUpg3cost">0.500 lightness</span></button>
+						<button class="longButton lightnessUpgButton" onClick="buyQuasarUpg(4)">Perform a blue shift<br><span id="lightUpg4eff">Improve certain star features</span><br>Cost: <span id="lightUpg4cost">4.000 lightness</span></button>
+					</div>
+					<div id="quasarUpgDark" class="center">
+						<button class="longButton darknessUpgButton" onClick="buyQuasarUpg(5)">Slightly improve darkness gain<br>Effect: <span id="darkUpg1eff">1.00x &#8594; 1.50x</span><br>Cost: <span id="darkUpg1cost">0.050 darkness</span></button>
+						<button class="longButton darknessUpgButton" onClick="buyQuasarUpg(6)">Slightly improve prestige power gain<br>Effect: <span id="darkUpg2eff">1.00x &#8594; 1.15x</span><br>Cost: <span id="darkUpg2cost">0.100 darkness</span></button>
+						<button class="longButton darknessUpgButton" onClick="buyQuasarUpg(7)">Increase lightness cap<br><span id="darkUpg3eff">Cap is 1.00x &#8594; 2.00x larger</span><br>Cost: <span id="darkUpg3cost">0.500 darkness</span></button>
+						<button class="longButton darknessUpgButton" onClick="buyQuasarUpg(8)">Perform a red shift<br>Star limit: <span id="darkUpg4eff"> e308 &#8594; e462</span><br>Cost: <span id="darkUpg4cost">4.000 darkness</span></button>
+					</div>
+				</div>
+			</div>
+			
 	</div>
 	<div class='supernovaTab' id='tabsupernova' style='display:none'>
 		<div class='tabs' id='supernovaTabsScroll'><table id='supernovaTabs'><tr id='supernovaTabsRow'><td><button class='longButton' id='supernovaUpgradesTabButton' onClick='switchSNTab("upgrades")'>Upgrades</button></td>
@@ -576,16 +675,17 @@
 		<div class='tabs'><table id='supernovaTabsCustomScrolling'><tr><td><button class='longButton' onClick='leftScroll("supernovaTabsScroll")'>Scroll left</button></td><td><button class='evenButton' onClick='rightScroll("supernovaTabsScroll")'>Scroll right</button></td></tr></table></div>
 		<div class='center' id='supernovaupgrades'>
 			<button class='optionButton' id='headstart' onClick='toggle("headstarts")'>Headstart:<br>On</button>
+			<p>These upgrades will change immensely. I am serious. What did Aarex do to this</p>
 			<table style="width:100%; padding:0">
 				<tr>
 					<td style='width:25%'><tooltip class='center' id='snupg1'>Increase production based on your total generators purchased<br><button id='snupg1button' class='supernovaButton' onClick='buySupernovaUpgrade(1)'>Cost: 1 NS</button></tooltip></td>
 					<td style='width:25%'><tooltip class='center' id='snupg4'>Increase production based on your total stars<br><button id='snupg4button' class='shopUnafford' onClick='buySupernovaUpgrade(4)'>Cost: 1 NS</button></tooltip></td>
-					<td style='width:25%'><tooltip class='center' id='snupg5'>Boost production in the start of a supernova<br><button id='snupg5button' class='shopUnafford' onClick='buySupernovaUpgrade(5)'>Cost: 1 NS</button></tooltip></td>
+					<td style='width:25%'><tooltip class='center' id='snupg5'>Boost star generation <br><button id='snupg5button' class='shopUnafford' onClick='buySupernovaUpgrade(5)'>Cost: 1 NS</button></tooltip></td>
 					<td style='width:25%'><tooltip class='center' id='snupg6'>Increase PP gain based on supernovas<br><button id='snupg6button' class='shopUnafford' onClick='buySupernovaUpgrade(6)'>Cost: 1 NS</button></tooltip></td>
 				</tr>
 				<tr>
 					<td><tooltip class='center' id='snupg7'>Increase TP gain based on neutron stars<br><button id='snupg7button' class='shopUnafford' onClick='buySupernovaUpgrade(7)'>Cost: 2 NS</button></tooltip></td>
-					<td><tooltip class='center' id='snupg8'>Prestige power gain is tripledx<br><button id='snupg8button' class='shopUnafford' onClick='buySupernovaUpgrade(8)'>Cost: 2 NS</button></tooltip></td>
+					<td><tooltip class='center' id='snupg8'>Prestige power gain is tripled<br><button id='snupg8button' class='shopUnafford' onClick='buySupernovaUpgrade(8)'>Cost: 2 NS</button></tooltip></td>
 					<td><tooltip class='center' id='snupg9'>Buying tier 10 generator gives 1.1x bonus<br><button id='snupg9button' class='shopUnafford' onClick='buySupernovaUpgrade(9)'>Cost: 3 NS</button></tooltip></td>
 					<td><tooltip class='center' id='snupg10'>Increase production based on transfer upgrades owned<br><button id='snupg10button' class='shopUnafford' onClick='buySupernovaUpgrade(10)'>Cost: 4 NS</button></tooltip></td>
 				</tr>
@@ -603,7 +703,7 @@
 				</tr>
 				<tr id='snupg16row' style='display:none'><td colspan=4><b style='font-size:24px'>Prestige Headstart Upgrades</b><br>
 					<div id='ppHeadstart' style='text-align:center'></div>
-					<table id='ppHeadstartUpgrades' style="width:80%; padding:0" align=center><tr><td style='width:33.3%'><div id='ppHeadstartUpg1' style='text-align:center'></div><button class='shopUnafford' id='ppHeadstartUpg1button' onClick='buyPPHeadstartUpg(1)'></button></td>
+					<table id='ppHeadstartUpgrades' style="width:80%; padding:0; text-align: center"><tr><td style='width:33.3%'><div id='ppHeadstartUpg1' style='text-align:center'></div><button class='shopUnafford' id='ppHeadstartUpg1button' onClick='buyPPHeadstartUpg(1)'></button></td>
 				 	<td style='width:33.3%'><div class='center' id='ppHeadstartUpg2'></div><button class='shopUnafford' id='ppHeadstartUpg2button' onClick='buyPPHeadstartUpg(2)'></button></td>
 					<td style='width:33.3%'><div class='center' id='ppHeadstartUpg3'></div><button class='shopUnafford' id='ppHeadstartUpg3button' onClick='buyPPHeadstartUpg(3)'></button></td></tr></table>
 				</tr></td>
@@ -630,41 +730,47 @@
 		</div>
 		<div class='center' id='supernovaachievements' style='display:none'>
 			<table class='center' style="width:100%; padding:0; display:table">
+				Unlock all the achievements to build the spectrum<br>
+				This seriously will get removed, sorry
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>Speedrunner</b><br>Reward: You start with 100 stars<br>Supernova in 10 seconds without headstarts</td>
+					<td style='max-width:100%; text-align:left'><b>Blazing sun</b><br>Supernova in 10 seconds without headstarts<br>Reward: You start with 1,000 stars and boost star residue production based on supernova stat</td>
 					<td class='ach' id='ach1' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>I don't need those</b><br>Reward: Without headstarts, all production are 3x as fast<br>Supernova in 90 seconds without autobuyers, hotkeys, and max all</td>
+					<td style='max-width:100%; text-align:left'><b>Manual labor</b><br>Supernova in 90 seconds without autobuyers, hotkeys, and max all<br>Reward: Slightly improve the per-generator multiplier</td>
 					<td class='ach' id='ach2' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>What are you doing?</b><br>Reward: Stars production is increased as you buy more tier 1 generators<br>Buy 40 tier 1 generators without having transfer upgrades nor prestige power</td>
+					<td style='max-width:100%; text-align:left'><b>The generator that can</b><br>Buy 60 tier 1 generators without having transfer upgrades nor prestige power<br>Reward: Stars production is increased as you buy more tier 1 generators</td>
 					<td class='ach' id='ach3' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>We can't afford tier 11</b><br>Reward: Production for tier 9 generators is increased by the amount of tier 10 generators<br>Buy 111 tier 10 generators but buy tier 9 generator once.</td>
+					<td style='max-width:100%; text-align:left'><b>Tier 12 down the aisle</b><br>Buy 144 tier 10 generators while buying only one of every other generator tier.<br>Reward: Amount of tier 10 generators increase all other generator multipliers slightly</td>
 					<td class='ach' id='ach4' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>Supernova Demon</b><br>Reward: Production for tiers 6-10 is increased by the amount of supernovas<br>Supernova without tiers 6-10.</td>
+					<td style='max-width:100%; text-align:left'><b>Wrath</b><br>Supernova without tier 7 generators.<br>Reward: Flat out make generators 10x stronger</td>
 					<td class='ach' id='ach5' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>Is this person Todd Rogers?</b><br>Reward: You start with a single tier 10 generator on break limit<br>Supernova in 0.2 seconds without headstarts</td>
+					<td style='max-width:100%; text-align:left'><b>Shift into second gear</b><br>Supernova in 0.2 seconds without headstarts<br>Reward: You start with a single tier 10 generator on break limit</td>
 					<td class='ach' id='ach6' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>Do I really need to upgrade?</b><br>Reward: TP gain is increased by the amount of supernovas<br>Supernova without having transfer upgrades</td>
+					<td style='max-width:100%; text-align:left'><b>State college</b><br>Supernova without having transfer upgrades<br>Reward: TP gain is increased by the amount of supernovas</td>
 					<td class='ach' id='ach7' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>Challenge Speedway</b><br>Reward: None<br>Complete a challenge in under a second</td>
+					<td style='max-width:100%; text-align:left'><b>Perishable day</b><br>Get all challenge times under 10 minutes<br>Reward: Obtain a multiplier to transfer points based on challenge time sum</td>
 					<td class='ach' id='ach8' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 				<tr>
-					<td style='max-width:100%; text-align:left'><b>Renewed Novas</b><br>Reward: None<br>Supernova while you are in pre-supernova mode</td>
+					<td style='max-width:100%; text-align:left'><b>The memory of nothing</b><br>Obtain 1 luminescence while in the void<br>Reward: ???</td>
 					<td class='ach' id='ach9' style='width:192px; vertical-align:middle'>Incomplete</td>
+				</tr>
+				<tr>
+					<td style='max-width:100%; text-align:left'><b>Redefine infinity</b><br>Extend the supernova star limit to 1e1000<br>Reward: ???</td>
+					<td class='ach' id='ach10' style='width:192px; vertical-align:middle'>Incomplete</td>
 				</tr>
 			</table>
 		</div>
@@ -959,7 +1065,7 @@
 		<div class='center' id='supernovadestabilization' style='display:none'>
 			<div id='destabilizationStatus' style='text-align:center;font-size:24px'></div>
 			<div id='destabilizationInfo' style='text-align:center'></div>
-			<button class='supernovaButton' id='destabilizationActivation' style='width:240px;height:36px' onclick='checkToReset(-1)'>Activate Destabilization!</button>
+			<button class='supernovaButton' id='destabilizationActivation' style='width:240px;height:36px' onclick='checkToReset(-1)'>Start producing drive &#40;Drive decreases the potency of generators&#41;</button>
 			<table id='destabilizationUpgrades' align=center style="width:100%; padding:0">
 				<tr>
 					<td style='width:25%'><div id='destabilizationInterval' class='center'>Interval: 5 seconds</div><button id='destabilizationUpg1button' class='supernovaButton' onclick='buyDestabilizationUpg(1)'>Cost: ??? NS</button></td>
@@ -1101,12 +1207,12 @@
 	</div></div>
 	<div id='tooMuch2' class='hypernovaTab' style='position:fixed;width:100%;height:100%;left:0;top:0;display:none;opacity:0;transition-duration:0.5s'><div style='position:relative;width:inherit;height:inherit'>
 		<div id='tooMuchBar' style='position:absolute;width:100%;top:calc(50% - 60px);text-align:center'>
-			<text style='font-size:24px'>Due to too much pressure from neutron stars, the universe blew up.</text><br>
+			<text style='font-size:24px'>Multiversal contractions from neutron stars have left it wrecked beyond repair.</text><br>
 			<button class='prestigeButton' id='prestige4' onClick='reset(4)'>HYPERNOVA</button>
 		</div>
 	</div></div>
 	<div style='position: fixed; bottom: 24px; right:calc(50% - 96px); text-align:center'><tooltip id='p3tt'><button class='prestigeButton' id='prestige3bl' onClick='checkToReset(3)' style='display:none'>Explode your stars and get undead stars.<br>+1 NS</button></tooltip></div>
-	<div style='background-color:#999999;position:fixed;bottom:0;height:24px;width:100%;color:#191919;font-size:24px'><a href="howto.html" target="_newtab">How to play</a> | <a href="hotkeys.html" target="_newtab">Hotkeys</a> | <a href="changelog.html" target="_newtab">Change log</a> | <a href="https://discord.gg/DaGykDV" target="_newtab">Discord(Original)</a> | <a href="https://discord.gg/GtdRCt7" target="_newtab">Discord(Revival project)</a></div>
+	<div style='background-color:#999999;position:fixed;padding-left:10px;bottom:0;height:28px;width:100%;color:#191919;font-size:24px;'><a href="howto.html" target="_newtab">How to play</a> | <a href="hotkeys.html" target="_newtab">Hotkeys</a> | <a href="changelog.html" target="_newtab">Change log</a> | <a href="https://discord.gg/DaGykDV" target="_newtab">Discord (Original)</a> | <a href="https://discord.gg/GtdRCt7" target="_newtab">Discord (Revival project)</a></div>
 	<div id='milestone' style='position:fixed;bottom:24px;left:0;transform:translate(-100%,0%);width:360px;color:#191919;font-size:12px;transition-duration:0.5s'><b id='milestoneMessage' style='font-size:24px'></b><br><text id='milestoneRequirement'></text><br><text id='milestoneCheck'></text><button style='background-color:rgba(0,0,0,0);position:absolute;left:0;top:0;width:100%;height:100%' onclick='closeMilestone()'></button></div>
 </body>
 </html>
